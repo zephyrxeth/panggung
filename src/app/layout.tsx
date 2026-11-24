@@ -13,10 +13,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-paper text-ink antialiased min-h-screen flex flex-col grain">
         <header className="sticky top-0 z-40 border-b border-zinc-800/80 bg-stone-950/85 backdrop-blur-md">
           <div className="mx-auto max-w-3xl px-4 h-14 flex items-center justify-between">
-            <Link href="/" className="font-black text-lg tracking-tight text-red-400 flex items-center gap-1.5">
+            <Link href="/" className="font-black text-base sm:text-lg tracking-tight text-red-400 flex items-center gap-1.5 mr-auto">
               <span aria-hidden>◆</span> Panggung
             </Link>
-            <nav className="flex items-center gap-3 sm:gap-4 text-sm font-medium">
+            <nav className="flex items-center gap-2 sm:gap-4 text-[13px] sm:text-sm font-medium">
               <Link href="/" className="text-zinc-300 hover:text-red-300">Events</Link>
               <Link href="/request" className="text-zinc-300 hover:text-red-300">Request</Link>
               <Link href="/submit" className="rounded bg-red-400 text-stone-950 px-3 py-1.5 font-semibold hover:bg-red-300">Submit</Link>
