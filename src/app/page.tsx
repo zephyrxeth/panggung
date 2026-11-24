@@ -55,12 +55,20 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
           </div>
         </div>
 
-        {/* diagonal glass ticker */}
-        <div className="relative z-10 rotate-[-1.2deg] scale-105 rounded-xl py-2.5 glass-strong shadow-[0_8px_32px_rgba(239,68,68,0.25)] border border-red-500/40">
-          <Marquee duration="30s">
-            {Array.from({ length: 6 }).flatMap((_, i) => (
-              <span key={i} className="text-xs sm:text-sm font-black uppercase tracking-widest text-zinc-100 whitespace-nowrap">
-                Submit event &nbsp;◆&nbsp; Request artis &nbsp;◆&nbsp; Demand signal &nbsp;◆&nbsp;
+        {/* diagonal glass ticker — promoter logos */}
+        <div className="relative z-10 rotate-[-1.2deg] scale-105 rounded-xl py-3 glass-strong shadow-[0_8px_32px_rgba(239,68,68,0.25)] border border-red-500/40">
+          <Marquee duration="60s">
+            {[0, 1].map(rep => (
+              <span key={rep} className="flex items-center gap-10 whitespace-nowrap pr-10" aria-hidden={rep === 1}>
+                {[["/logos/dwp.png", "Djakarta Warehouse Project"], ["/logos/ismayalive.svg", "Ismaya Live"],
+                  ["/logos/prambananjazz.png", "Prambanan Jazz Festival"], ["/logos/jfp.png", "Java Festival Production"],
+                  ["/logos/pestapora.svg", "Pestapora"], ["/logos/soundrenaline.png", "Soundrenaline"]].map(([src, name], i) => (
+                  <span key={i} className="flex items-center gap-10">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={src} alt={name} title={name} className="h-5 sm:h-6 w-auto object-contain opacity-80" loading="lazy" />
+                    <span className="text-red-500/50 text-xs">◆</span>
+                  </span>
+                ))}
               </span>
             ))}
           </Marquee>
@@ -69,7 +77,7 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
 
       {/* ── lineup marquee ── */}
       <div className="border-b border-zinc-800 bg-stone-950 py-4" id="lineup">
-        <Marquee duration="45s">
+        <Marquee duration="80s">
           {["★", ...events.map(e => (e.artists || e.title.replace("[DEMO]", "").trim()).toUpperCase())].flatMap((label, i) => (
             <span key={i} className="text-base sm:text-lg font-extrabold whitespace-nowrap">
               <span className={label === "★" ? "text-red-500" : "text-zinc-600 hover:text-red-300 transition-colors"}>{label}</span>
