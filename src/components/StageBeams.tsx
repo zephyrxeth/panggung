@@ -42,7 +42,7 @@ export default function StageBeams() {
       {/* warm spotlight glow from the stage floor */}
       <div
         className="absolute inset-x-0 bottom-0 h-2/3 opacity-30"
-        style={{ background: "radial-gradient(60% 60% at 50% 100%, rgba(251,191,36,0.35) 0%, rgba(251,191,36,0.08) 45%, rgba(251,191,36,0) 100%)" }}
+        style={{ background: "radial-gradient(60% 60% at 50% 100%, rgba(239,68,68,0.35) 0%, rgba(239,68,68,0.08) 45%, rgba(239,68,68,0) 100%)" }}
       />
       {Array.from({ length: LANES }, (_, i) => (
         <div key={i} className="flex h-full w-10 shrink-0 justify-center">
