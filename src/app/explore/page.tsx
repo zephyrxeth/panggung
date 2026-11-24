@@ -23,7 +23,7 @@ export default async function Explore({ searchParams }: { searchParams: SP }) {
       </header>
 
       {/* sticky filter bar */}
-      <form method="get" className="sticky top-14 z-20 glass-strong rounded-2xl p-2.5 flex flex-wrap gap-2 items-center">
+      <form method="get" className="sticky top-16 z-20 glass-strong rounded-2xl p-2.5 flex flex-wrap gap-2 items-center">
         <input name="q" defaultValue={q} placeholder="Cari event / artis…" className="input !w-auto flex-1 min-w-[140px] !py-1.5 text-sm" />
         <select name="city" defaultValue={city} className="input !w-auto !py-1.5 text-sm">
           <option value="">Semua kota</option>

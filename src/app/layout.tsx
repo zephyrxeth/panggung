@@ -18,23 +18,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="id">
       <body className="bg-paper text-ink antialiased min-h-screen flex flex-col">
-        <header className="sticky top-0 z-40 border-b border-zinc-800/80 bg-stone-950/85 backdrop-blur-md">
-          <div className="mx-auto max-w-3xl px-4 h-14 flex items-center justify-between">
-            <Link href="/" className="font-black text-base sm:text-lg tracking-tight text-red-400 flex items-center gap-1.5 mr-auto">
-              <span aria-hidden>◆</span> Panggung
-            </Link>
-            <nav className="hidden sm:flex items-center gap-4 text-sm font-medium">
+        {/* floating glass header pill — logo centered */}
+        <header className="fixed top-3 inset-x-0 z-50 px-4">
+          <div className="mx-auto flex items-center justify-center max-w-[560px] h-12 rounded-[22px] glass-strong border border-white/15 shadow-[0_12px_40px_rgba(0,0,0,0.5)] px-3">
+            <nav className="hidden sm:flex items-center gap-4 text-[13px] font-medium absolute left-4">
               <Link href="/explore" className="text-zinc-300 hover:text-red-300">Jelajah</Link>
               <Link href="/request" className="text-zinc-300 hover:text-red-300">Request</Link>
-              <Link href="/submit" className="rounded-xl bg-red-500 text-white px-4 py-1.5 font-semibold hover:bg-red-400 transition-colors">Submit</Link>
+            </nav>
+            <Link href="/" className="font-black text-base sm:text-lg tracking-tight text-red-400 flex items-center gap-1.5">
+              <span aria-hidden>◆</span> Panggung
+            </Link>
+            <nav className="hidden sm:flex items-center gap-4 text-[13px] font-medium absolute right-4">
+              <Link href="/submit" className="rounded-xl bg-red-500 text-white px-3 py-1.5 font-semibold hover:bg-red-400 transition-colors">Submit</Link>
               <Link href="/login" className="text-muted hover:text-red-300">Login</Link>
             </nav>
           </div>
         </header>
-        <main className="flex-1 mx-auto w-full max-w-3xl px-4 py-6">{children}</main>
+        <main className="flex-1 mx-auto w-full max-w-3xl px-4 pt-20 pb-6">{children}</main>
 
         {/* trust footer */}
-        <footer className="border-t border-zinc-800 py-8 px-4 text-xs text-zinc-500 space-y-2">
+        <footer className="border-t border-zinc-800 py-8 px-4 pb-24 sm:pb-8 text-xs text-zinc-500 space-y-2">
           <div className="mx-auto max-w-3xl flex flex-wrap gap-x-5 gap-y-1.5 font-semibold uppercase tracking-wide text-zinc-400">
             <span>✓ sumber terverifikasi</span>
             <span>✓ dimoderasi komunitas</span>
@@ -43,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <p className="max-w-3xl mx-auto">Panggung MVP. Event dengan prefix <b>[DEMO]</b> adalah data seed, sisanya event nyata dengan sumber tercatat — pembelian tiket tetap terjadi di situs resmi promotor.</p>
         </footer>
 
-        {/* mobile floating dock nav — iOS glass */}
+        {/* mobile floating dock nav */}
         <nav className="sm:hidden fixed bottom-3 inset-x-0 z-40 px-4">
           <div className="mx-auto max-w-[320px] grid grid-cols-4 rounded-[24px] glass-strong shadow-[0_12px_40px_rgba(0,0,0,0.55)] border border-white/15 py-2">
             {NAV.map(n => (
