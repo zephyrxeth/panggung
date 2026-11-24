@@ -7,6 +7,15 @@ import Marquee from "@/components/Marquee";
 
 export const dynamic = "force-dynamic";
 
+const PROMOTERS = [
+  { name: "Djakarta Warehouse Project", logo: "/logos/dwp.png", url: "https://www.djakartawarehouseproject.com", tagline: "Festival EDM terbesar Jakarta" },
+  { name: "Ismaya Live", logo: "/logos/ismayalive.svg", url: "https://www.ismayalive.com", tagline: "We The Fest, Djakarta Warehouse Project" },
+  { name: "Prambanan Jazz Festival", logo: "/logos/prambananjazz.png", url: "https://www.prambananjazz.com", tagline: "Jazz dengan latar candi, Yogyakarta" },
+  { name: "Java Festival Production", logo: "/logos/jfp.png", url: "https://javafestivalproduction.com", tagline: "Joyland Festival & lainnya" },
+  { name: "Pestapora", logo: "/logos/pestapora.svg", url: "https://pestapora.com", tagline: "Festival musik independen" },
+  { name: "Soundrenaline", logo: "/logos/soundrenaline.png", url: "https://www.soundrenaline.id", tagline: "Festival musik alternatif" },
+];
+
 type SP = Promise<Record<string, string | undefined>>;
 
 export default async function Home({ searchParams }: { searchParams: SP }) {
@@ -60,12 +69,12 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
           <Marquee duration="60s">
             {[0, 1].map(rep => (
               <span key={rep} className="flex items-center gap-10 whitespace-nowrap pr-10" aria-hidden={rep === 1}>
-                {[["/logos/dwp.png", "Djakarta Warehouse Project"], ["/logos/ismayalive.svg", "Ismaya Live"],
-                  ["/logos/prambananjazz.png", "Prambanan Jazz Festival"], ["/logos/jfp.png", "Java Festival Production"],
-                  ["/logos/pestapora.svg", "Pestapora"], ["/logos/soundrenaline.png", "Soundrenaline"]].map(([src, name], i) => (
+                {PROMOTERS.map((p, i) => (
                   <span key={i} className="flex items-center gap-10">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={src} alt={name} title={name} className="h-5 sm:h-6 w-auto object-contain opacity-80" loading="lazy" />
+                    <a href={p.url} target="_blank" rel="noopener noreferrer" title={`Buka situs ${p.name}`} aria-label={p.name}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={p.logo} alt={p.name} className="h-5 sm:h-6 w-auto object-contain opacity-80 hover:opacity-100 hover:scale-110 transition-all" loading="lazy" />
+                    </a>
                     <span className="text-red-500/50 text-xs">◆</span>
                   </span>
                 ))}
@@ -119,6 +128,27 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
             </ul>
           )}
         </Suspense>
+      </div>
+      {/* ── promoter directory ── */}
+      <div className="px-4 py-10" id="promoters">
+        <h2 className="text-3xl font-black uppercase tracking-tight mb-1">
+          Promoter <span className="stroke-text">&amp; festival</span>
+        </h2>
+        <p className="text-sm text-muted mb-5">Organisasi di balik panggung-panggung besar Indonesia — klik buka situs resmi mereka untuk tiket & info langsung.</p>
+        <ul className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          {PROMOTERS.map(p => (
+            <li key={p.name}>
+              <a href={p.url} target="_blank" rel="noopener noreferrer" className="group card flex flex-col items-center text-center gap-3 py-5">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={p.logo} alt={`Logo ${p.name}`} className="h-8 sm:h-10 w-auto max-w-[140px] object-contain opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all" loading="lazy" />
+                <span className="text-xs font-bold uppercase tracking-wide text-zinc-300 group-hover:text-red-300 transition-colors">{p.name}</span>
+                <span className="text-[11px] text-muted leading-snug">{p.tagline}</span>
+                <span className="text-[11px] font-bold text-red-400 mt-auto">Situs resmi ↗</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p className="text-[11px] text-muted mt-3">Logo © masing-masing promotor — ditampilkan untuk atribusi & navigasi, bukan endorsement.</p>
       </div>
     </div>
   );
