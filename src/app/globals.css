@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+
+.badge { @apply inline-block rounded-full px-2 py-0.5 text-[11px] font-semibold; }
+.badge-verified { @apply badge bg-emerald-100 text-emerald-800; }
+.badge-pending { @apply badge bg-amber-100 text-amber-800; }
+.badge-cancelled { @apply badge bg-zinc-200 text-zinc-600 line-through decoration-1; }
+.badge-rejected { @apply badge bg-red-100 text-red-700; }
+.badge-updated { @apply badge bg-sky-100 text-sky-800; }
+.badge-unverified { @apply badge bg-zinc-100 text-zinc-500 border border-zinc-200; }
+
+.card { @apply block rounded-xl border border-line bg-white p-4 hover:border-accent transition-colors; }
+.input { @apply w-full rounded border border-line bg-white px-3 py-2 text-sm outline-none focus:border-accent; }
+.btn { @apply rounded bg-accent px-4 py-2 text-sm font-semibold text-white hover:opacity-90 disabled:opacity-50; }
+.btn-ghost { @apply rounded border border-line bg-white px-4 py-2 text-sm font-semibold hover:border-accent; }
