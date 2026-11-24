@@ -37,6 +37,10 @@ export default async function EventPage({ params }: { params: Params }) {
       {e.title.startsWith("[DEMO]") && <div className="rounded-lg border border-dashed border-red-500/40 bg-zinc-900 px-4 py-3 text-sm text-muted"><b>DEMO data.</b> Ini data seed demo, bukan event sungguhan.</div>}
 
       <header>
+        {e.poster_path && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={e.poster_path} alt={`Poster ${e.title}`} className="w-full max-w-md rounded-2xl border border-white/10 shadow-[0_12px_48px_rgba(239,68,68,0.15)]" />
+        )}
         <p className="text-xs font-bold uppercase tracking-wide text-accent">{e.type} · {e.city}</p>
         <h1 className="text-2xl font-black leading-tight mt-1">{e.title}</h1>
         <div className="flex gap-2 mt-2 flex-wrap">
