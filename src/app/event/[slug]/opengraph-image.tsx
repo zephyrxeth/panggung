@@ -24,7 +24,7 @@ export default async function OgImage({ params }: { params: Params }) {
       }}>
         {e.poster_path && (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={e.poster_path} width={480} height={630} style={{ objectFit: "cover" }} alt="" />
+          <img src={e.poster_path} width={480} height={630} style={{ objectFit: "contain", background: "#000" }} alt="" />
         )}
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", padding: "56px", flex: 1 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 22, color: "#ef4444", fontWeight: 800, textTransform: "uppercase", letterSpacing: 2 }}>
