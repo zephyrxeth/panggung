@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* SIDESTAGE — brutalist print system.
    Palette (LOCKED): Kokushoku Black #171213 · Young Night #242323 · Eclipse #3D3837 · Mechrite Red #A11A17 · Ravine #D2CEC7 */
 
