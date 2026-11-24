@@ -22,7 +22,7 @@ export default function EventCard({ e }: { e: EventRow }) {
         <img
           src={e.poster_path}
           alt={`Poster ${e.title}`}
-          className="hidden sm:block w-28 h-32 shrink-0 rounded-xl object-cover border border-white/10"
+          className="w-20 h-24 sm:w-28 sm:h-32 shrink-0 rounded-xl object-cover border border-white/10"
           loading="lazy"
         />
       )}
