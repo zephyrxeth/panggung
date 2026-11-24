@@ -141,8 +141,8 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
               <a href={p.url} target="_blank" rel="noopener noreferrer" className="group card flex flex-col items-center text-center gap-3 py-5">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={p.logo} alt={`Logo ${p.name}`} className="h-8 sm:h-10 w-auto max-w-[140px] object-contain opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all" loading="lazy" />
-                <span className="text-xs font-bold uppercase tracking-wide text-zinc-300 group-hover:text-red-300 transition-colors">{p.name}</span>
-                <span className="text-[11px] text-muted leading-snug">{p.tagline}</span>
+                <span className="text-xs font-bold uppercase tracking-wide text-zinc-300 group-hover:text-red-300 transition-colors block">{p.name}</span>
+                <span className="text-[11px] text-muted leading-snug block">{p.tagline}</span>
                 <span className="text-[11px] font-bold text-red-400 mt-auto">Situs resmi ↗</span>
               </a>
             </li>
