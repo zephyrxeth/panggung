@@ -7,6 +7,13 @@ export const metadata: Metadata = {
   description: "Community-powered concert discovery for Indonesia. Find gigs, concerts and festivals by city, date and genre.",
 };
 
+const NAV = [
+  { href: "/", label: "Home", icon: "◆" },
+  { href: "/explore", label: "Jelajah", icon: "✦" },
+  { href: "/request", label: "Request", icon: "♪" },
+  { href: "/submit", label: "Submit", icon: "✚" },
+];
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id">
@@ -16,18 +23,37 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" className="font-black text-base sm:text-lg tracking-tight text-red-400 flex items-center gap-1.5 mr-auto">
               <span aria-hidden>◆</span> Panggung
             </Link>
-            <nav className="flex items-center gap-2 sm:gap-4 text-[13px] sm:text-sm font-medium">
-              <Link href="/" className="text-zinc-300 hover:text-red-300">Events</Link>
+            <nav className="hidden sm:flex items-center gap-4 text-sm font-medium">
+              <Link href="/explore" className="text-zinc-300 hover:text-red-300">Jelajah</Link>
               <Link href="/request" className="text-zinc-300 hover:text-red-300">Request</Link>
-              <Link href="/submit" className="rounded bg-red-400 text-stone-950 px-3 py-1.5 font-semibold hover:bg-red-300">Submit</Link>
+              <Link href="/submit" className="rounded-xl bg-red-500 text-white px-4 py-1.5 font-semibold hover:bg-red-400 transition-colors">Submit</Link>
               <Link href="/login" className="text-muted hover:text-red-300">Login</Link>
             </nav>
           </div>
         </header>
         <main className="flex-1 mx-auto w-full max-w-3xl px-4 py-6">{children}</main>
-        <footer className="border-t border-zinc-800 py-6 text-center text-xs text-zinc-500">
-          Panggung MVP — demo build. Semua event di halaman ini adalah data <b>[DEMO]</b>, bukan event sungguhan. Bukan platform tiket.
+
+        {/* trust footer */}
+        <footer className="border-t border-zinc-800 py-8 px-4 text-xs text-zinc-500 space-y-2">
+          <div className="mx-auto max-w-3xl flex flex-wrap gap-x-5 gap-y-1.5 font-semibold uppercase tracking-wide text-zinc-400">
+            <span>✓ sumber terverifikasi</span>
+            <span>✓ dimoderasi komunitas</span>
+            <span>✓ bukan platform tiket</span>
+          </div>
+          <p className="max-w-3xl mx-auto">Panggung MVP. Event dengan prefix <b>[DEMO]</b> adalah data seed, sisanya event nyata dengan sumber tercatat — pembelian tiket tetap terjadi di situs resmi promotor.</p>
         </footer>
+
+        {/* mobile bottom nav — iOS glass */}
+        <nav className="sm:hidden fixed bottom-0 inset-x-0 z-40 glass-strong border-t border-white/10">
+          <div className="grid grid-cols-4 py-1.5 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
+            {NAV.map(n => (
+              <Link key={n.href} href={n.href} className="flex flex-col items-center gap-0.5 py-1 text-[10px] font-bold uppercase tracking-wide text-zinc-400 active:text-red-300">
+                <span className="text-base leading-none text-red-400">{n.icon}</span>{n.label}
+              </Link>
+            ))}
+          </div>
+        </nav>
+        <div className="sm:hidden h-16" />
       </body>
     </html>
   );

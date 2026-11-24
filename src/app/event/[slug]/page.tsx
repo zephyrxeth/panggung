@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getEventBySlug, eventSources, eventArtists, interestCount } from "@/lib/queries";
+import { getEventBySlug, eventSources, eventArtists, interestCount, searchEvents } from "@/lib/queries";
+import EventCard from "@/components/EventCard";
 import InterestButton from "@/components/InterestButton";
 import ReportDialog from "@/components/ReportDialog";
 
@@ -36,20 +37,36 @@ export default async function EventPage({ params }: { params: Params }) {
       {e.status === "rejected" && <div className="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">Listing ini ditolak moderator.</div>}
       {e.title.startsWith("[DEMO]") && <div className="rounded-lg border border-dashed border-red-500/40 bg-zinc-900 px-4 py-3 text-sm text-muted"><b>DEMO data.</b> Ini data seed demo, bukan event sungguhan.</div>}
 
-      <header>
+      {/* poster hero: blurred backdrop + floating poster */}
+      <header className="relative overflow-hidden rounded-2xl border border-white/10 -mx-4">
         {e.poster_path && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={e.poster_path} alt={`Poster ${e.title}`} className="w-full max-w-md rounded-2xl border border-white/10 shadow-[0_12px_48px_rgba(239,68,68,0.15)]" />
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={e.poster_path} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover scale-125 blur-2xl opacity-40" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/20" />
+          </>
         )}
-        <p className="text-xs font-bold uppercase tracking-wide text-accent">{e.type} · {e.city}</p>
-        <h1 className="text-2xl font-black leading-tight mt-1">{e.title}</h1>
-        <div className="flex gap-2 mt-2 flex-wrap">
-          <span className={e.status === "verified" ? "badge-verified" : e.status === "cancelled" ? "badge-cancelled" : e.status === "pending_review" ? "badge-pending" : e.status === "updated" ? "badge-updated" : "badge-rejected"}>
-            {e.status.replace("_", " ")}
-          </span>
-          <span className={e.verification_status === "unverified" ? "badge-unverified" : "badge-verified"}>
-            {e.verification_status === "official" ? "Official source" : e.verification_status === "source_checked" ? "Source checked" : "Source unverified"}
-          </span>
+        <div className={`relative grid gap-5 p-5 sm:p-7 ${e.poster_path ? "sm:grid-cols-[minmax(0,280px)_1fr] items-center" : ""}`}>
+          {e.poster_path && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={e.poster_path} alt={`Poster ${e.title}`} className="w-full max-w-[280px] mx-auto rounded-2xl border border-white/15 shadow-[0_16px_64px_rgba(239,68,68,0.3)]" />
+          )}
+          <div className="min-w-0">
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-red-400">{e.type} · {e.city}</p>
+            <h1 className="text-2xl sm:text-3xl font-black leading-tight mt-2">{e.title}</h1>
+            <div className="flex gap-2 mt-3 flex-wrap">
+              <span className={e.status === "verified" ? "badge-verified" : e.status === "cancelled" ? "badge-cancelled" : e.status === "pending_review" ? "badge-pending" : e.status === "updated" ? "badge-updated" : "badge-rejected"}>
+                {e.status.replace("_", " ")}
+              </span>
+              <span className={e.verification_status === "unverified" ? "badge-unverified" : "badge-verified"}>
+                {e.verification_status === "official" ? "Official source" : e.verification_status === "source_checked" ? "Source checked" : "Source unverified"}
+              </span>
+            </div>
+            <p className="mt-3 text-sm text-zinc-300">
+              {d.toLocaleDateString("id-ID", { dateStyle: "full" })} · {d.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })} WIB<br />
+              {e.venue_name || e.venue_text || "Venue TBA"}
+            </p>
+          </div>
         </div>
       </header>
 
@@ -70,6 +87,8 @@ export default async function EventPage({ params }: { params: Params }) {
         <div className="flex flex-wrap gap-2 pt-1">
           {e.ticket_url ? (
             <a className="btn" href={e.ticket_url} target="_blank" rel="noopener noreferrer">Tiket resmi ↗</a>
+          ) : sources.length > 0 ? (
+            <a className="btn" href={sources[0].source_url} target="_blank" rel="noopener noreferrer">Info & tiket via sumber ↗</a>
           ) : (
             <span className="btn-ghost text-muted cursor-default">Link tiket resmi belum tersedia</span>
           )}
@@ -91,6 +110,20 @@ export default async function EventPage({ params }: { params: Params }) {
         </ul>
         <p className="text-[11px] text-muted mt-2">Dikontribusikan oleh {e.display_name || "anonim"} ({e.submitted_by_role}).</p>
       </section>
+
+      {/* related events */}
+      {(() => {
+        const related = searchEvents({ city: e.city }).filter(r => r.id !== e.id).slice(0, 3);
+        if (related.length === 0) return null;
+        return (
+          <section className="pt-2">
+            <h2 className="text-lg font-black uppercase tracking-tight mb-3">Sekitar <span className="text-red-400">{e.city}</span></h2>
+            <ul className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {related.map(r => <li key={r.id}><EventCard e={r} /></li>)}
+            </ul>
+          </section>
+        );
+      })()}
 
       <ReportDialog eventId={e.id} />
     </article>
