@@ -17,7 +17,7 @@ export default async function Explore({ searchParams }: { searchParams: SP }) {
     <div className="space-y-5">
       <header className="pt-4">
         <h1 className="text-4xl font-black uppercase tracking-tight">
-          Jelajah <span className="stroke-text">panggung</span>
+          Jelajah <span className="stroke-text">event</span>
         </h1>
         <p className="text-sm text-muted mt-1">{events.length} event live · semua listing punya sumber terverifikasi</p>
       </header>
