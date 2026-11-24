@@ -14,14 +14,20 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
   const q = sp.q || ""; const city = sp.city || ""; const genre = sp.genre || "";
   const type = sp.type || ""; const from = sp.from || ""; const to = sp.to || "";
   const events = searchEvents({ q, city, genre, type, from, to });
+  const chips = [
+    { label: "Semua", v: "", icon: "★" },
+    { label: "Gig", v: "gig", icon: "♪" },
+    { label: "Konser", v: "concert", icon: "◉" },
+    { label: "Festival", v: "festival", icon: "✷" },
+  ];
 
   return (
     <div className="-mx-4 -mt-6">
-      {/* ── HERO: the stage ── */}
+      {/* ── HERO ── */}
       <section className="relative overflow-hidden">
-        <div className="min-h-[78vh] flex flex-col justify-center relative">
+        <div className="min-h-[70vh] flex flex-col justify-center relative">
           <StageBeams />
-          <div className="relative z-10 mx-auto max-w-3xl px-4 pt-28 pb-20 text-center">
+          <div className="relative z-10 mx-auto max-w-3xl px-4 pt-28 pb-16 text-center">
             <p className="text-[11px] uppercase tracking-[0.4em] text-red-400/80 font-bold">● now showing — all cities</p>
             <h1 className="mt-5 font-black tracking-tighter leading-[0.85]">
               <span className="block text-[15vw] sm:text-8xl uppercase">
@@ -35,18 +41,21 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
             <p className="mt-6 text-sm sm:text-base text-zinc-400 max-w-md mx-auto leading-relaxed">
               Gig, konser, festival — ditemukan bareng komunitas, bukan robot.
             </p>
-            <form method="get" className="mt-8 flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
-              <input name="q" defaultValue={q} placeholder="Artis, venue, event…" className="input sm:flex-1 !bg-stone-950/70 !border-zinc-700 backdrop-blur-sm" />
-              <button className="btn shrink-0">Cari gig ✦</button>
+            <form method="get" className="mt-8 max-w-lg mx-auto glass rounded-2xl p-2 flex gap-2">
+              <input name="q" defaultValue={q} placeholder="Acara apa yang lu cari?" className="input !border-0 !bg-transparent flex-1" />
+              <button className="btn shrink-0">Cari ✦</button>
             </form>
-            <p className="mt-3 text-[11px] text-zinc-500">
-              Browsing gratis tanpa akun ·{" "}
-              <a href="#lineup" className="text-red-400/90 underline decoration-red-400/30 underline-offset-2">lihat lineup di bawah</a>
-            </p>
+            <div className="mt-4 flex justify-center gap-2 flex-wrap">
+              {chips.map(c => (
+                <Link key={c.v} href={c.v ? `/?type=${c.v}` : "/"} className={`rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wide transition ${type === c.v ? "bg-red-500 text-white" : "glass text-zinc-300 hover:border-red-400/50"}`}>
+                  {c.icon} {c.label}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* diagonal red ticker */}
+        {/* diagonal glass ticker */}
         <div className="relative z-10 rotate-[-1.2deg] scale-105 rounded-xl py-2.5 glass-strong shadow-[0_8px_32px_rgba(239,68,68,0.25)] border border-red-500/40">
           <Marquee duration="30s">
             {Array.from({ length: 6 }).flatMap((_, i) => (
@@ -70,39 +79,34 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
         </Marquee>
       </div>
 
-      {/* ── listing ── */}
+      {/* ── listing: poster grid ── */}
       <div className="px-4 py-8 space-y-5">
-        <h2 className="text-3xl font-black uppercase tracking-tight">
-          Agenda <span className="stroke-text">live</span>
-        </h2>
-        <form method="get" className="grid grid-cols-2 gap-2 sm:grid-cols-6">
-          <input name="q" defaultValue={q} placeholder="Cari event / artis…" className="input col-span-2 sm:col-span-2" />
-          <select name="city" defaultValue={city} className="input">
-            <option value="">Semua kota</option>
-            {cities().map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
-          </select>
-          <select name="genre" defaultValue={genre} className="input">
-            <option value="">Semua genre</option>
-            {genres().map(g => <option key={g.id} value={g.name}>{g.name}</option>)}
-          </select>
-          <select name="type" defaultValue={type} className="input">
-            <option value="">Semua tipe</option>
-            <option value="gig">Gig</option><option value="concert">Concert</option><option value="festival">Festival</option>
-          </select>
-          <div className="flex gap-2 col-span-2 sm:col-span-1">
-            <input name="from" type="date" defaultValue={from} className="input" aria-label="Dari tanggal" />
-            <button className="btn shrink-0">Cari</button>
-          </div>
-        </form>
+        <div className="flex items-center justify-between flex-wrap gap-3">
+          <h2 className="text-3xl font-black uppercase tracking-tight">
+            Agenda <span className="stroke-text">live</span>
+          </h2>
+          <form method="get" className="flex gap-2 flex-wrap">
+            <select name="city" defaultValue={city} className="input !w-auto text-xs py-1.5">
+              <option value="">Semua kota</option>
+              {cities().map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
+            </select>
+            <select name="genre" defaultValue={genre} className="input !w-auto text-xs py-1.5">
+              <option value="">Semua genre</option>
+              {genres().map(g => <option key={g.id} value={g.name}>{g.name}</option>)}
+            </select>
+            {from && <input type="hidden" name="from" value={from} />}
+            {type && <input type="hidden" name="type" value={type} />}
+          </form>
+        </div>
 
         <Suspense fallback={null}>
           {events.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-zinc-700 bg-zinc-900 p-8 text-center">
+            <div className="glass rounded-2xl p-8 text-center">
               <p className="font-bold text-lg uppercase">Panggungnya sepi</p>
               <p className="text-sm text-muted mt-1">Coba hapus filter, atau <Link href="/request" className="text-red-400 underline">request artisnya</Link> biar promoter lihat minatnya.</p>
             </div>
           ) : (
-            <ul className="space-y-3">
+            <ul className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {events.map(e => <li key={e.id}><EventCard e={e} /></li>)}
             </ul>
           )}
