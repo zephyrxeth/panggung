@@ -11,7 +11,7 @@ Concert/gig discovery berbasis komunitas (Bahasa Indonesia, mobile-first). Diban
 ## Stack ($0)
 
 - **Next.js 14 (App Router)** — server components untuk read, route handlers untuk API.
-- **SQLite via better-sqlite3** (WAL) — DB file `data/panggung.db`. SQL portabel → migrasi Turso/Neon/Postgres nanti tinggal ganti driver.
+- **libSQL/Turso** (`libsql` driver) — drop-in better-sqlite3. Lokal: file `data/panggung.db`. Produksi: set `TURSO_DATABASE_URL` + `TURSO_AUTH_TOKEN` (Turso free tier). SQL portabel, FK enforcement aktif.
 - **Tailwind CSS** — mobile-first, light theme, satu aksen biru.
 - **Auth self-hosted** — password scrypt (crypto bawaan Node), session cookie HttpOnly 30 hari, tanpa provider eksternal.
 - Upload poster: filesystem lokal, ≤2MB, png/jpg/webp.

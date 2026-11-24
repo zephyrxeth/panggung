@@ -1,6 +1,6 @@
 // DEMO seed — every event title is prefixed [DEMO] and MUST NOT be presented as a real event.
 // Run: npm run seed   (idempotent: wipes and reseeds)
-import Database from "better-sqlite3";
+import Database from "libsql";
 import crypto from "crypto";
 import fs from "fs";
 import path from "path";
@@ -14,6 +14,7 @@ db.exec(fs.readFileSync(path.join(process.cwd(), "src", "db", "schema.sql"), "ut
 const hash = (pw) => { const s = crypto.randomBytes(16).toString("hex"); return `${s}:${crypto.scryptSync(pw, s, 32).toString("hex")}`; };
 
 for (const t of ["scout_contributions","moderation_log","reports","artist_requests","event_interest","event_genres","event_artists","event_sources","sessions","events","artists","genres","venues","cities","users"]) db.exec(`DELETE FROM ${t}`);
+db.exec("DELETE FROM sqlite_sequence");
 
 const city = db.prepare("INSERT INTO cities (name, region) VALUES (?, ?)");
 const cities = {};
