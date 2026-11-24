@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root { color-scheme: dark; }
-body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: #0a0a0a; }
+body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: #050505; }
 
-/* ── stage light keyframes ── */
+/* ── stage keyframes ── */
 @keyframes meteor {
   0% { transform: translateY(-20%) translateX(-50%); opacity: 0; }
   12% { opacity: var(--opacity, 1); }
@@ -13,45 +13,66 @@ body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
   100% { transform: translateY(300%) translateX(-50%); opacity: 0; }
 }
 @keyframes marquee-x { from { transform: translateX(0); } to { transform: translateX(calc(-100% - var(--gap, 12px))); } }
-@keyframes pop-blob { 0% { transform: scale(1); } 33% { transform: scale(1.25) rotate(8deg); } 66% { transform: scale(0.85) rotate(-6deg); } 100% { transform: scale(1); } }
 @keyframes shine { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.4; }
+  94% { opacity: 1; }
+  97% { opacity: 0.6; }
+  98% { opacity: 1; }
+}
+@keyframes pulse-glow { 0%, 100% { opacity: 0.55; } 50% { opacity: 0.9; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .beam { animation: none !important; opacity: 0 !important; }
-  .marquee-track, .blob { animation: none !important; }
+  .beam, .marquee-track, .shine, .flicker, .pulse-glow { animation: none !important; }
 }
 
-.beam {
-  animation: meteor var(--duration, 8s) var(--delay, 0s) ease-in-out infinite backwards;
-}
+.beam { animation: meteor var(--duration, 8s) var(--delay, 0s) ease-in-out infinite backwards; }
 .marquee-track { animation: marquee-x var(--duration, 20s) infinite linear; }
 .marquee-track.reverse { animation-direction: reverse; }
-.blob { animation: pop-blob 6s ease-in-out infinite; }
 
-/* shimmering headline */
+/* shimmering headline — blood red core, white hot strike */
 .shine {
-  background: linear-gradient(100deg, #ef4444 20%, #fecaca 40%, #ef4444 60%);
-  background-size: 200% auto;
+  background: linear-gradient(100deg, #dc2626 15%, #fef2f2 42%, #ef4444 50%, #7f1d1d 65%);
+  background-size: 220% auto;
   -webkit-background-clip: text; background-clip: text;
   color: transparent;
-  animation: shine 5s linear infinite;
+  animation: shine 4s linear infinite;
+}
+.flicker { animation: flicker 6s linear infinite; }
+.pulse-glow { animation: pulse-glow 5s ease-in-out infinite; }
+
+/* outlined display text */
+.stroke-text {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgb(239 68 68 / 0.55);
+}
+.stroke-text-white {
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(255 255 255 / 0.25);
+}
+
+/* film grain overlay */
+.grain::after {
+  content: ""; position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 .badge { @apply inline-block rounded-full px-2 py-0.5 text-[11px] font-semibold; }
-.badge-verified { @apply badge bg-red-500/15 text-red-300 ring-1 ring-inset ring-red-500/30; }
+.badge-verified { @apply badge bg-red-500/20 text-red-300 ring-1 ring-inset ring-red-500/40; }
 .badge-pending { @apply badge bg-zinc-500/15 text-zinc-300 ring-1 ring-inset ring-zinc-400/30; }
-.badge-cancelled { @apply badge bg-zinc-500/10 text-zinc-400 line-through decoration-1; }
-.badge-rejected { @apply badge bg-red-500/20 text-red-300; }
+.badge-cancelled { @apply badge bg-zinc-500/10 text-zinc-500 line-through decoration-1; }
+.badge-rejected { @apply badge bg-zinc-800 text-zinc-400; }
 .badge-updated { @apply badge bg-red-400/10 text-red-200; }
 .badge-unverified { @apply badge bg-zinc-800 text-zinc-400 ring-1 ring-inset ring-zinc-700; }
 
-/* ticket card: perforated left edge, warm glow on hover */
-.card { @apply relative block rounded-xl border border-zinc-800 bg-zinc-900 p-4 transition-all duration-300 hover:border-red-500/60 hover:shadow-[0_0_24px_-6px_rgba(239,68,68,0.3)]; }
+/* ticket card: perforated stub, aggressive hover lift */
+.card { @apply relative block rounded-xl border border-zinc-800 bg-zinc-900 p-4 transition-all duration-300 hover:border-red-500 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_-8px_rgba(239,68,68,0.45)]; }
 .card::before { content: ""; position: absolute; left: 0; top: 10px; bottom: 10px; width: 2px;
-  border-left: 2px dashed rgb(239 68 68 / 0.35); }
+  border-left: 2px dashed rgb(239 68 68 / 0.45); }
 .input { @apply w-full rounded border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 outline-none placeholder:text-zinc-500 focus:border-red-500; }
-.btn { @apply rounded bg-red-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-400 disabled:opacity-50; }
+.btn { @apply rounded bg-red-500 px-4 py-2 text-sm font-bold text-white transition hover:bg-red-400 hover:shadow-[0_0_20px_-4px_rgba(239,68,68,0.8)] disabled:opacity-50; }
 .btn-ghost { @apply rounded border border-zinc-700 bg-transparent px-4 py-2 text-sm font-semibold text-zinc-200 transition hover:border-red-500 hover:text-red-300; }
 
-/* marquee of artist names */
 .marquee-mask { -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent); mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent); }

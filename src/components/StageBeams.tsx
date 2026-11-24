@@ -1,5 +1,4 @@
-// Adapted from animata.design "Animated Beam" (MIT-style credit: built by hari)
-// Diagonal meteor streaks on faint lanes — pure CSS, deterministic, no runtime JS.
+// StageBeams — animata "Animated Beam" remixed: red meteors, hot spotlight, flicker.
 const prand = (n: number) => {
   const x = Math.sin(n * 127.1 + 311.7) * 43758.5453;
   return x - Math.floor(x);
@@ -8,7 +7,7 @@ const lerp = (min: number, max: number, t: number) => min + (max - min) * t;
 const LANES = 48;
 
 function Beam({ index }: { index: number }) {
-  const fast = prand(index + 91) < 0.3;
+  const fast = prand(index + 91) < 0.35;
   const duration = fast ? lerp(1.2, 3.2, prand(index)) : lerp(6, 14, prand(index));
   const delay = lerp(0, 9, prand(index + 13));
   const length = Math.round(lerp(24, 84, prand(index + 29)));
@@ -30,7 +29,7 @@ function Beam({ index }: { index: number }) {
         className="w-full"
         style={{ height: `${length}px`, clipPath: "polygon(54% 0, 54% 0, 60% 100%, 40% 100%)" }}
       >
-        <div className="h-full w-full bg-gradient-to-b from-red-100/60 via-red-300/80 to-red-100" />
+        <div className="h-full w-full bg-gradient-to-b from-red-100/60 via-red-400/90 to-red-100" />
       </div>
     </div>
   );
@@ -38,16 +37,21 @@ function Beam({ index }: { index: number }) {
 
 export default function StageBeams() {
   return (
-    <div className="absolute inset-0 z-0 flex flex-row justify-center overflow-hidden bg-gradient-to-t from-stone-950 via-stone-950 to-stone-900">
-      {/* warm spotlight glow from the stage floor */}
+    <div className="absolute inset-0 z-0 flex flex-row justify-center overflow-hidden bg-gradient-to-b from-[#050505] via-[#0a0a0a] to-[#180a0a]">
+      {/* hot spotlight from the floor */}
       <div
-        className="absolute inset-x-0 bottom-0 h-2/3 opacity-30"
-        style={{ background: "radial-gradient(60% 60% at 50% 100%, rgba(239,68,68,0.35) 0%, rgba(239,68,68,0.08) 45%, rgba(239,68,68,0) 100%)" }}
+        className="pulse-glow absolute inset-x-0 bottom-0 h-3/4"
+        style={{ background: "radial-gradient(65% 70% at 50% 105%, rgba(239,68,68,0.5) 0%, rgba(185,28,28,0.18) 45%, rgba(185,28,28,0) 100%)" }}
+      />
+      {/* faint floor haze */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-40 opacity-40"
+        style={{ background: "radial-gradient(80% 100% at 50% 100%, rgba(220,38,38,0.25) 0%, rgba(220,38,38,0) 100%)" }}
       />
       {Array.from({ length: LANES }, (_, i) => (
         <div key={i} className="flex h-full w-10 shrink-0 justify-center">
-          <div className="relative h-full w-px rotate-12 bg-red-100/[0.06]">
-            {prand(i + 7) < 0.32 && <Beam index={i + 1} />}
+          <div className="relative h-full w-px rotate-12 bg-red-100/[0.07]">
+            {prand(i + 7) < 0.35 && <Beam index={i + 1} />}
           </div>
         </div>
       ))}
