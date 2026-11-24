@@ -30,7 +30,7 @@ function Beam({ index }: { index: number }) {
         className="w-full"
         style={{ height: `${length}px`, clipPath: "polygon(54% 0, 54% 0, 60% 100%, 40% 100%)" }}
       >
-        <div className="h-full w-full bg-gradient-to-b from-amber-100/60 via-amber-300/80 to-amber-100" />
+        <div className="h-full w-full bg-gradient-to-b from-red-100/60 via-red-300/80 to-red-100" />
       </div>
     </div>
   );
@@ -46,7 +46,7 @@ export default function StageBeams() {
       />
       {Array.from({ length: LANES }, (_, i) => (
         <div key={i} className="flex h-full w-10 shrink-0 justify-center">
-          <div className="relative h-full w-px rotate-12 bg-amber-100/[0.06]">
+          <div className="relative h-full w-px rotate-12 bg-red-100/[0.06]">
             {prand(i + 7) < 0.32 && <Beam index={i + 1} />}
           </div>
         </div>

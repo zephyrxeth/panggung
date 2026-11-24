@@ -22,7 +22,7 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
         <div className="min-h-[68vh] sm:min-h-[72vh] flex flex-col justify-center relative">
           <StageBeams />
           <div className="relative z-10 mx-auto max-w-3xl px-4 pt-24 pb-16 text-center">
-            <p className="text-[11px] uppercase tracking-[0.3em] text-amber-400/80 font-semibold">community-powered live music</p>
+            <p className="text-[11px] uppercase tracking-[0.3em] text-red-400/80 font-semibold">community-powered live music</p>
             <h1 className="mt-4 text-5xl sm:text-7xl font-black tracking-tighter leading-[0.95]">
               <span className="shine">Live music</span>
               <br />
@@ -37,7 +37,7 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
             </form>
             <p className="mt-3 text-[11px] text-zinc-500">
               Browsing gratis tanpa akun ·{" "}
-              <a href="#lineup" className="text-amber-400/90 underline decoration-amber-400/30 underline-offset-2">lihat lineup di bawah</a>
+              <a href="#lineup" className="text-red-400/90 underline decoration-red-400/30 underline-offset-2">lihat lineup di bawah</a>
             </p>
           </div>
         </div>
@@ -48,8 +48,8 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
         <Marquee duration="30s">
           {["★", ...events.map(e => e.artists || e.title.replace("[DEMO]", "").trim())].flatMap((label, i) => (
             <span key={i} className="text-sm text-zinc-400 whitespace-nowrap">
-              <span className={label === "🔥" ? "" : "hover:text-amber-300 transition-colors"}>{label}</span>
-              <span className="mx-3 text-amber-400/50">◆</span>
+              <span className={label === "🔥" ? "" : "hover:text-red-300 transition-colors"}>{label}</span>
+              <span className="mx-3 text-red-400/50">◆</span>
             </span>
           ))}
         </Marquee>
@@ -82,7 +82,7 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
             <div className="rounded-xl border border-dashed border-zinc-700 bg-zinc-900 p-8 text-center">
               <p className="text-2xl mb-2">✦</p>
               <p className="font-semibold">Belum ada event yang cocok</p>
-              <p className="text-sm text-muted mt-1">Coba hapus filter, atau <Link href="/request" className="text-amber-400 underline">request artisnya</Link> biar promoter lihat minatnya.</p>
+              <p className="text-sm text-muted mt-1">Coba hapus filter, atau <Link href="/request" className="text-red-400 underline">request artisnya</Link> biar promoter lihat minatnya.</p>
             </div>
           ) : (
             <ul className="space-y-3">

@@ -32,9 +32,9 @@ export default async function EventPage({ params }: { params: Params }) {
   return (
     <article className="space-y-5">
       {cancelled && <div className="rounded-lg bg-zinc-200 text-zinc-700 px-4 py-3 text-sm font-semibold">Event ini dibatalkan. Cek sumber resmi untuk info refund.</div>}
-      {e.status === "pending_review" && <div className="rounded-lg bg-amber-50 border border-amber-200 px-4 py-3 text-sm text-amber-800">Listing ini masih <b>pending review</b> moderator dan belum diverifikasi.</div>}
+      {e.status === "pending_review" && <div className="rounded-lg bg-zinc-800 border border-zinc-600 px-4 py-3 text-sm text-zinc-200">Listing ini masih <b>pending review</b> moderator dan belum diverifikasi.</div>}
       {e.status === "rejected" && <div className="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">Listing ini ditolak moderator.</div>}
-      {e.title.startsWith("[DEMO]") && <div className="rounded-lg border border-dashed border-amber-400/40 bg-zinc-900 px-4 py-3 text-sm text-muted"><b>DEMO data.</b> Ini data seed demo, bukan event sungguhan.</div>}
+      {e.title.startsWith("[DEMO]") && <div className="rounded-lg border border-dashed border-red-500/40 bg-zinc-900 px-4 py-3 text-sm text-muted"><b>DEMO data.</b> Ini data seed demo, bukan event sungguhan.</div>}
 
       <header>
         <p className="text-xs font-bold uppercase tracking-wide text-accent">{e.type} · {e.city}</p>
