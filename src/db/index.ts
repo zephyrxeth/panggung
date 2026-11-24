@@ -17,11 +17,15 @@ export const db = process.env.TURSO_DATABASE_URL
   ? new Database(process.env.TURSO_DATABASE_URL, { authToken: process.env.TURSO_AUTH_TOKEN } as any)
   : new Database(localPath);
 
-if (typeof (db as any).pragma === "function") (db as any).pragma("journal_mode = WAL");
+if (!process.env.TURSO_DATABASE_URL && typeof (db as any).pragma === "function") (db as any).pragma("journal_mode = WAL");
 
 export function migrate() {
-  const schema = fs.readFileSync(path.join(process.cwd(), "src", "db", "schema.sql"), "utf8");
-  db.exec(schema);
+  try {
+    const schema = fs.readFileSync(path.join(process.cwd(), "src", "db", "schema.sql"), "utf8");
+    db.exec(schema);
+  } catch (e: any) {
+    if (!String(e?.message).includes("already exists")) throw e;
+  }
 }
 migrate();
 

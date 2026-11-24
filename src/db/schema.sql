@@ -1,5 +1,4 @@
 -- Panggung schema (SQLite). Portable SQL; migration path to Postgres is straightforward.
-PRAGMA journal_mode = WAL;
 
 CREATE TABLE IF NOT EXISTS users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,

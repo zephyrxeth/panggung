@@ -5,10 +5,9 @@ import crypto from "crypto";
 import fs from "fs";
 import path from "path";
 
-const DB_PATH = process.env.PANGGUNG_DB || path.join(process.cwd(), "data", "panggung.db");
-fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
-const db = new Database(DB_PATH);
-db.pragma("journal_mode = WAL");
+const db = process.env.TURSO_DATABASE_URL
+  ? new Database(process.env.TURSO_DATABASE_URL, { authToken: process.env.TURSO_AUTH_TOKEN })
+  : (() => { const p = process.env.PANGGUNG_DB || path.join(process.cwd(), "data", "panggung.db"); fs.mkdirSync(path.dirname(p), { recursive: true }); const d = new Database(p); d.pragma("journal_mode = WAL"); return d; })();
 db.exec(fs.readFileSync(path.join(process.cwd(), "src", "db", "schema.sql"), "utf8"));
 
 const hash = (pw) => { const s = crypto.randomBytes(16).toString("hex"); return `${s}:${crypto.scryptSync(pw, s, 32).toString("hex")}`; };
