@@ -22,7 +22,7 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
         <div className="min-h-[78vh] flex flex-col justify-center relative">
           <StageBeams />
           <div className="relative z-10 mx-auto max-w-3xl px-4 pt-28 pb-20 text-center">
-            <p className="flicker text-[11px] uppercase tracking-[0.4em] text-red-400/90 font-bold">● now showing — all cities</p>
+            <p className="text-[11px] uppercase tracking-[0.4em] text-red-400/80 font-bold">● now showing — all cities</p>
             <h1 className="mt-5 font-black tracking-tighter leading-[0.85]">
               <span className="block text-[15vw] sm:text-8xl uppercase">
                 <span className="stroke-text">Live</span>{" "}
@@ -47,10 +47,10 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
         </div>
 
         {/* diagonal red ticker */}
-        <div className="relative z-10 -rotate-1 scale-105 border-y-2 border-red-600 bg-red-600/95 py-2 shadow-[0_0_30px_rgba(239,68,68,0.4)]">
-          <Marquee duration="14s">
+        <div className="relative z-10 rotate-[-1.2deg] scale-105 rounded-xl py-2.5 glass-strong shadow-[0_8px_32px_rgba(239,68,68,0.25)] border border-red-500/40">
+          <Marquee duration="30s">
             {Array.from({ length: 6 }).flatMap((_, i) => (
-              <span key={i} className="text-xs sm:text-sm font-black uppercase tracking-widest text-white whitespace-nowrap">
+              <span key={i} className="text-xs sm:text-sm font-black uppercase tracking-widest text-zinc-100 whitespace-nowrap">
                 Submit event &nbsp;◆&nbsp; Request artis &nbsp;◆&nbsp; Demand signal &nbsp;◆&nbsp;
               </span>
             ))}
@@ -60,7 +60,7 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
 
       {/* ── lineup marquee ── */}
       <div className="border-b border-zinc-800 bg-stone-950 py-4" id="lineup">
-        <Marquee duration="22s">
+        <Marquee duration="45s">
           {["★", ...events.map(e => (e.artists || e.title.replace("[DEMO]", "").trim()).toUpperCase())].flatMap((label, i) => (
             <span key={i} className="text-base sm:text-lg font-extrabold whitespace-nowrap">
               <span className={label === "★" ? "text-red-500" : "text-zinc-600 hover:text-red-300 transition-colors"}>{label}</span>
