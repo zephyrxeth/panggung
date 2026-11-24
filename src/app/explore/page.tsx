@@ -52,7 +52,7 @@ export default async function Explore({ searchParams }: { searchParams: SP }) {
             <p className="text-sm text-muted mt-1">Filter terlalu ketat, atau eventnya belum ada di Panggung.</p>
           </div>
         ) : (
-          <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 pb-6">
+          <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 pb-6">
             {events.map(e => <li key={e.id}><EventCard e={e} /></li>)}
           </ul>
         )}

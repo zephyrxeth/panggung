@@ -34,11 +34,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </nav>
           </div>
         </header>
-        <main className="flex-1 mx-auto w-full max-w-3xl px-4 pt-20 pb-6">{children}</main>
+        <main className="flex-1 mx-auto w-full max-w-6xl px-4 pt-20 pb-6">{children}</main>
 
         {/* trust footer */}
         <footer className="border-t border-zinc-800 py-8 px-4 pb-24 sm:pb-8 text-xs text-zinc-500 space-y-2">
-          <div className="mx-auto max-w-3xl flex flex-wrap gap-x-5 gap-y-1.5 font-semibold uppercase tracking-wide text-zinc-400">
+          <div className="mx-auto max-w-5xl flex flex-wrap gap-x-5 gap-y-1.5 font-semibold uppercase tracking-wide text-zinc-400">
             <span>✓ sumber terverifikasi</span>
             <span>✓ dimoderasi komunitas</span>
             <span>✓ bukan platform tiket</span>

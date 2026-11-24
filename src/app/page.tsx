@@ -36,21 +36,21 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
       <section className="relative overflow-hidden">
         <div className="min-h-[70vh] flex flex-col justify-center relative">
           <StageBeams />
-          <div className="relative z-10 mx-auto max-w-3xl px-4 pt-28 pb-16 text-center">
+          <div className="relative z-10 mx-auto max-w-4xl px-4 pt-28 pb-16 text-center">
             <p className="text-[11px] uppercase tracking-[0.4em] text-red-400/80 font-bold">● now showing — all cities</p>
             <h1 className="mt-5 font-black tracking-tighter leading-[0.85]">
-              <span className="block text-[15vw] sm:text-8xl uppercase">
+              <span className="block text-[15vw] sm:text-9xl uppercase">
                 <span className="stroke-text">Live</span>{" "}
                 <span className="text-zinc-100">music</span>
               </span>
-              <span className="block text-[11vw] sm:text-7xl uppercase mt-1">
+              <span className="block text-[11vw] sm:text-8xl uppercase mt-1">
                 <span className="shine">di kotamu</span>
               </span>
             </h1>
             <p className="mt-6 text-sm sm:text-base text-zinc-400 max-w-md mx-auto leading-relaxed">
               Gig, konser, festival — ditemukan bareng komunitas, bukan robot.
             </p>
-            <form method="get" className="mt-8 max-w-lg mx-auto glass rounded-2xl p-2 flex gap-2">
+            <form method="get" className="mt-8 max-w-2xl mx-auto glass rounded-2xl p-2 flex gap-2">
               <input name="q" defaultValue={q} placeholder="Acara apa yang lu cari?" className="input !border-0 !bg-transparent flex-1" />
               <button className="btn shrink-0">Cari ✦</button>
             </form>
@@ -99,7 +99,7 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
       {/* ── listing: poster grid ── */}
       <div className="px-4 py-8 space-y-5">
         <div className="flex items-center justify-between flex-wrap gap-3">
-          <h2 className="text-3xl font-black uppercase tracking-tight">
+          <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight">
             Agenda <span className="stroke-text">live</span>
           </h2>
           <form method="get" className="flex gap-2 flex-wrap">
@@ -123,7 +123,7 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
               <p className="text-sm text-muted mt-1">Coba hapus filter, atau <Link href="/request" className="text-red-400 underline">request artisnya</Link> biar promoter lihat minatnya.</p>
             </div>
           ) : (
-            <ul className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
               {events.map(e => <li key={e.id}><EventCard e={e} /></li>)}
             </ul>
           )}
@@ -135,7 +135,7 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
           Promoter <span className="stroke-text">&amp; festival</span>
         </h2>
         <p className="text-sm text-muted mb-5">Organisasi di balik panggung-panggung besar Indonesia — klik buka situs resmi mereka untuk tiket & info langsung.</p>
-        <ul className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {PROMOTERS.map(p => (
             <li key={p.name}>
               <a href={p.url} target="_blank" rel="noopener noreferrer" className="group card flex flex-col items-center text-center gap-3 py-5">
