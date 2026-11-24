@@ -21,7 +21,7 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
     <div className="max-w-sm mx-auto space-y-4">
       <h1 className="text-2xl font-black tracking-tight">{mode === "login" ? "Masuk" : "Daftar"}</h1>
       <p className="text-sm text-muted">Akun cuma dibutuhkan buat submit event, mark interest, dan request artis. Browsing bebas tanpa akun. Pseudonym oke.</p>
-      <form onSubmit={submit} className="rounded-xl border border-line bg-white p-4 space-y-3">
+      <form onSubmit={submit} className="rounded-xl border border-line bg-zinc-900 p-4 space-y-3">
         {mode === "register" && (
           <label className="block text-sm"><span className="text-muted text-xs">Nama tampil (boleh pseudonym)</span>
             <input className="input mt-1" value={name} onChange={e => setName(e.target.value)} required maxLength={60} /></label>

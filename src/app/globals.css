@@ -2,18 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { color-scheme: light; }
-body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+:root { color-scheme: dark; }
+body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: #0c0a09; }
+
+/* ── stage light keyframes ── */
+@keyframes meteor {
+  0% { transform: translateY(-20%) translateX(-50%); opacity: 0; }
+  12% { opacity: var(--opacity, 1); }
+  88% { opacity: var(--opacity, 1); }
+  100% { transform: translateY(300%) translateX(-50%); opacity: 0; }
+}
+@keyframes marquee-x { from { transform: translateX(0); } to { transform: translateX(calc(-100% - var(--gap, 12px))); } }
+@keyframes pop-blob { 0% { transform: scale(1); } 33% { transform: scale(1.25) rotate(8deg); } 66% { transform: scale(0.85) rotate(-6deg); } 100% { transform: scale(1); } }
+@keyframes shine { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .beam { animation: none !important; opacity: 0 !important; }
+  .marquee-track, .blob { animation: none !important; }
+}
+
+.beam {
+  animation: meteor var(--duration, 8s) var(--delay, 0s) ease-in-out infinite backwards;
+}
+.marquee-track { animation: marquee-x var(--duration, 20s) infinite linear; }
+.marquee-track.reverse { animation-direction: reverse; }
+.blob { animation: pop-blob 6s ease-in-out infinite; }
+
+/* shimmering headline */
+.shine {
+  background: linear-gradient(100deg, #fbbf24 20%, #fef3c7 40%, #fbbf24 60%);
+  background-size: 200% auto;
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+  animation: shine 5s linear infinite;
+}
 
 .badge { @apply inline-block rounded-full px-2 py-0.5 text-[11px] font-semibold; }
-.badge-verified { @apply badge bg-emerald-100 text-emerald-800; }
-.badge-pending { @apply badge bg-amber-100 text-amber-800; }
-.badge-cancelled { @apply badge bg-zinc-200 text-zinc-600 line-through decoration-1; }
-.badge-rejected { @apply badge bg-red-100 text-red-700; }
-.badge-updated { @apply badge bg-sky-100 text-sky-800; }
-.badge-unverified { @apply badge bg-zinc-100 text-zinc-500 border border-zinc-200; }
+.badge-verified { @apply badge bg-amber-400/15 text-amber-300 ring-1 ring-inset ring-amber-400/30; }
+.badge-pending { @apply badge bg-zinc-500/15 text-zinc-300 ring-1 ring-inset ring-zinc-400/30; }
+.badge-cancelled { @apply badge bg-red-500/10 text-red-400 line-through decoration-1; }
+.badge-rejected { @apply badge bg-red-500/10 text-red-400; }
+.badge-updated { @apply badge bg-amber-400/10 text-amber-200; }
+.badge-unverified { @apply badge bg-zinc-800 text-zinc-400 ring-1 ring-inset ring-zinc-700; }
 
-.card { @apply block rounded-xl border border-line bg-white p-4 hover:border-accent transition-colors; }
-.input { @apply w-full rounded border border-line bg-white px-3 py-2 text-sm outline-none focus:border-accent; }
-.btn { @apply rounded bg-accent px-4 py-2 text-sm font-semibold text-white hover:opacity-90 disabled:opacity-50; }
-.btn-ghost { @apply rounded border border-line bg-white px-4 py-2 text-sm font-semibold hover:border-accent; }
+/* ticket card: perforated left edge, warm glow on hover */
+.card { @apply relative block rounded-xl border border-zinc-800 bg-zinc-900 p-4 transition-all duration-300 hover:border-amber-400/60 hover:shadow-[0_0_24px_-6px_rgba(251,191,36,0.25)]; }
+.card::before { content: ""; position: absolute; left: 0; top: 10px; bottom: 10px; width: 2px;
+  border-left: 2px dashed rgb(251 191 36 / 0.35); }
+.input { @apply w-full rounded border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 outline-none placeholder:text-zinc-500 focus:border-amber-400; }
+.btn { @apply rounded bg-amber-400 px-4 py-2 text-sm font-semibold text-stone-950 transition hover:bg-amber-300 disabled:opacity-50; }
+.btn-ghost { @apply rounded border border-zinc-700 bg-transparent px-4 py-2 text-sm font-semibold text-zinc-200 transition hover:border-amber-400 hover:text-amber-300; }
+
+/* marquee of artist names */
+.marquee-mask { -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent); mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent); }

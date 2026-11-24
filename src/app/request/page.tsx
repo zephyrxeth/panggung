@@ -23,11 +23,11 @@ export default async function RequestPage({ searchParams }: { searchParams: SP }
       <section>
         <h2 className="font-bold text-sm mb-2">Sinyal paling ramai</h2>
         {stats.length === 0 ? (
-          <p className="text-sm text-muted rounded-xl border border-dashed border-line bg-white p-6 text-center">Belum ada request. Jadi yang pertama!</p>
+          <p className="text-sm text-muted rounded-xl border border-dashed border-line bg-zinc-900 p-6 text-center">Belum ada request. Jadi yang pertama!</p>
         ) : (
           <ul className="space-y-2">
             {stats.map((s, i) => (
-              <li key={`${s.slug}-${s.city}`} className="flex items-center justify-between rounded border border-line bg-white px-4 py-2.5">
+              <li key={`${s.slug}-${s.city}`} className="flex items-center justify-between rounded border border-line bg-zinc-900 px-4 py-2.5">
                 <span className="text-sm"><b>{i + 1}. {s.name}</b> <span className="text-muted">di {s.city}</span></span>
                 <span className="text-sm font-black text-accent">{s.requests} request</span>
               </li>

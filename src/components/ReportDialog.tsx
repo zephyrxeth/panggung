@@ -21,7 +21,7 @@ export default function ReportDialog({ eventId }: { eventId: number }) {
 
   if (!open) return <button className="text-sm text-muted underline" onClick={() => setOpen(true)}>Laporkan masalah pada listing ini</button>;
   return (
-    <div className="rounded-xl border border-line bg-white p-4">
+    <div className="rounded-xl border border-line bg-zinc-900 p-4">
       <h2 className="text-sm font-bold mb-2">Laporkan listing</h2>
       {done ? <p className="text-sm text-emerald-700">Laporan diterima. Moderator akan mengeceknya. Terima kasih!</p> : (
         <form onSubmit={submit} className="space-y-2">

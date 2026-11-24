@@ -34,7 +34,7 @@ export default function SubmitForm({ cities }: { cities: { id: number; name: str
 
   return (
     <form onSubmit={submit} className="space-y-4">
-      <div className="rounded-xl border border-line bg-white p-4 space-y-3">
+      <div className="rounded-xl border border-line bg-zinc-900 p-4 space-y-3">
         <label className="block text-sm"><span className="text-muted text-xs">Nama event *</span>
           <input className="input mt-1" value={form.title} onChange={e => set("title", e.target.value)} required maxLength={140} /></label>
         <div className="grid grid-cols-2 gap-3">
@@ -66,7 +66,7 @@ export default function SubmitForm({ cities }: { cities: { id: number; name: str
           <input className="input mt-1" value={form.price_info} onChange={e => set("price_info", e.target.value)} placeholder="cth: Presale Rp 150rb" /></label>
       </div>
 
-      <div className="rounded-xl border border-line bg-white p-4 space-y-3">
+      <div className="rounded-xl border border-line bg-zinc-900 p-4 space-y-3">
         <p className="text-sm font-bold">Sumber / bukti * <span className="font-normal text-muted text-xs">(wajib — link ke pengumuman asli)</span></p>
         <div className="grid grid-cols-2 gap-3">
           <label className="block text-sm"><span className="text-muted text-xs">Jenis sumber</span>

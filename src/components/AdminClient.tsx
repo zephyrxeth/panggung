@@ -34,7 +34,7 @@ export default function AdminClient() {
         <h2 className="font-bold text-sm mb-2">Antrean review ({data.queue.filter(e => e.status === "pending_review").length} pending)</h2>
         <ul className="space-y-2">
           {data.queue.map(e => (
-            <li key={e.id} className="rounded-xl border border-line bg-white p-3">
+            <li key={e.id} className="rounded-xl border border-line bg-zinc-900 p-3">
               <div className="flex items-center justify-between gap-2 flex-wrap">
                 <div className="min-w-0">
                   <p className="font-semibold text-sm truncate">{e.title}</p>
@@ -62,7 +62,7 @@ export default function AdminClient() {
         <h2 className="font-bold text-sm mb-2">Laporan terbuka ({data.reports.length})</h2>
         {data.reports.length === 0 ? <p className="text-sm text-muted">Tidak ada laporan.</p> : (
           <ul className="space-y-2">{data.reports.map(r => (
-            <li key={r.id} className="rounded border border-line bg-white px-3 py-2 text-sm">
+            <li key={r.id} className="rounded border border-line bg-zinc-900 px-3 py-2 text-sm">
               <b>{r.reason}</b> pada “{r.title}” — {r.detail || "tanpa detail"} <span className="text-xs text-muted">({r.created_at})</span>
             </li>))}</ul>
         )}

@@ -21,7 +21,7 @@ export default function AuthUserPicker({ cities, prefillArtist }: { cities: { id
   }
 
   return (
-    <form onSubmit={submit} className="rounded-xl border border-line bg-white p-4 space-y-3">
+    <form onSubmit={submit} className="rounded-xl border border-line bg-zinc-900 p-4 space-y-3">
       <div className="grid gap-3 sm:grid-cols-2">
         <label className="block text-sm">
           <span className="text-muted text-xs">Nama artis / band</span>

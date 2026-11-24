@@ -11,20 +11,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="id">
       <body className="bg-paper text-ink antialiased min-h-screen flex flex-col">
-        <header className="border-b border-line bg-white sticky top-0 z-40">
+        <header className="sticky top-0 z-40 border-b border-zinc-800/80 bg-stone-950/85 backdrop-blur-md">
           <div className="mx-auto max-w-3xl px-4 h-14 flex items-center justify-between">
-            <Link href="/" className="font-black text-lg tracking-tight text-accent">Panggung</Link>
-            <nav className="flex items-center gap-4 text-sm font-medium">
-              <Link href="/" className="hover:text-accent">Events</Link>
-              <Link href="/request" className="hover:text-accent">Request artist</Link>
-              <Link href="/submit" className="rounded bg-accent text-white px-3 py-1.5 hover:opacity-90">Submit event</Link>
-              <Link href="/login" className="text-muted hover:text-ink">Login</Link>
+            <Link href="/" className="font-black text-lg tracking-tight text-amber-400 flex items-center gap-1.5">
+              <span aria-hidden>◆</span> Panggung
+            </Link>
+            <nav className="flex items-center gap-3 sm:gap-4 text-sm font-medium">
+              <Link href="/" className="text-zinc-300 hover:text-amber-300">Events</Link>
+              <Link href="/request" className="text-zinc-300 hover:text-amber-300">Request</Link>
+              <Link href="/submit" className="rounded bg-amber-400 text-stone-950 px-3 py-1.5 font-semibold hover:bg-amber-300">Submit</Link>
+              <Link href="/login" className="text-muted hover:text-amber-300">Login</Link>
             </nav>
           </div>
         </header>
         <main className="flex-1 mx-auto w-full max-w-3xl px-4 py-6">{children}</main>
-        <footer className="border-t border-line py-6 text-center text-xs text-muted">
-          Panggung MVP — demo build. Event data is DEMO seed data, not real events. Not a ticketing platform.
+        <footer className="border-t border-zinc-800 py-6 text-center text-xs text-zinc-500">
+          Panggung MVP — demo build. Semua event di halaman ini adalah data <b>[DEMO]</b>, bukan event sungguhan. Bukan platform tiket.
         </footer>
       </body>
     </html>

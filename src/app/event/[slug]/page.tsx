@@ -34,7 +34,7 @@ export default async function EventPage({ params }: { params: Params }) {
       {cancelled && <div className="rounded-lg bg-zinc-200 text-zinc-700 px-4 py-3 text-sm font-semibold">Event ini dibatalkan. Cek sumber resmi untuk info refund.</div>}
       {e.status === "pending_review" && <div className="rounded-lg bg-amber-50 border border-amber-200 px-4 py-3 text-sm text-amber-800">Listing ini masih <b>pending review</b> moderator dan belum diverifikasi.</div>}
       {e.status === "rejected" && <div className="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">Listing ini ditolak moderator.</div>}
-      {e.title.startsWith("[DEMO]") && <div className="rounded-lg border border-dashed border-accent/40 bg-white px-4 py-3 text-sm text-muted"><b>DEMO data.</b> Ini data seed demo, bukan event sungguhan.</div>}
+      {e.title.startsWith("[DEMO]") && <div className="rounded-lg border border-dashed border-amber-400/40 bg-zinc-900 px-4 py-3 text-sm text-muted"><b>DEMO data.</b> Ini data seed demo, bukan event sungguhan.</div>}
 
       <header>
         <p className="text-xs font-bold uppercase tracking-wide text-accent">{e.type} · {e.city}</p>
@@ -49,7 +49,7 @@ export default async function EventPage({ params }: { params: Params }) {
         </div>
       </header>
 
-      <section className="rounded-xl border border-line bg-white p-4 space-y-3">
+      <section className="rounded-xl border border-line bg-zinc-900 p-4 space-y-3">
         <div className="grid grid-cols-2 gap-3 text-sm">
           <div><p className="text-muted text-xs">Waktu</p><p className="font-semibold">{d.toLocaleDateString("id-ID", { dateStyle: "full" })}<br />{d.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })} WIB</p></div>
           <div><p className="text-muted text-xs">Lokasi</p><p className="font-semibold">{e.venue_name || e.venue_text || "Venue TBA"}<br />{e.city}</p></div>
@@ -74,7 +74,7 @@ export default async function EventPage({ params }: { params: Params }) {
         <p className="text-[11px] text-muted">Panggung bukan platform tiket — pembelian terjadi di situs resmi event.</p>
       </section>
 
-      <section className="rounded-xl border border-line bg-white p-4">
+      <section className="rounded-xl border border-line bg-zinc-900 p-4">
         <h2 className="text-sm font-bold mb-2">Sumber informasi</h2>
         <ul className="space-y-1.5 text-sm">
           {sources.map((s, i) => (
