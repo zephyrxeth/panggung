@@ -43,9 +43,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <p className="max-w-3xl mx-auto">Panggung MVP. Event dengan prefix <b>[DEMO]</b> adalah data seed, sisanya event nyata dengan sumber tercatat — pembelian tiket tetap terjadi di situs resmi promotor.</p>
         </footer>
 
-        {/* mobile bottom nav — iOS glass */}
-        <nav className="sm:hidden fixed bottom-0 inset-x-0 z-40 glass-strong border-t border-white/10">
-          <div className="grid grid-cols-4 py-1.5 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
+        {/* mobile floating dock nav — iOS glass */}
+        <nav className="sm:hidden fixed bottom-3 inset-x-0 z-40 px-4">
+          <div className="mx-auto max-w-[320px] grid grid-cols-4 rounded-[24px] glass-strong shadow-[0_12px_40px_rgba(0,0,0,0.55)] border border-white/15 py-2">
             {NAV.map(n => (
               <Link key={n.href} href={n.href} className="flex flex-col items-center gap-0.5 py-1 text-[10px] font-bold uppercase tracking-wide text-zinc-400 active:text-red-300">
                 <span className="text-base leading-none text-red-400">{n.icon}</span>{n.label}
@@ -53,7 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             ))}
           </div>
         </nav>
-        <div className="sm:hidden h-16" />
+        <div className="sm:hidden h-20" />
       </body>
     </html>
   );
