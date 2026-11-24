@@ -3,7 +3,6 @@ import { Suspense } from "react";
 import { searchEvents, cities, genres, siteStats, upcomingEvents, topDemandEvent } from "@/lib/queries";
 import EventCard from "@/components/EventCard";
 import Marquee from "@/components/Marquee";
-import StageBeams from "@/components/StageBeams";
 
 export const dynamic = "force-dynamic";
 
@@ -34,11 +33,16 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
   ];
 
   return (
-    <div className="-mx-4 -mt-6">
+    <div>
       {/* ── HERO ── */}
       <section className="relative overflow-hidden">
         <div className="min-h-[70vh] flex flex-col justify-center relative">
-          <StageBeams />
+          <div className="absolute inset-0 z-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/hero-bg.jpg" alt="" className="h-full w-full object-cover" />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(5,5,5,0.82) 0%, rgba(5,5,5,0.55) 45%, rgba(24,10,10,0.85) 100%)" }} />
+            <div className="absolute inset-x-0 bottom-0 h-24" style={{ background: "linear-gradient(to top, rgba(24,10,10,1), rgba(24,10,10,0))" }} />
+          </div>
           <div className="relative z-10 mx-auto max-w-4xl px-4 pt-28 pb-16 text-center">
             <p className="text-[11px] uppercase tracking-[0.4em] text-red-400/80 font-bold">● now showing — all cities</p>
             <h1 className="mt-5 font-black tracking-tighter leading-[0.85]">
@@ -46,7 +50,7 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
                 <span className="stroke-text">Live</span> <span className="text-zinc-100">music</span>
               </span>
               <span className="block text-[11vw] sm:text-8xl uppercase mt-1">
-                <span className="shine">di kotamu</span>
+                <span className="text-zinc-100">di kotamu</span>
               </span>
             </h1>
             <p className="mt-6 text-sm sm:text-base text-zinc-400 max-w-md mx-auto leading-relaxed">
@@ -104,7 +108,7 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
       </div>
 
       {/* ── agenda: poster grid ── */}
-      <div className="px-4 py-8 space-y-5">
+      <div className="px-4 py-8 space-y-5 max-w-[1440px] mx-auto">
         <div className="flex items-center justify-between flex-wrap gap-3">
           <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight">
             Agenda <span className="stroke-text">live</span>
@@ -138,7 +142,7 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
       </div>
 
       {/* ── cara kerja ── */}
-      <div className="px-4 py-10">
+      <div className="px-4 py-10 max-w-[1440px] mx-auto">
         <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight">
           Kenapa <span className="stroke-text">bisa dipercaya</span>
         </h2>
@@ -181,7 +185,7 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
       </div>
 
       {/* ── promoter directory ── */}
-      <div className="px-4 py-10" id="promoters">
+      <div className="px-4 py-10 max-w-[1440px] mx-auto" id="promoters">
         <h2 className="text-3xl font-black uppercase tracking-tight mb-1">
           Promoter <span className="stroke-text">&amp; festival</span>
         </h2>
@@ -203,7 +207,7 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
       </div>
 
       {/* ── trust ── */}
-      <div className="px-4 py-10 border-t border-zinc-800/60">
+      <div className="px-4 py-10 border-t border-zinc-800/60 max-w-[1440px] mx-auto">
         <div className="grid sm:grid-cols-3 gap-6">
           {[
             { t: "Sumber tercatat.", d: "Setiap listing punya link sumber dan tanggal pengecekan — bisa lu cek sendiri di halaman event." },

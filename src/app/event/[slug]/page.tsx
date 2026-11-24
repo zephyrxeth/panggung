@@ -31,7 +31,7 @@ export default async function EventPage({ params }: { params: Params }) {
   const cancelled = e.status === "cancelled";
 
   return (
-    <article className="space-y-5">
+    <article className="space-y-5 max-w-[1440px] mx-auto px-4">
       {cancelled && <div className="rounded-lg bg-zinc-200 text-zinc-700 px-4 py-3 text-sm font-semibold">Event ini dibatalkan. Cek sumber resmi untuk info refund.</div>}
       {e.status === "pending_review" && <div className="rounded-lg bg-zinc-800 border border-zinc-600 px-4 py-3 text-sm text-zinc-200">Listing ini masih <b>pending review</b> moderator dan belum diverifikasi.</div>}
       {e.status === "rejected" && <div className="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">Listing ini ditolak moderator.</div>}

@@ -34,7 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </nav>
           </div>
         </header>
-        <main className="flex-1 mx-auto w-full max-w-6xl px-4 pt-20 pb-6">{children}</main>
+        <main className="flex-1 w-full pt-20 pb-6">{children}</main>
 
         {/* trust footer */}
         <footer className="border-t border-zinc-800 py-8 px-4 pb-24 sm:pb-8 text-xs text-zinc-500 space-y-2">
@@ -43,7 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <span>✓ dimoderasi komunitas</span>
             <span>✓ bukan platform tiket</span>
           </div>
-          <p className="max-w-3xl mx-auto">SIDESTAGE MVP. Event dengan prefix <b>[DEMO]</b> adalah data seed, sisanya event nyata dengan sumber tercatat — pembelian tiket tetap terjadi di situs resmi promotor.</p>
+          <p className="max-w-3xl mx-auto">SIDESTAGE — gig, konser & festival dengan sumber tercatat. Pembelian tiket tetap terjadi di situs resmi promotor.</p>
         </footer>
 
         {/* mobile floating dock nav */}

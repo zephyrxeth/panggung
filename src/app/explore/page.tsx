@@ -14,7 +14,7 @@ export default async function Explore({ searchParams }: { searchParams: SP }) {
   const events = searchEvents({ q, city, genre, type, from, to });
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 max-w-[1440px] mx-auto px-4">
       <header className="pt-4">
         <h1 className="text-4xl font-black uppercase tracking-tight">
           Jelajah <span className="stroke-text">panggung</span>
