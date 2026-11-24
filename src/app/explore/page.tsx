@@ -3,7 +3,7 @@ import { searchEvents, cities, genres } from "@/lib/queries";
 import EventCard from "@/components/EventCard";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Explore — Panggung" };
+export const metadata = { title: "Explore — SIDESTAGE" };
 
 type SP = Promise<Record<string, string | undefined>>;
 
@@ -49,7 +49,7 @@ export default async function Explore({ searchParams }: { searchParams: SP }) {
         {events.length === 0 ? (
           <div className="glass rounded-2xl p-10 text-center">
             <p className="font-bold text-lg uppercase">Nihil hasil</p>
-            <p className="text-sm text-muted mt-1">Filter terlalu ketat, atau eventnya belum ada di Panggung.</p>
+            <p className="text-sm text-muted mt-1">Filter terlalu ketat, atau eventnya belum ada di SIDESTAGE.</p>
           </div>
         ) : (
           <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 pb-6">

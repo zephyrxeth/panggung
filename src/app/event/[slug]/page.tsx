@@ -94,7 +94,7 @@ export default async function EventPage({ params }: { params: Params }) {
           )}
           <InterestButton eventId={e.id} initialCount={interested} disabled={cancelled} />
         </div>
-        <p className="text-[11px] text-muted">Panggung bukan platform tiket — pembelian terjadi di situs resmi event.</p>
+        <p className="text-[11px] text-muted">SIDESTAGE bukan platform tiket — pembelian terjadi di situs resmi event.</p>
       </section>
 
       <section className="rounded-xl border border-line bg-zinc-900 p-4">

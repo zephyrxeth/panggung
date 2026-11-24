@@ -1,69 +1,112 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* SIDESTAGE — brutalist print system.
+   Palette (LOCKED): Kokushoku Black #171213 · Young Night #242323 · Eclipse #3D3837 · Mechrite Red #A11A17 · Ravine #D2CEC7 */
 
-:root { color-scheme: dark; }
-body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: #050505; }
-
-/* ── stage keyframes (calm) ── */
-@keyframes meteor {
-  0% { transform: translateY(-20%) translateX(-50%); opacity: 0; }
-  12% { opacity: var(--opacity, 1); }
-  88% { opacity: var(--opacity, 1); }
-  100% { transform: translateY(300%) translateX(-50%); opacity: 0; }
-}
-@keyframes marquee-x { from { transform: translateX(0); } to { transform: translateX(calc(-100% - var(--gap, 12px))); } }
-@keyframes shine { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
-@keyframes pulse-glow { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.75; } }
+@keyframes marquee-x { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes shine { from { background-position: 200% center; } to { background-position: -200% center; } }
+@keyframes pulse-glow { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .beam, .marquee-track, .shine, .pulse-glow { animation: none !important; }
+  .marquee-track { animation: none !important; }
+  .shine, .pulse { animation: none !important; }
 }
 
-.beam { animation: meteor var(--duration, 8s) var(--delay, 0s) ease-in-out infinite backwards; }
-.marquee-track { animation: marquee-x var(--duration, 40s) infinite linear; }
-.marquee-track.reverse { animation-direction: reverse; }
+body { background: #171213; }
 
-/* shimmering headline */
+/* marquee */
+.marquee-track { display: flex; width: max-content; animation: marquee-x var(--marquee-dur, 40s) linear infinite; }
+
+/* brutalist surface: sharp, ruled, hard shadow */
+.card {
+  border: 2px solid #3D3837;
+  background: #242323;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.card:hover { border-color: #A11A17; box-shadow: 6px 6px 0 #A11A17; transform: translate(-2px, -2px); }
+
+.glass, .glass-strong { border-radius: 0; }
+.glass {
+  background: rgba(36,35,35,0.72);
+  backdrop-filter: blur(8px) saturate(130%);
+  border: 1px solid #3D3837;
+}
+.glass-strong {
+  background: rgba(23,18,19,0.85);
+  backdrop-filter: blur(10px) saturate(130%);
+  border: 1px solid #3D3837;
+}
+
+.input {
+  background: #171213;
+  border: 2px solid #3D3837;
+  border-radius: 0;
+  padding: 0.55rem 0.9rem;
+  color: #D2CEC7;
+  outline: none;
+}
+.input:focus { border-color: #A11A17; }
+.btn {
+  background: #A11A17;
+  color: #D2CEC7;
+  border: 2px solid #A11A17;
+  border-radius: 0;
+  padding: 0.55rem 1.1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn:hover { box-shadow: 4px 4px 0 #D2CEC7; transform: translate(-1px, -1px); }
+.btn-ghost {
+  background: transparent;
+  border: 2px solid #3D3837;
+  border-radius: 0;
+  padding: 0.55rem 1.1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #D2CEC7;
+}
+.btn-ghost:hover { border-color: #A11A17; color: #A11A17; }
+
+.badge-verified, .badge-pending, .badge-cancelled, .badge-rejected, .badge-updated, .badge-unverified {
+  display: inline-block; border: 1px solid; padding: 0.05rem 0.5rem;
+  font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; border-radius: 0;
+}
+.badge-verified { color: #D2CEC7; border-color: #D2CEC7; }
+.badge-pending { color: #3D3837; border-color: #3D3837; }
+.badge-cancelled, .badge-rejected { color: #A11A17; border-color: #A11A17; }
+.badge-updated { color: #D2CEC7; border-color: #A11A17; }
+.badge-unverified { color: #3D3837; border-color: #3D3837; }
+
+/* outline display type */
+.stroke-text {
+  color: transparent;
+  -webkit-text-stroke: 2px #D2CEC7;
+}
+.stroke-red {
+  color: transparent;
+  -webkit-text-stroke: 2px #A11A17;
+}
+
+/* shine — red ink sweep */
 .shine {
-  background: linear-gradient(100deg, #dc2626 15%, #fef2f2 42%, #ef4444 50%, #7f1d1d 65%);
-  background-size: 220% auto;
-  -webkit-background-clip: text; background-clip: text;
+  background: linear-gradient(110deg, #D2CEC7 35%, #A11A17 50%, #D2CEC7 65%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
   animation: shine 8s linear infinite;
 }
-.pulse-glow { animation: pulse-glow 9s ease-in-out infinite; }
 
-/* outlined display text */
-.stroke-text { color: transparent; -webkit-text-stroke: 1.5px rgb(239 68 68 / 0.55); }
+.pulse { animation: pulse-glow 9s ease-in-out infinite; }
 
-/* iOS glass — frosted translucent panels */
-.glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(20px) saturate(140%); -webkit-backdrop-filter: blur(20px) saturate(140%); border: 1px solid rgba(255,255,255,0.12); }
-.glass-strong { background: rgba(255,255,255,0.09); backdrop-filter: blur(28px) saturate(160%); -webkit-backdrop-filter: blur(28px) saturate(160%); border: 1px solid rgba(255,255,255,0.14); }
+/* red-to-black gradient wash (signature) */
+.wash {
+  background:
+    radial-gradient(ellipse 90% 70% at 20% 15%, rgba(161,26,23,0.55), transparent 55%),
+    radial-gradient(ellipse 80% 60% at 85% 85%, rgba(61,56,55,0.5), transparent 60%),
+    #171213;
+}
 
-.badge { @apply inline-block rounded-full px-2 py-0.5 text-[11px] font-semibold; }
-.badge-verified { @apply badge bg-red-500/20 text-red-300 ring-1 ring-inset ring-red-500/40; }
-.badge-pending { @apply badge bg-white/10 text-zinc-300 ring-1 ring-inset ring-white/15; }
-.badge-cancelled { @apply badge bg-white/5 text-zinc-500 line-through decoration-1; }
-.badge-rejected { @apply badge bg-zinc-800 text-zinc-400; }
-.badge-updated { @apply badge bg-red-400/10 text-red-200; }
-.badge-unverified { @apply badge bg-zinc-800 text-zinc-400 ring-1 ring-inset ring-zinc-700; }
-
-/* glass ticket card: soft, rounded, calm lift */
-.card { @apply relative block rounded-2xl p-5 transition-all duration-500 hover:-translate-y-0.5 hover:border-red-400/50; }
-.card { background: rgba(255,255,255,0.06); backdrop-filter: blur(20px) saturate(140%); -webkit-backdrop-filter: blur(20px) saturate(140%);
-  border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 8px 32px rgba(0,0,0,0.35); }
-.card:hover { background: rgba(255,255,255,0.09); box-shadow: 0 8px 40px rgba(239,68,68,0.18); }
-.card::before { content: ""; position: absolute; left: 14px; top: 14px; bottom: 14px; width: 1.5px;
-  border-left: 1.5px dashed rgb(239 68 68 / 0.4); }
-.input { @apply w-full rounded-2xl px-4 py-2.5 text-sm text-zinc-100 outline-none placeholder:text-zinc-500; }
-.input { background: rgba(255,255,255,0.06); backdrop-filter: blur(20px) saturate(140%); -webkit-backdrop-filter: blur(20px) saturate(140%);
-  border: 1px solid rgba(255,255,255,0.12); }
-.input:focus { border-color: rgb(239 68 68 / 0.7); box-shadow: 0 0 0 3px rgb(239 68 68 / 0.15); }
-.btn { @apply rounded-2xl bg-red-500 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-red-400 disabled:opacity-50; }
-.btn-ghost { @apply rounded-2xl border border-white/15 bg-white/5 px-4 py-2.5 text-sm font-semibold text-zinc-200 transition hover:border-red-400/60 hover:bg-white/10 hover:text-red-300; }
-
-.marquee-mask { -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent); mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent); }
-
-/* iOS-style date selector & option dropdowns */
-select.input option { background: #18181b; color: #f4f4f5; }
+/* hard grid rules */
+.rule { border-top: 2px solid #3D3837; }
