@@ -57,6 +57,28 @@ export function interestCount(eventId: number) {
   return (db.prepare("SELECT COUNT(*) n FROM event_interest WHERE event_id = ?").get(eventId) as any).n;
 }
 
+export function siteStats() {
+  const events = (db.prepare("SELECT COUNT(*) n FROM events WHERE status='verified'").get() as any).n;
+  const cityCount = (db.prepare("SELECT COUNT(DISTINCT city_id) n FROM events WHERE status='verified'").get() as any).n;
+  const artists = (db.prepare("SELECT COUNT(DISTINCT artist_id) n FROM event_artists ea JOIN events e ON e.id=ea.event_id WHERE e.status='verified'").get() as any).n;
+  const totalInterest = (db.prepare("SELECT COUNT(*) n FROM event_interest").get() as any).n;
+  return { events, cities: cityCount, artists, totalInterest };
+}
+
+export function topDemandEvent(): { event: EventRow; interest: number } | null {
+  const rows = searchEvents({ limit: 50 });
+  let best: { event: EventRow; interest: number } | null = null;
+  for (const e of rows) {
+    const n = interestCount(e.id);
+    if (!best || n > best.interest) best = { event: e, interest: n };
+  }
+  return best;
+}
+
+export function upcomingEvents(limit = 5) {
+  return searchEvents({ from: new Date().toISOString(), limit });
+}
+
 export function cities() { return db.prepare("SELECT id, name, region FROM cities ORDER BY name").all() as {id:number;name:string;region:string}[]; }
 export function genres() { return db.prepare("SELECT id, name FROM genres ORDER BY name").all() as {id:number;name:string}[]; }
 
