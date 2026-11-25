@@ -25,9 +25,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/explore" className="text-zinc-300 hover:text-red-300">Jelajah</Link>
               <Link href="/request" className="text-zinc-300 hover:text-red-300">Request</Link>
             </nav>
-            <Link href="/" className="flex items-center gap-2" aria-label="SIDESTAGE — beranda">
-              <img src="/brand/logo-red.png" alt="" className="h-6 w-auto" />
-              <img src="/brand/wordmark-red.png" alt="SIDESTAGE" className="h-[18px] w-auto" />
+            <Link href="/" className="flex items-center" aria-label="SIDESTAGE — beranda">
+              <img src="/brand/wordmark-red.png" alt="SIDESTAGE" className="h-7 w-auto" />
             </Link>
             <nav className="hidden sm:flex items-center gap-4 text-[13px] font-medium absolute right-4">
               <Link href="/submit" className="rounded-xl bg-red-500 text-white px-3 py-1.5 font-semibold hover:bg-red-400 transition-colors">Submit</Link>
