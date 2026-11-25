@@ -84,11 +84,11 @@ export default async function EventPage({ params }: { params: Params }) {
           </div>
         )}
         <p className="text-sm text-muted leading-relaxed">{e.description}</p>
-        <div className="flex flex-wrap gap-2 pt-1">
+        <div className="flex flex-col gap-2 pt-1 sm:flex-row sm:flex-wrap sm:items-center">
           {e.ticket_url ? (
-            <a className="btn" href={e.ticket_url} target="_blank" rel="noopener noreferrer">Tiket resmi ↗</a>
+            <a className="btn w-full text-center sm:w-auto" href={e.ticket_url} target="_blank" rel="noopener noreferrer">Tiket resmi ↗</a>
           ) : sources.length > 0 ? (
-            <a className="btn" href={sources[0].source_url} target="_blank" rel="noopener noreferrer">Info & tiket via sumber ↗</a>
+            <a className="btn w-full text-center sm:w-auto" href={sources[0].source_url} target="_blank" rel="noopener noreferrer">Info & tiket via sumber ↗</a>
           ) : (
             <span className="btn-ghost text-muted cursor-default">Link tiket resmi belum tersedia</span>
           )}

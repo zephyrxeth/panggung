@@ -14,6 +14,8 @@ const NAV = [
   { href: "/submit", label: "Submit", icon: "✚" },
 ];
 
+export const viewport = { viewportFit: "cover" as const };
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id">
@@ -77,7 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </footer>
 
         {/* mobile floating dock nav */}
-        <nav className="sm:hidden fixed bottom-3 inset-x-0 z-40 px-4">
+        <nav className="sm:hidden fixed bottom-0 inset-x-0 z-40 px-3 pb-[calc(12px+env(safe-area-inset-bottom))]">
           <div className="mx-auto max-w-[320px] grid grid-cols-4 rounded-[24px] glass-strong shadow-[0_12px_40px_rgba(0,0,0,0.55)] border border-white/15 py-2">
             {NAV.map(n => (
               <Link key={n.href} href={n.href} className="flex flex-col items-center gap-0.5 py-1 text-[10px] font-bold uppercase tracking-wide text-zinc-400 active:text-red-300">

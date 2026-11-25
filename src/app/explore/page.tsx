@@ -23,23 +23,23 @@ export default async function Explore({ searchParams }: { searchParams: SP }) {
       </header>
 
       {/* sticky filter bar */}
-      <form method="get" className="sticky top-16 z-20 glass-strong rounded-2xl p-2.5 flex flex-wrap gap-2 items-center">
-        <input name="q" defaultValue={q} placeholder="Cari event / artis…" className="input !w-auto flex-1 min-w-[140px] !py-1.5 text-sm" />
-        <select name="city" defaultValue={city} className="input !w-auto !py-1.5 text-sm">
+      <form method="get" className="sticky top-16 z-20 glass-strong rounded-2xl p-2.5 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center">
+        <input name="q" defaultValue={q} placeholder="Cari event / artis…" className="input col-span-2 !py-1.5 text-sm sm:flex-1 sm:min-w-[140px]" />
+        <select name="city" defaultValue={city} className="input !py-1.5 text-sm">
           <option value="">Semua kota</option>
           {cities().map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
         </select>
-        <select name="genre" defaultValue={genre} className="input !w-auto !py-1.5 text-sm">
+        <select name="genre" defaultValue={genre} className="input !py-1.5 text-sm">
           <option value="">Semua genre</option>
           {genres().map(g => <option key={g.id} value={g.name}>{g.name}</option>)}
         </select>
-        <select name="type" defaultValue={type} className="input !w-auto !py-1.5 text-sm">
+        <select name="type" defaultValue={type} className="input !py-1.5 text-sm">
           <option value="">Semua tipe</option>
           <option value="gig">Gig ♪</option>
           <option value="concert">Konser ◉</option>
           <option value="festival">Festival ✷</option>
         </select>
-        <button className="btn !py-1.5 !px-4 text-sm">Filter</button>
+        <button className="btn col-span-2 !py-1.5 text-sm sm:col-span-1 sm:!px-4">Filter</button>
         {(q || city || genre || type || from || to) && (
           <a href="/explore" className="text-xs text-red-300 underline shrink-0">reset</a>
         )}
@@ -49,7 +49,7 @@ export default async function Explore({ searchParams }: { searchParams: SP }) {
         {events.length === 0 ? (
           <div className="glass rounded-2xl p-10 text-center">
             <p className="font-bold text-lg uppercase">Nihil hasil</p>
-            <p className="text-sm text-muted mt-1">Filter terlalu ketat, atau eventnya belum ada di Panggung.</p>
+            <p className="text-sm text-muted mt-1">Filter terlalu ketat, atau eventnya belum ada di SIDESTAGE.</p>
           </div>
         ) : (
           <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 pb-6">

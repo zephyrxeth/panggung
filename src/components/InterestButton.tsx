@@ -19,8 +19,8 @@ export default function InterestButton({ eventId, initialCount, disabled }: { ev
 
   if (disabled) return <span className="btn-ghost text-muted cursor-default">Tertutup</span>;
   return (
-    <span className="inline-flex items-center gap-2">
-      <button className="btn-ghost" onClick={click} disabled={busy || state === "done"}>
+    <span className="inline-flex w-full sm:w-auto items-center justify-between sm:justify-center gap-2">
+      <button className="btn-ghost flex-1 sm:flex-none text-center" onClick={click} disabled={busy || state === "done"}>
         {state === "done" ? "✓ Tertarik" : "Saya tertarik"}
       </button>
       <span className="text-sm text-muted">{count}</span>
