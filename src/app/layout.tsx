@@ -37,14 +37,44 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </header>
         <main className="flex-1 w-full pt-20 pb-6">{children}</main>
 
-        {/* trust footer */}
-        <footer className="border-t border-zinc-800 py-8 px-4 pb-24 sm:pb-8 text-xs text-zinc-500 space-y-2">
-          <div className="mx-auto max-w-5xl flex flex-wrap gap-x-5 gap-y-1.5 font-semibold uppercase tracking-wide text-zinc-400">
-            <span>✓ sumber terverifikasi</span>
-            <span>✓ dimoderasi komunitas</span>
-            <span>✓ bukan platform tiket</span>
+        {/* footer — 4 kolom ala referensi */}
+        <footer className="border-t border-zinc-800 pt-12 pb-6 px-4 pb-24 sm:pb-6">
+          <div className="max-w-[1200px] mx-auto grid gap-10 sm:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
+            <div>
+              <img src="/brand/wordmark-red.png" alt="SIDESTAGE" className="h-9 w-auto" />
+              <p className="text-sm text-zinc-400 mt-4 max-w-[280px] leading-relaxed">Agenda live music komunitas — setiap listing punya sumber yang dicek manusia, bukan robot.</p>
+            </div>
+            <nav aria-label="Jelajah">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500 mb-4">Jelajah</p>
+              <ul className="space-y-3">
+                <li><Link href="/explore" className="text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-red-300 transition-colors">Semua event</Link></li>
+                <li><Link href="/?type=gig" className="text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-red-300 transition-colors">Gig</Link></li>
+                <li><Link href="/?type=concert" className="text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-red-300 transition-colors">Konser</Link></li>
+                <li><Link href="/?type=festival" className="text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-red-300 transition-colors">Festival</Link></li>
+              </ul>
+            </nav>
+            <nav aria-label="Komunitas">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500 mb-4">Komunitas</p>
+              <ul className="space-y-3">
+                <li><Link href="/request" className="text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-red-300 transition-colors">Request artis</Link></li>
+                <li><Link href="/submit" className="text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-red-300 transition-colors">Submit event</Link></li>
+                <li><Link href="/login" className="text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-red-300 transition-colors">Masuk / Login</Link></li>
+              </ul>
+            </nav>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500 mb-4">Kepercayaan</p>
+              <ul className="space-y-3 text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                <li className="flex gap-2"><span className="text-red-400">✓</span> Sumber terverifikasi</li>
+                <li className="flex gap-2"><span className="text-red-400">◉</span> Dimoderasi komunitas</li>
+                <li className="flex gap-2"><span className="text-red-400">◎</span> Bukan platform tiket</li>
+              </ul>
+            </div>
           </div>
-          <p className="max-w-3xl mx-auto">SIDESTAGE — gig, konser & festival dengan sumber tercatat. Pembelian tiket tetap terjadi di situs resmi promotor.</p>
+          <div className="max-w-[1200px] mx-auto mt-10">
+            <p className="text-xs text-zinc-500 max-w-2xl leading-relaxed">SIDESTAGE — gig, konser &amp; festival dengan sumber tercatat. Poster © masing-masing promotor; pembelian tiket tetap terjadi di situs resmi promotor.</p>
+            <hr className="border-zinc-800 my-5" />
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-zinc-500">© 2026 SIDESTAGE. All rights reserved.</p>
+          </div>
         </footer>
 
         {/* mobile floating dock nav */}
