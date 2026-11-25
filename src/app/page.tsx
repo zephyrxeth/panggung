@@ -222,17 +222,6 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
         </div>
       </div>
 
-      {/* ── close ── */}
-      <div className="px-4 py-16 text-center">
-        <p className="text-[15vw] sm:text-9xl font-black uppercase tracking-tighter leading-none">
-          <span className="stroke-text">[SIDE</span><span className="text-red-400">STAGE]</span>
-        </p>
-        <p className="text-sm text-muted mt-5">Panggung sampingnya penting juga. · est. 2026 · Indonesia</p>
-        <div className="mt-7 flex justify-center gap-3 flex-wrap">
-          <Link href="/explore" className="btn">Jelajah semua event</Link>
-          <Link href="/submit" className="btn-ghost">Submit event</Link>
-        </div>
-      </div>
     </div>
   );
 }
