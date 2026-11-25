@@ -4,7 +4,7 @@
 
 ## URL
 - **Situs utama:** https://2341s.my.id (custom domain, SSL aktif)
-- **Alias Vercel:** https://panggung.vercel.app (tetap jalan, sama project)
+- **Alias Vercel:** https://sidestage-z3p.vercel.app (tetap jalan, sama project)
 - **Repo kode:** https://github.com/zephyrxeth/panggung (public, branch `main`)
 - **Nama lama:** "Panggung" — masih dipakai di nama repo & subdomain Vercel (nggak bisa di-rename), brand resmi sekarang **SIDESTAGE**
 
