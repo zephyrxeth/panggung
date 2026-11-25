@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { searchEvents, cities, genres, siteStats, upcomingEvents, topDemandEvent } from "@/lib/queries";
 import EventCard from "@/components/EventCard";
 import Marquee from "@/components/Marquee";
+import StageBeams from "@/components/StageBeams";
 
 export const dynamic = "force-dynamic";
 
@@ -42,6 +43,9 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
             <img src="/hero-bg.jpg" alt="" className="h-full w-full object-cover" />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(5,5,5,0.82) 0%, rgba(5,5,5,0.55) 45%, rgba(24,10,10,0.85) 100%)" }} />
             <div className="absolute inset-x-0 bottom-0 h-24" style={{ background: "linear-gradient(to top, rgba(24,10,10,1), rgba(24,10,10,0))" }} />
+            <div className="absolute inset-0 opacity-60 mix-blend-screen pointer-events-none">
+              <StageBeams overlay />
+            </div>
           </div>
           <div className="relative z-10 mx-auto max-w-4xl px-4 pt-28 pb-16 text-center">
             <p className="text-[11px] uppercase tracking-[0.4em] text-red-400/80 font-bold">● now showing — all cities</p>

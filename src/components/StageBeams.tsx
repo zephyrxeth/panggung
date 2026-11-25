@@ -35,9 +35,9 @@ function Beam({ index }: { index: number }) {
   );
 }
 
-export default function StageBeams() {
+export default function StageBeams({ overlay = false }: { overlay?: boolean }) {
   return (
-    <div className="absolute inset-0 z-0 flex flex-row justify-center overflow-hidden bg-gradient-to-b from-[#050505] via-[#0a0a0a] to-[#180a0a]">
+    <div className={`absolute inset-0 z-0 flex flex-row justify-center overflow-hidden ${overlay ? "" : "bg-gradient-to-b from-[#050505] via-[#0a0a0a] to-[#180a0a]"}`} aria-hidden="true">
       {/* hot spotlight from the floor */}
       <div
         className="pulse-glow absolute inset-x-0 bottom-0 h-3/4"
