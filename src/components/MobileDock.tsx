@@ -8,6 +8,7 @@ const ITEMS = [
   { href: "/submit", label: "Submit", icon: "✚" },
   { href: "/struk", label: "Make a List", icon: "☰" },
   { href: "/account", label: "Akun", icon: "◉" },
+  { href: "/struk", label: "Make a List", icon: "▤" },
 ];
 
 export default function MobileDock() {
