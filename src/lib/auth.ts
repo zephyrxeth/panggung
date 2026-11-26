@@ -1,7 +1,13 @@
 import * as crypto from "crypto";
 import { db } from "@/db";
 
-const SECRET = process.env.SIDESTAGE_SECRET || process.env.PANGGUNG_SECRET || "dev-secret-change-me"; // documented in README
+const SECRET = (() => {
+  const v = process.env.SIDESTAGE_SECRET || process.env.PANGGUNG_SECRET;
+  if (v) return v;
+  if (process.env.NODE_ENV === "production")
+    throw new Error("SIDESTAGE_SECRET must be set in production — refusing silent dev-secret fallback");
+  return "dev-secret-change-me";
+})();
 
 export function hashPassword(pw: string): string {
   const salt = crypto.randomBytes(16).toString("hex");
@@ -24,22 +30,34 @@ export function createSession(userId: number): string {
   return token;
 }
 
-export function getUser(req: Request): SessionUser | null {
-  const cookie = req.headers.get("cookie") || "";
-  const m = cookie.match(/pg_session=([a-f0-9]+)/);
-  if (!m) return null;
+export function getUserByToken(token?: string): SessionUser | null {
+  if (!token) return null;
   const row = db.prepare(
     `SELECT u.id, u.display_name, u.role FROM sessions s JOIN users u ON u.id = s.user_id
      WHERE s.token = ? AND s.expires_at > datetime('now')`
-  ).get(m[1]) as SessionUser | undefined;
+  ).get(token) as SessionUser | undefined;
   return row || null;
 }
+export function sessionTokenFrom(req: Request): string | undefined {
+  const m = (req.headers.get("cookie") || "").match(/pg_session=([a-f0-9]+)/);
+  return m?.[1];
+}
+export function getUser(req: Request): SessionUser | null {
+  return getUserByToken(sessionTokenFrom(req));
+}
 
+const secureFlag = process.env.NODE_ENV === "production" ? "; Secure" : "";
+
+export function invalidateSession(req: Request) {
+  const cookie = req.headers.get("cookie") || "";
+  const m = cookie.match(/pg_session=([a-f0-9]+)/);
+  if (m) db.prepare("DELETE FROM sessions WHERE token = ?").run(m[1]);
+}
 export function sessionCookie(token: string) {
-  return `pg_session=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${30 * 86400}`;
+  return `pg_session=${token}; Path=/; HttpOnly; SameSite=Lax${secureFlag}; Max-Age=${30 * 86400}`;
 }
 export function clearCookie() {
-  return "pg_session=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0";
+  return `pg_session=; Path=/; HttpOnly; SameSite=Lax${secureFlag}; Max-Age=0`;
 }
 
 export async function requireUser(req: Request): Promise<SessionUser> {

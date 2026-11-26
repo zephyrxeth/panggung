@@ -1,4 +1,5 @@
 import { db } from "@/db";
+import { wibLocalToUtc } from "@/lib/tz";
 
 export type EventRow = {
   id: number; title: string; slug: string; description: string; type: string;
@@ -26,12 +27,15 @@ export function searchEvents(opts: {
   type?: string; status?: string; limit?: number;
 }): EventRow[] {
   const where: string[] = []; const params: any[] = [];
-  const status = opts.status || "verified";
-  where.push("e.status = ?"); params.push(status);
+  if (opts.status) { where.push("e.status = ?"); params.push(opts.status); }
+  else { where.push("e.status IN ('verified','updated')"); }
   if (opts.q) { where.push("(e.title LIKE ? OR e.description LIKE ? OR EXISTS(SELECT 1 FROM event_artists ea JOIN artists a ON a.id=ea.artist_id WHERE ea.event_id=e.id AND a.name LIKE ?))"); const like = `%${opts.q}%`; params.push(like, like, like); }
   if (opts.city) { where.push("c.name = ?"); params.push(opts.city); }
-  if (opts.from) { where.push("e.starts_at >= ?"); params.push(opts.from); }
-  if (opts.to) { where.push("e.starts_at <= ?"); params.push(opts.to); }
+  const norm = (v: string) => (/^\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}/.test(v) && !v.endsWith("Z") ? wibLocalToUtc(v) : v);
+  if (opts.from === "now") where.push("e.starts_at >= datetime('now')");
+  else if (opts.from) { where.push("e.starts_at >= datetime(?)"); params.push(norm(opts.from)); }
+  if (opts.to === "now") where.push("e.starts_at <= datetime('now')");
+  else if (opts.to) { where.push("e.starts_at <= datetime(?)"); params.push(norm(opts.to)); }
   if (opts.genre) { where.push("EXISTS(SELECT 1 FROM event_genres eg JOIN genres g ON g.id=eg.genre_id WHERE eg.event_id=e.id AND g.name = ?)"); params.push(opts.genre); }
   if (opts.type) { where.push("e.type = ?"); params.push(opts.type); }
   return db.prepare(`${BASE} WHERE ${where.join(" AND ")} ORDER BY e.starts_at ASC LIMIT ?`)
@@ -76,7 +80,7 @@ export function topDemandEvent(): { event: EventRow; interest: number } | null {
 }
 
 export function upcomingEvents(limit = 5) {
-  return searchEvents({ from: new Date().toISOString(), limit });
+  return searchEvents({ from: "now", limit });
 }
 
 export function cities() { return db.prepare("SELECT id, name, region FROM cities ORDER BY name").all() as {id:number;name:string;region:string}[]; }

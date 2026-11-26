@@ -7,7 +7,7 @@ export async function POST(req: Request, ctx: { params: { action: string } }) {
   const { action } = ctx.params;
   if (action === "register") return registerHandler(req);
   if (action === "login") return loginHandler(req);
-  if (action === "logout") return logoutHandler();
+  if (action === "logout") return logoutHandler(req);
   return NextResponse.json({ error: "Unknown action" }, { status: 404 });
 }
 

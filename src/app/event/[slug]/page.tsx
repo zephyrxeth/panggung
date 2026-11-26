@@ -2,6 +2,10 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getEventBySlug, eventSources, eventArtists, interestCount, searchEvents } from "@/lib/queries";
+import { utcDate } from "@/lib/tz";
+import { getUserByToken } from "@/lib/auth";
+import { cookies } from "next/headers";
+import { fmtWibDate, fmtWibTime } from "@/lib/tz";
 import EventCard from "@/components/EventCard";
 import InterestButton from "@/components/InterestButton";
 import ReportDialog from "@/components/ReportDialog";
@@ -15,7 +19,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   if (!e) return { title: "Event not found" };
   return {
     title: e.title,
-    description: `${e.type} di ${e.city} — ${new Date(e.starts_at).toLocaleDateString("id-ID", { dateStyle: "full" })}.`,
+    description: `${e.type} di ${e.city} — ${fmtWibDate(e.starts_at)}.`,
     openGraph: { title: e.title, description: `${e.city} · ${e.venue_name || e.venue_text || "Venue TBA"}` },
   };
 }
@@ -24,10 +28,17 @@ export default async function EventPage({ params }: { params: Params }) {
   const { slug } = await params;
   const e = getEventBySlug(slug);
   if (!e) notFound();
+  // visibility: pending_review/rejected only visible to admin or the submitter
+  if (e.status === "pending_review" || e.status === "rejected") {
+    const token = (await cookies()).get("pg_session")?.value;
+    const u = getUserByToken(token);
+    const allowed = !!u && (u.role === "admin" || u.id === (e as any).created_by);
+    if (!allowed) notFound();
+  }
   const sources = eventSources(e.id);
   const artists = eventArtists(e.id);
   const interested = interestCount(e.id);
-  const d = new Date(e.starts_at);
+  const d = utcDate(e.starts_at);
   const cancelled = e.status === "cancelled";
 
   return (
@@ -63,7 +74,7 @@ export default async function EventPage({ params }: { params: Params }) {
               </span>
             </div>
             <p className="mt-3 text-sm text-zinc-300">
-              {d.toLocaleDateString("id-ID", { dateStyle: "full" })} · {d.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })} WIB<br />
+              {fmtWibDate(e.starts_at)} · {fmtWibTime(e.starts_at)} WIB<br />
               {e.venue_name || e.venue_text || "Venue TBA"}
             </p>
           </div>
@@ -72,7 +83,7 @@ export default async function EventPage({ params }: { params: Params }) {
 
       <section className="rounded-xl border border-line bg-zinc-900 p-4 space-y-3">
         <div className="grid grid-cols-2 gap-3 text-sm">
-          <div><p className="text-muted text-xs">Waktu</p><p className="font-semibold">{d.toLocaleDateString("id-ID", { dateStyle: "full" })}<br />{d.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })} WIB</p></div>
+          <div><p className="text-muted text-xs">Waktu</p><p className="font-semibold">{fmtWibDate(e.starts_at)}<br />{fmtWibTime(e.starts_at)} WIB</p></div>
           <div><p className="text-muted text-xs">Lokasi</p><p className="font-semibold">{e.venue_name || e.venue_text || "Venue TBA"}<br />{e.city}</p></div>
           <div><p className="text-muted text-xs">Harga</p><p className="font-semibold">{e.price_info || "TBA"}</p></div>
           <div><p className="text-muted text-xs">Minat</p><p className="font-semibold">{interested} orang tertarik</p></div>

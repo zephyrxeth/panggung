@@ -1,8 +1,14 @@
 import { NextResponse } from "next/server";
 import { db, slugify } from "@/db";
-import { hashPassword, verifyPassword, createSession, getUser, sessionCookie, clearCookie, AuthError } from "@/lib/auth";
+import { hashPassword, verifyPassword, createSession, getUser, sessionCookie, clearCookie, invalidateSession, AuthError } from "@/lib/auth";
+
+function clientIp(req: Request): string {
+  return (req.headers.get("x-forwarded-for") || "").split(",")[0].trim() || "local";
+}
 
 export async function registerHandler(req: Request) {
+  if (!rateLimit(`register:${clientIp(req)}`, 5, 3600))
+    return NextResponse.json({ error: "Too many registrations from this IP. Try again later." }, { status: 429 });
   const body = await req.json().catch(() => ({}));
   const { display_name, email, password } = body as any;
   if (!display_name || !email || !password || password.length < 8)
@@ -16,6 +22,8 @@ export async function registerHandler(req: Request) {
 }
 
 export async function loginHandler(req: Request) {
+  if (!rateLimit(`login:${clientIp(req)}`, 10, 300))
+    return NextResponse.json({ error: "Too many login attempts. Try again in a few minutes." }, { status: 429 });
   const body = await req.json().catch(() => ({}));
   const { email, password } = body as any;
   const row = db.prepare("SELECT id, password_hash, display_name, role FROM users WHERE lower(email)=lower(?)").get(email) as any;
@@ -25,7 +33,8 @@ export async function loginHandler(req: Request) {
   return NextResponse.json({ ok: true, display_name: row.display_name, role: row.role }, { headers: { "Set-Cookie": sessionCookie(token) } });
 }
 
-export function logoutHandler() {
+export function logoutHandler(req?: Request) {
+  if (req) invalidateSession(req);
   return NextResponse.json({ ok: true }, { headers: { "Set-Cookie": clearCookie() } });
 }
 

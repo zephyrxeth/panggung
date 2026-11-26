@@ -3,6 +3,7 @@ import { db } from "@/db";
 import { searchEvents } from "@/lib/queries";
 import { getUser, AuthError } from "@/lib/auth";
 import { apiError, uniqueSlug, rateLimit } from "@/lib/api";
+import { wibLocalToUtc } from "@/lib/tz";
 
 export const dynamic = "force-dynamic";
 
@@ -33,6 +34,17 @@ export async function POST(req: Request) {
     if (!VALID_TYPES.includes(type)) return NextResponse.json({ error: "invalid type" }, { status: 400 });
     if (!VALID_SOURCES.includes(source_type || "other")) return NextResponse.json({ error: "invalid source_type" }, { status: 400 });
     if (!/^https?:\/\//i.test(source_url)) return NextResponse.json({ error: "source_url must be a http(s) URL" }, { status: 400 });
+    if (ticket_url && !/^https?:\/\//i.test(ticket_url)) return NextResponse.json({ error: "ticket_url must be a http(s) URL" }, { status: 400 });
+    if (poster_path && !/^(\/uploads\/|https?:\/\/)/i.test(poster_path)) return NextResponse.json({ error: "invalid poster_path" }, { status: 400 });
+    const cityRow = db.prepare("SELECT id FROM cities WHERE id = ?").get(city_id) as any;
+    if (!cityRow) return NextResponse.json({ error: "city_id does not exist" }, { status: 400 });
+    let startsUtc: string;
+    try { startsUtc = wibLocalToUtc(String(starts_at)); }
+    catch { return NextResponse.json({ error: "starts_at must be a datetime-local value (WIB)" }, { status: 400 }); }
+    if (venue_id) {
+      const v = db.prepare("SELECT id FROM venues WHERE id = ? AND city_id = ?").get(venue_id, city_id) as any;
+      if (!v) return NextResponse.json({ error: "selected venue does not belong to the selected city" }, { status: 400 });
+    }
 
     // duplicate detection: title+date+city, or date+city+venue
     const dup = db.prepare(
@@ -48,7 +60,7 @@ export async function POST(req: Request) {
         `INSERT INTO events (title, slug, description, type, starts_at, city_id, venue_id, venue_text, poster_path, ticket_url, price_info, status, verification_status, created_by)
          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending_review', 'unverified', ?)`
       ).run(String(title).trim().slice(0, 140), slug, String(description || "").slice(0, 2000), type,
-            starts_at, city_id, venue_id || null, String(venue_text || "").slice(0, 200),
+            startsUtc, city_id, venue_id || null, String(venue_text || "").slice(0, 200),
             poster_path || null, ticket_url && /^https?:\/\//i.test(ticket_url) ? ticket_url : null,
             String(price_info || "").slice(0, 140), user.id);
       const eventId = info.lastInsertRowid as number;

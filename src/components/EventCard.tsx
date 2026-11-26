@@ -1,3 +1,4 @@
+import { utcDate } from "@/lib/tz";
 import Link from "next/link";
 import type { EventRow } from "@/lib/queries";
 
@@ -12,7 +13,7 @@ const STATUS_LABEL: Record<string, string> = {
 const TYPE_ICON: Record<string, string> = { gig: "♪", concert: "◉", festival: "✷" };
 
 export default function EventCard({ e }: { e: EventRow }) {
-  const date = new Date(e.starts_at);
+  const date = utcDate(e.starts_at);
   const day = date.getDate();
   const month = date.toLocaleDateString("id-ID", { month: "short" }).toUpperCase();
   return (
