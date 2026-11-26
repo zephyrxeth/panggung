@@ -12,6 +12,10 @@ db.exec(fs.readFileSync(path.join(process.cwd(), "src", "db", "schema.sql"), "ut
 
 const hash = (pw) => { const s = crypto.randomBytes(16).toString("hex"); return `${s}:${crypto.scryptSync(pw, s, 32).toString("hex")}`; };
 
+// Demo password is NEVER hardcoded: set SEED_DEMO_PASSWORD, or a random one is
+// generated for this run and printed once in the local console output below.
+const demoPassword = process.env.SEED_DEMO_PASSWORD || crypto.randomBytes(12).toString("base64url");
+
 for (const t of ["scout_contributions","moderation_log","reports","artist_requests","event_interest","event_genres","event_artists","event_sources","sessions","events","artists","genres","venues","cities","users"]) db.exec(`DELETE FROM ${t}`);
 db.exec("DELETE FROM sqlite_sequence");
 
@@ -38,11 +42,11 @@ for (const [n, g] of [["Band Demo Satu","Indie"],["Demo Rock Trio","Rock"],["DJ 
   artists[n] = artist.run(n, slugify(n), genres[g]).lastInsertRowid;
 
 const adminId = db.prepare("INSERT INTO users (display_name, email, password_hash, role) VALUES (?, ?, ?, 'admin')")
-  .run("Mod Demo", "admin@panggung.demo", hash("demo12345")).lastInsertRowid;
+  .run("Mod Demo", "admin@panggung.demo", hash(demoPassword)).lastInsertRowid;
 const scoutId = db.prepare("INSERT INTO users (display_name, email, password_hash, role) VALUES (?, ?, ?, 'scout')")
-  .run("scout.pseudonym", "scout@panggung.demo", hash("demo12345")).lastInsertRowid;
+  .run("scout.pseudonym", "scout@panggung.demo", hash(demoPassword)).lastInsertRowid;
 const fanId = db.prepare("INSERT INTO users (display_name, email, password_hash, role) VALUES (?, ?, ?, 'scout')")
-  .run("fan.demo", "fan@panggung.demo", hash("demo12345")).lastInsertRowid;
+  .run("fan.demo", "fan@panggung.demo", hash(demoPassword)).lastInsertRowid;
 
 const insEvent = db.prepare(`INSERT INTO events
   (title, slug, description, type, starts_at, ends_at, city_id, venue_id, venue_text, ticket_url, price_info, status, verification_status, created_by, submitted_by_role)
@@ -87,4 +91,4 @@ db.prepare("INSERT OR IGNORE INTO artist_requests (user_id, artist_id, city_id) 
 db.prepare("INSERT OR IGNORE INTO artist_requests (user_id, artist_id, city_id) VALUES (?, ?, ?)").run(scoutId, artists["DJ Demo Elektronik"], cities.Jakarta);
 
 console.log(`Seeded ${n} DEMO events, 3 users, 6 cities.`);
-console.log("DEMO logins (dev only): admin@panggung.demo / demo12345 (admin), scout@panggung.demo / demo12345");
+console.log(`DEMO logins (dev only, password for this seed run): admin@panggung.demo / ${demoPassword} (admin), scout@panggung.demo / ${demoPassword}, fan@panggung.demo / ${demoPassword}`);

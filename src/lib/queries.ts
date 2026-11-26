@@ -87,6 +87,10 @@ export function upcomingEvents(limit = 5) {
 }
 
 export function cities() { return db.prepare("SELECT id, name, region FROM cities ORDER BY name").all() as {id:number;name:string;region:string}[]; }
+// For discovery filters (homepage/explore): only cities with at least one publicly
+// visible event, so a filter option never guarantees an empty result. Submit/request
+// forms keep using cities() — a city with no events yet must stay selectable there.
+export function citiesWithEvents() { return db.prepare("SELECT id, name, region FROM cities WHERE id IN (SELECT DISTINCT city_id FROM events WHERE status IN ('verified','updated')) ORDER BY name").all() as {id:number;name:string;region:string}[]; }
 export function genres() { return db.prepare("SELECT id, name FROM genres ORDER BY name").all() as {id:number;name:string}[]; }
 
 export function duplicateCheck(title: string, startsAt: string, cityId: number, venueName: string) {

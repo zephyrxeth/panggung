@@ -10,7 +10,15 @@ export default function AccountPage() {
   const [err, setErr] = useState("");
 
   useEffect(() => {
-    fetch("/api/auth/me").then(r => r.json()).then((d: Me) => setMe(d.user)).catch(() => setMe(null));
+    // Timeout so a slow/hung /api/auth/me (e.g. cold start) resolves to the
+    // logged-out view instead of showing "Memuat…" indefinitely.
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 5000);
+    fetch("/api/auth/me", { signal: ctrl.signal })
+      .then(r => (r.ok ? r.json() : Promise.reject(new Error())))
+      .then((d: Me) => setMe(d.user ?? null))
+      .catch(() => setMe(null))
+      .finally(() => clearTimeout(timer));
   }, []);
 
   async function logout() {

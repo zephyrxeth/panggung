@@ -15,7 +15,7 @@ export default async function RequestPage({ searchParams }: { searchParams: SP }
     <div className="space-y-5 max-w-[1440px] mx-auto px-4">
       <section>
         <h1 className="text-2xl font-black tracking-tight">Tour Radar — request artis ke kotamu</h1>
-        <p className="text-sm text-muted mt-1">Ngalihin artis yang belum diumumin main di kotamu. Satu user boleh satu request per artis/kota. <b>Request bukan komitmen beli tiket</b> — ini sinyal minat buat promoter.</p>
+        <p className="text-sm text-muted mt-1">Datengin artis yang belum diumumin main di kotamu. Satu user boleh satu request per artis/kota. <b>Request bukan komitmen beli tiket</b> — ini sinyal minat buat promoter.</p>
       </section>
 
       <AuthUserPicker cities={cities()} prefillArtist={sp.artist || ""} />
