@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import { searchEvents, cities, genres, siteStats, upcomingEvents, topDemandEvent } from "@/lib/queries";
+import { searchEvents, citiesWithEvents, genres, siteStats, upcomingEvents, topDemandEvent } from "@/lib/queries";
 import FilterForm from "@/components/FilterForm";
 import EventCard from "@/components/EventCard";
 import Marquee from "@/components/Marquee";
@@ -121,7 +121,7 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
           <FilterForm className="flex gap-2 flex-wrap">
             <select name="city" defaultValue={city} aria-label="Filter kota" className="input !w-auto text-xs py-1.5">
               <option value="">Semua kota</option>
-              {cities().map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
+              {citiesWithEvents().map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
             </select>
             <select name="genre" defaultValue={genre} aria-label="Filter genre" className="input !w-auto text-xs py-1.5">
               <option value="">Semua genre</option>
@@ -169,7 +169,7 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
 
       {/* ── demand signal moment ── */}
       <div className="px-4 py-14 text-center">
-        {demand && demand.interest > 0 ? (
+        {demand && demand.interest >= 5 ? (
           <>
             <p className="text-[11px] uppercase tracking-[0.4em] text-red-400/80 font-bold">● demand signal — live dari komunitas</p>
             <p className="text-4xl sm:text-7xl font-black tracking-tighter uppercase leading-[1.05] max-w-4xl mx-auto mt-6">

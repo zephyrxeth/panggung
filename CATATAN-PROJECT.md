@@ -5,8 +5,8 @@
 ## URL
 - **Situs utama:** https://2341s.my.id (custom domain, SSL aktif)
 - **Alias Vercel:** https://sidestage-z3p.vercel.app (tetap jalan, sama project)
-- **Repo kode:** https://github.com/zephyrxeth/panggung (public, branch `main`)
-- **Nama lama:** "Panggung" — masih dipakai di nama repo & subdomain Vercel (nggak bisa di-rename), brand resmi sekarang **SIDESTAGE**
+- **Repo kode:** https://github.com/zephyrxeth/sidestage (public, branch `main`)
+- **Nama lama:** "Panggung" — subdomain Vercel lama masih pakai nama itu (nggak bisa di-rename), brand resmi sekarang **SIDESTAGE**
 
 ## Akun & layanan (semua $0 / free tier)
 | Layanan | Buat apa | Akses |
@@ -31,7 +31,7 @@
 - **15 event, SEMUA nyata** dengan sumber tercatat (tabel `event_sources`). Data `[DEMO]` sudah dibersihkan total.
 - Sumber poster: CDN AsiaLive365 (Sanity), Fasticket, Scenepass — poster © masing-masing promotor
 - Halaman `/submit` bisa dipakai siapa pun buat submit event (masuk antrian review admin di `/admin`)
-- Login demo (buat cek panel admin): `admin@panggung.demo` / `demo12345`
+- Akses admin: nggak ada login demo yang dipublish di catatan ini. Buat admin permanen, ikutin `docs/ADMIN-PROVISIONING.md` (register akun sendiri lewat UI, terus promosiin role-nya server-side pakai `scripts/promote-admin.mjs`).
 
 ## Yang AMAN lu utak-atik di Vercel dashboard
 - Domains, Deployments (lihat), Analytics
