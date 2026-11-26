@@ -54,6 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <ul className="space-y-3">
                 <li><Link href="/request" className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400 hover:text-red-300 transition-colors">Request artis</Link></li>
                 <li><Link href="/submit" className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400 hover:text-red-300 transition-colors">Submit event</Link></li>
+                <li><Link href="/struk" className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400 hover:text-red-300 transition-colors">Make a List</Link></li>
                 <li><Link href="/login" className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400 hover:text-red-300 transition-colors">Masuk / Login</Link></li>
               </ul>
             </nav>

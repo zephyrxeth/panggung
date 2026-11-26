@@ -6,6 +6,7 @@ const ITEMS = [
   { href: "/explore", label: "Jelajah", icon: "◎" },
   { href: "/request", label: "Request", icon: "☆" },
   { href: "/submit", label: "Submit", icon: "✚" },
+  { href: "/struk", label: "Make a List", icon: "☰" },
   { href: "/account", label: "Akun", icon: "◉" },
 ];
 
