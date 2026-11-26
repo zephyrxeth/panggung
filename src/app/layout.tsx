@@ -1,18 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import MobileDock from "@/components/MobileDock";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: { default: "SIDESTAGE — live music di kotamu", template: "%s · SIDESTAGE" },
   description: "Community-powered concert discovery for Indonesia. Find gigs, concerts and festivals by city, date and genre.",
 };
-
-const NAV = [
-  { href: "/", label: "Home", logo: true },
-  { href: "/request", label: "Request", icon: "☆" },
-  { href: "/submit", label: "Submit", icon: "✚" },
-  { href: "/account", label: "Akun", icon: "◉" },
-];
 
 export const viewport = { viewportFit: "cover" as const };
 
@@ -71,20 +65,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </footer>
 
-        {/* mobile floating dock nav */}
-        <nav className="sm:hidden fixed bottom-0 inset-x-0 z-40 px-3 pb-[calc(12px+env(safe-area-inset-bottom))]">
-          <div className="mx-auto max-w-[320px] grid grid-cols-3 rounded-[24px] glass-strong shadow-[0_12px_40px_rgba(0,0,0,0.55)] border border-white/15 py-2">
-            {NAV.map(n => (
-              <Link key={n.href} href={n.href} className="flex flex-col items-center gap-1 py-1 text-[10px] font-bold uppercase tracking-wide text-zinc-400 active:text-red-300">
-                {n.logo
-                  ? <img src="/brand/logo-red.png" alt="" className="h-[18px] w-[18px] object-contain" />
-                  : <span className="text-[18px] leading-none text-red-400">{n.icon}</span>}
-                {n.label}
-              </Link>
-            ))}
-          </div>
-        </nav>
-        <div className="sm:hidden h-24" />
+        {/* mobile floating dock — hamburger menu */}
+        <MobileDock />
+        <div className="sm:hidden h-20" />
       </body>
     </html>
   );
