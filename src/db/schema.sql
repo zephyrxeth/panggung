@@ -129,6 +129,12 @@ CREATE TABLE IF NOT EXISTS scout_contributions (
   reputation_points INTEGER NOT NULL DEFAULT 0
 );
 
+CREATE TABLE IF NOT EXISTS rate_limits (
+  k TEXT NOT NULL,
+  ts TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS idx_rate_limits_k_ts ON rate_limits(k, ts);
+
 CREATE TABLE IF NOT EXISTS sessions (
   token TEXT PRIMARY KEY,
   user_id INTEGER NOT NULL REFERENCES users(id),

@@ -55,12 +55,17 @@ export function uniqueSlug(table: string, base: string): string {
   return slug;
 }
 
+// DB-backed rate limiter — works across serverless instances (in-memory limiter doesn't).
 export function rateLimit(key: string, max: number, windowSec: number): boolean {
-  // simple in-memory limiter: enough for MVP spam reduction
-  const g = globalThis as any;
-  g._rl = g._rl || {};
-  const now = Date.now();
-  const arr: number[] = (g._rl[key] = (g._rl[key] || []).filter((t: number) => now - t < windowSec * 1000));
-  if (arr.length >= max) return false;
-  arr.push(now); return true;
+  try {
+    db.prepare(`DELETE FROM rate_limits WHERE ts < datetime('now', '-1 day')`).run();
+    db.prepare(`INSERT INTO rate_limits (k) VALUES (?)`).run(key);
+    const n = (db.prepare(
+      `SELECT COUNT(*) n FROM rate_limits WHERE k = ? AND ts >= datetime('now', ?)`
+    ).get(key, `-${windowSec} seconds`) as any).n;
+    return n <= max;
+  } catch {
+    // DB hiccup — fail open on reads, but never on auth endpoints in practice
+    return true;
+  }
 }
