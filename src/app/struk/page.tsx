@@ -544,7 +544,20 @@ export default function StrukPage() {
   formPanel.addEventListener('input', draw);
   formPanel.addEventListener('change', draw);
 
+  function whenAssetsReady(){
+    var jobs = [];
+    if(!textureReady && textureImg.src) jobs.push(new Promise(function(res){ textureImg.onload = function(){ textureReady = true; res(); }; textureImg.onerror = res; }));
+    if(!logoReady && logoImg.src) jobs.push(new Promise(function(res){ logoImg.onload = function(){ logoReady = true; res(); }; logoImg.onerror = res; }));
+    if(document.fonts && document.fonts.ready) jobs.push(document.fonts.ready);
+    return Promise.all(jobs);
+  }
   function doDownload(){
+    whenAssetsReady().then(function(){
+      draw();
+      savePNG();
+    });
+  }
+  function savePNG(){
     draw();
     if(canvas.toBlob){
       canvas.toBlob(function(blob){
