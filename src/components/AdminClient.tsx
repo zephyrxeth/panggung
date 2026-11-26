@@ -25,7 +25,7 @@ export default function AdminClient() {
     } finally { setBusy(false); }
   }
 
-  if (err) return <div className="rounded-xl bg-red-50 border border-red-200 p-6 text-sm text-red-700">{err}. Login sebagai admin dulu (demo: admin@panggung.demo).</div>;
+  if (err) return <div className="rounded-xl bg-red-50 border border-red-200 p-6 text-sm text-red-700">{err}. Login sebagai admin dulu (demo: admin@sidestage.demo).</div>;
   if (!data) return <p className="text-sm text-muted">Memuat…</p>;
 
   return (
