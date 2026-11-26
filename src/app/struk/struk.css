@@ -85,11 +85,11 @@
       padding:10px;background:hsla(0,0%,100%,.04); }
 }
 .struk-page .item-row input { min-width:0 }
-.struk-page /* ghost = the site's .btn-ghost */
-  .del-btn { border:1px solid var(--ghost-line);background:hsla(0,0%,100%,.05);color:#E4E4E7;
+.struk-page /* del = solid red, biar keliatan */
+  .del-btn { border:1px solid rgba(239,68,68,.55);background:rgba(239,68,68,.28);color:#FCA5A5;
     font-size:18px;line-height:1;cursor:pointer;min-height:44px;border-radius:var(--radius);padding:0;
     transition:border-color .15s ease, color .15s ease, background-color .15s ease; }
-.struk-page .del-btn:hover:not(:disabled) { border-color:hsla(0,91%,71%,.6);color:var(--accent-soft);background:hsla(0,0%,100%,.1) }
+.struk-page .del-btn:hover:not(:disabled) { border-color:rgba(239,68,68,.9);color:#fff;background:rgba(239,68,68,.55) }
 .struk-page .del-btn:disabled { opacity:.3;cursor:not-allowed }
 .struk-page .add-btn { width:100%;border:1px dashed hsla(0,0%,100%,.25);background:hsla(0,0%,100%,.05);color:#E4E4E7;
     font-weight:600;font-size:14px;letter-spacing:.02em;
