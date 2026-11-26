@@ -16,9 +16,9 @@ Concert/gig discovery berbasis komunitas (Bahasa Indonesia, mobile-first). Diban
 - **Auth self-hosted** — password scrypt (crypto bawaan Node), session cookie HttpOnly 30 hari, tanpa provider eksternal.
 - Upload poster: filesystem lokal, ≤2MB, png/jpg/webp.
 
-## Skema (16 tabel)
+## Skema (15 tabel)
 
-`users, cities, venues, genres, artists, events, event_genres, event_artists, event_sources, event_interest, artist_requests, reports, moderation_log, sessions, scout_contributions, rate_limits` — lihat `src/db/schema.sql`.
+`users, cities, venues, genres, artists, events, event_genres, event_artists, event_sources, event_interest, artist_requests, reports, moderation_log, sessions, scout_contributions` — lihat `src/db/schema.sql`.
 
 Status event: `verified | pending_review | cancelled | rejected | updated`.
 
@@ -32,7 +32,7 @@ npm run dev      # atau: npm run build && npm start
 
 Server default `:3000`. Env opsional: `PANGGUNG_DB` (path DB), `PANGGUNG_SECRET`.
 
-Demo login (dev only): seed akun demo via `npm run seed` di environment lokal. Password demo nggak di-hardcode: diambil dari env `SEED_DEMO_PASSWORD`; kalau nggak di-set, seed bikin password acak dan cuma diprint sekali di output lokal pas seed jalan. Akun demo DINONAKTIFKAN di production (password dinormalisasi acak).
+Demo login (dev only): seed akun demo via `npm run seed` di environment lokal. Akun demo DINONAKTIFKAN di production (password dinormalisasi acak).
 
 ## API
 
@@ -47,7 +47,7 @@ Demo login (dev only): seed akun demo via `npm run seed` di environment lokal. P
 | `/api/auth/me` | GET | user session |
 | `/api/admin/events` | GET/POST | requireAdmin; approve/reject/cancel/merge/edit + log |
 
-Rate limiting DB-backed per IP/user (tabel `rate_limits`, implementasi di `src/lib/api.ts`) — state-nya di database, bukan memori proses, jadi tetap konsisten di serverless/multi-instance.
+Rate limiting in-memory per IP/user; di produksi multi-instance ganti ke Redis.
 
 ## Roadmap (sesuai brief — future)
 

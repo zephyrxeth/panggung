@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { searchEvents, citiesWithEvents, genres } from "@/lib/queries";
+import { searchEvents, cities, genres } from "@/lib/queries";
 import EventCard from "@/components/EventCard";
 import FilterForm from "@/components/FilterForm";
 
@@ -29,7 +29,7 @@ export default async function Explore({ searchParams }: { searchParams: SP }) {
         <input name="q" defaultValue={q} placeholder="Cari event / artis…" aria-label="Cari event atau artis" className="input col-span-2 !py-1.5 text-sm sm:flex-1 sm:min-w-[140px]" />
         <select name="city" defaultValue={city} aria-label="Filter kota" className="input !py-1.5 text-sm">
           <option value="">Semua kota</option>
-          {citiesWithEvents().map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
+          {cities().map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
         </select>
         <select name="genre" defaultValue={genre} aria-label="Filter genre" className="input !py-1.5 text-sm">
           <option value="">Semua genre</option>
