@@ -21,20 +21,12 @@ export default function EventCard({ e }: { e: EventRow }) {
       {/* poster / fallback */}
       <div className="relative aspect-[3/4] overflow-hidden bg-zinc-900">
         {e.poster_path ? (
-          <>
-            {/* blurred cover backdrop so the full poster can be shown with object-contain without letterbox bars */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={e.poster_path} alt="" aria-hidden loading="lazy"
-              className="absolute inset-0 h-full w-full object-cover scale-110 blur-md opacity-60" />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={e.poster_path} alt={`Poster ${e.title}`} loading="lazy"
-              className="absolute inset-0 h-full w-full object-contain transition-transform duration-700 group-hover:scale-105" />
-          </>
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={e.poster_path} alt={`Poster ${e.title}`} loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
         ) : (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-4 text-center bg-gradient-to-br from-zinc-900 via-stone-950 to-red-950/40">
+          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-zinc-900 via-stone-950 to-red-950/40">
             <span className="text-4xl text-red-500/50 font-black">{TYPE_ICON[e.type] || "♪"}</span>
-            <span className="text-sm font-black uppercase leading-snug line-clamp-3 text-zinc-200">{e.title}</span>
-            <span className="text-[10px] font-bold uppercase tracking-wide text-red-300/80">{e.type} · {e.city}</span>
           </div>
         )}
         {/* date pill */}
