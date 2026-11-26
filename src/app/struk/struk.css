@@ -42,7 +42,7 @@
     color:var(--ink); }
 .struk-page header.top h1 .outline { color:transparent;
     -webkit-text-stroke:1.5px rgba(239,68,68,.6); }
-.struk-page header.top p.lede { margin:12px 0 0;color:var(--muted);font-size:15px;line-height:1.6;max-width:640px }
+.struk-page header.top p.lede { margin:12px 0 34px;color:var(--muted);font-size:15px;line-height:1.6;max-width:640px }
 .struk-page .layout { display:grid;grid-template-columns:480px minmax(0,1fr);gap:22px;align-items:start }
 @media(max-width:900px) {
 .struk-page .layout { grid-template-columns:1fr }
