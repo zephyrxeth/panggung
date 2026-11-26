@@ -32,7 +32,7 @@ npm run dev      # atau: npm run build && npm start
 
 Server default `:3000`. Env opsional: `PANGGUNG_DB` (path DB), `PANGGUNG_SECRET`.
 
-Demo login (dev only): `admin@panggung.demo` / `demo12345` (admin), `scout@panggung.demo` / `demo12345`.
+Demo login (dev only): seed akun demo via `npm run seed` di environment lokal. Akun demo DINONAKTIFKAN di production (password dinormalisasi acak).
 
 ## API
 
