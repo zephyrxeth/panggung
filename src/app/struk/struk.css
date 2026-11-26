@@ -54,6 +54,7 @@
     border:1px solid var(--glass-line);
     border-radius:var(--radius);
     box-shadow:0 8px 32px rgba(0,0,0,.35);
+    -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
     padding:22px; }
 .struk-page .panel h2 { font-size:13px;letter-spacing:.14em;text-transform:uppercase;
     margin:0 0 16px;font-weight:800;color:var(--ink); }
@@ -62,6 +63,7 @@
     margin-bottom:7px;color:#D4D4D8; }
 .struk-page /* inputs = the site's .input: glass fill, .struk-page 1rem radius, .struk-page red focus ring */
   .field input[type="text"], .struk-page .field input[type="number"], .struk-page .field input[type="date"], .struk-page .item-row input { width:100%;border:1px solid var(--glass-line);background:var(--glass);
+    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
     padding:10px 16px;font-size:14px;color:var(--ink-2);border-radius:var(--radius);outline:none;
     color-scheme:dark; }
 .struk-page .field input::placeholder, .struk-page .item-row input::placeholder { color:var(--faint) }
@@ -85,13 +87,15 @@
       padding:10px;background:hsla(0,0%,100%,.04); }
 }
 .struk-page .item-row input { min-width:0 }
-.struk-page /* del = solid red, biar keliatan */
-  .del-btn { border:1px solid rgba(239,68,68,.55);background:rgba(239,68,68,.28);color:#FCA5A5;
+.struk-page /* del = glass (glassify), hover aksen merah */
+  .del-btn { border:1px solid var(--glass-line);background:var(--glass);color:#E4E4E7;
+    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
     font-size:18px;line-height:1;cursor:pointer;min-height:44px;border-radius:var(--radius);padding:0;
     transition:border-color .15s ease, color .15s ease, background-color .15s ease; }
-.struk-page .del-btn:hover:not(:disabled) { border-color:rgba(239,68,68,.9);color:#fff;background:rgba(239,68,68,.55) }
+.struk-page .del-btn:hover:not(:disabled) { border-color:rgba(239,68,68,.7);color:var(--accent-soft);background:var(--glass-strong) }
 .struk-page .del-btn:disabled { opacity:.3;cursor:not-allowed }
 .struk-page .add-btn { width:100%;border:1px dashed hsla(0,0%,100%,.25);background:hsla(0,0%,100%,.05);color:#E4E4E7;
+    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
     font-weight:600;font-size:14px;letter-spacing:.02em;
     padding:12px 16px;cursor:pointer;min-height:48px;border-radius:var(--radius);margin-top:4px;
     transition:border-color .15s ease, color .15s ease, background-color .15s ease; }
@@ -109,7 +113,8 @@
     padding:13px 10px;cursor:pointer;min-height:52px;border-radius:var(--radius);
     transition:background-color .15s ease, border-color .15s ease; }
 .struk-page .btn-download:hover { background:var(--accent-hover);border-color:var(--accent-hover) }
-.struk-page .btn-reset { background:hsla(0,0%,100%,.05);color:#E4E4E7;border:1px solid var(--ghost-line);
+.struk-page .btn-reset { background:var(--glass);color:#E4E4E7;border:1px solid var(--glass-line);
+    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
     font-weight:600;font-size:14px;letter-spacing:.02em;
     padding:13px 10px;cursor:pointer;min-height:52px;border-radius:var(--radius);
     transition:border-color .15s ease, color .15s ease, background-color .15s ease; }
