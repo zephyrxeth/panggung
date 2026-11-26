@@ -26,15 +26,13 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 export default async function EventPage({ params }: { params: Params }) {
   const { slug } = await params;
+  const token = cookies().get("pg_session")?.value;
+  const u = getUserByToken(token);
   const e = getEventBySlug(slug);
-  if (!e) notFound();
   // visibility: pending_review/rejected only visible to admin or the submitter
-  if (e.status === "pending_review" || e.status === "rejected") {
-    const token = (await cookies()).get("pg_session")?.value;
-    const u = getUserByToken(token);
-    const allowed = !!u && (u.role === "admin" || u.id === (e as any).created_by);
-    if (!allowed) notFound();
-  }
+  const hidden = !e || ((e.status === "pending_review" || e.status === "rejected")
+    && !(u && (u.role === "admin" || u.id === (e as any).created_by)));
+  if (!e || hidden) notFound();
   const sources = eventSources(e.id);
   const artists = eventArtists(e.id);
   const interested = interestCount(e.id);
