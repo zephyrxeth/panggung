@@ -19,6 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="id">
       <body className="bg-paper text-ink antialiased min-h-screen flex flex-col">
+        <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-2 focus:left-2 focus:rounded-xl focus:bg-red-500 focus:px-4 focus:py-2 focus:text-sm focus:font-bold">Langsung ke konten</a>
         {/* floating glass header pill — logo centered */}
         <header className="fixed top-3 inset-x-0 z-50 px-4">
           <div className="mx-auto flex items-center justify-center max-w-[560px] h-12 rounded-[22px] glass-strong border border-white/15 shadow-[0_12px_40px_rgba(0,0,0,0.5)] px-3">
@@ -35,7 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </nav>
           </div>
         </header>
-        <main className="flex-1 w-full pt-20 pb-6">{children}</main>
+        <main id="main" className="flex-1 w-full pt-20 pb-6">{children}</main>
 
         {/* footer — 4 kolom ala referensi */}
         <footer className="border-t border-zinc-800 pt-12 pb-40 px-4 sm:pb-6">

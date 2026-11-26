@@ -31,14 +31,14 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
       <form onSubmit={submit} className="rounded-xl border border-line bg-zinc-900 p-4 space-y-3">
         {mode === "register" && (
           <label className="block text-sm"><span className="text-muted text-xs">Nama tampil (boleh pseudonym)</span>
-            <input className="input mt-1" value={name} onChange={e => setName(e.target.value)} required maxLength={60} /></label>
+            <input autoComplete="name" className="input mt-1" value={name} onChange={e => setName(e.target.value)} required maxLength={60} /></label>
         )}
         <label className="block text-sm"><span className="text-muted text-xs">Email</span>
-          <input className={`input mt-1 ${fieldErr.email ? "!border-red-500" : ""}`} type="email" value={email} onChange={e => setEmail(e.target.value)} required aria-invalid={!!fieldErr.email} />
+          <input autoComplete="email" className={`input mt-1 ${fieldErr.email ? "!border-red-500" : ""}`} type="email" value={email} onChange={e => setEmail(e.target.value)} required aria-invalid={!!fieldErr.email} />
           {fieldErr.email && <span className="text-xs text-red-500 mt-1 block">{fieldErr.email}</span>}</label>
         <label className="block text-sm"><span className="text-muted text-xs">Password {mode === "register" && "(min 8 karakter)"}</span>
           <span className="relative block">
-            <input className={`input mt-1 pr-12 ${fieldErr.pw ? "!border-red-500" : ""}`} type={showPw ? "text" : "password"} value={pw} onChange={e => setPw(e.target.value)} required minLength={mode === "register" ? 8 : 1} aria-invalid={!!fieldErr.pw} />
+            <input autoComplete={mode === "login" ? "current-password" : "new-password"} className={`input mt-1 pr-12 ${fieldErr.pw ? "!border-red-500" : ""}`} type={showPw ? "text" : "password"} value={pw} onChange={e => setPw(e.target.value)} required minLength={mode === "register" ? 8 : 1} aria-invalid={!!fieldErr.pw} />
             <button type="button" onClick={() => setShowPw(s => !s)} className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold uppercase text-muted hover:text-red-400" aria-label={showPw ? "Sembunyikan password" : "Tampilkan password"}>{showPw ? "Hide" : "Show"}</button>
           </span>
           {fieldErr.pw && <span className="text-xs text-red-500 mt-1 block">{fieldErr.pw}</span>}</label>

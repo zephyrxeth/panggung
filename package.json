@@ -2,7 +2,7 @@
   "name": "sidestage",
   "private": true,
   "scripts": {
-    "test": "npx tsx tests/tz.test.mjs",
+    "test": "npx tsx tests/tz.test.mjs && npx tsx tests/moderation.test.mjs",
     "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start -p 3000",

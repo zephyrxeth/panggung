@@ -37,7 +37,7 @@ export default function SubmitForm({ cities }: { cities: { id: number; name: str
       <div className="rounded-xl border border-line bg-zinc-900 p-4 space-y-3">
         <label className="block text-sm"><span className="text-muted text-xs">Nama event *</span>
           <input className="input mt-1" value={form.title} onChange={e => set("title", e.target.value)} required maxLength={140} /></label>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <label className="block text-sm"><span className="text-muted text-xs">Tipe</span>
             <select className="input mt-1" value={form.type} onChange={e => set("type", e.target.value)}>
               <option value="gig">Gig</option><option value="concert">Concert</option><option value="festival">Festival</option>
@@ -45,7 +45,7 @@ export default function SubmitForm({ cities }: { cities: { id: number; name: str
           <label className="block text-sm"><span className="text-muted text-xs">Tanggal &amp; jam mulai *</span>
             <input className="input mt-1" type="datetime-local" value={form.starts_at} onChange={e => set("starts_at", e.target.value)} required /></label>
         </div>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <label className="block text-sm"><span className="text-muted text-xs">Kota *</span>
             <select className="input mt-1" value={form.city_id} onChange={e => { set("city_id", e.target.value); set("venue_id", ""); }}>
               {cities.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -68,7 +68,7 @@ export default function SubmitForm({ cities }: { cities: { id: number; name: str
 
       <div className="rounded-xl border border-line bg-zinc-900 p-4 space-y-3">
         <p className="text-sm font-bold">Sumber / bukti * <span className="font-normal text-muted text-xs">(wajib — link ke pengumuman asli)</span></p>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <label className="block text-sm"><span className="text-muted text-xs">Jenis sumber</span>
             <select className="input mt-1" value={form.source_type} onChange={e => set("source_type", e.target.value)}>
               {["instagram", "x", "tiktok", "website", "ticketing", "other"].map(s => <option key={s} value={s}>{s}</option>)}

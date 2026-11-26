@@ -24,7 +24,7 @@ const BASE = `
 
 export function searchEvents(opts: {
   q?: string; city?: string; from?: string; to?: string; genre?: string;
-  type?: string; status?: string; limit?: number;
+  type?: string; status?: string; limit?: number; sort?: "soonest" | "latest" | "newest";
 }): EventRow[] {
   const where: string[] = []; const params: any[] = [];
   if (opts.status) { where.push("e.status = ?"); params.push(opts.status); }
@@ -38,7 +38,10 @@ export function searchEvents(opts: {
   else if (opts.to) { where.push("e.starts_at <= datetime(?)"); params.push(norm(opts.to)); }
   if (opts.genre) { where.push("EXISTS(SELECT 1 FROM event_genres eg JOIN genres g ON g.id=eg.genre_id WHERE eg.event_id=e.id AND g.name = ?)"); params.push(opts.genre); }
   if (opts.type) { where.push("e.type = ?"); params.push(opts.type); }
-  return db.prepare(`${BASE} WHERE ${where.join(" AND ")} ORDER BY e.starts_at ASC LIMIT ?`)
+  const order = opts.sort === "latest" ? "e.starts_at DESC"
+    : opts.sort === "newest" ? "e.created_at DESC"
+    : "e.starts_at ASC";
+  return db.prepare(`${BASE} WHERE ${where.join(" AND ")} ORDER BY ${order} LIMIT ?`)
     .all(...params, opts.limit || 50) as EventRow[];
 }
 

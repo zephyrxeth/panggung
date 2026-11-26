@@ -18,7 +18,7 @@ body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
 @keyframes pulse-glow { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.75; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .beam, .marquee-track, .shine, .pulse-glow { animation: none !important; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
 
 .beam { animation: meteor var(--duration, 8s) var(--delay, 0s) ease-in-out infinite backwards; }

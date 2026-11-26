@@ -17,7 +17,7 @@ export default function EventCard({ e }: { e: EventRow }) {
   const day = date.getDate();
   const month = date.toLocaleDateString("id-ID", { month: "short" }).toUpperCase();
   return (
-    <Link href={`/event/${e.slug}`} className="group block rounded-2xl overflow-hidden glass transition-all duration-500 hover:border-red-400/60 hover:-translate-y-1">
+    <Link href={`/event/${e.slug}`} aria-label={`${e.title} — ${e.type} di ${e.city}, ${date.toLocaleDateString("id-ID", { day: "numeric", month: "long", timeZone: "Asia/Jakarta" })}`} className="group block rounded-2xl focus-visible:ring-2 focus-visible:ring-red-400/60 focus-visible:outline-none rounded-2xl overflow-hidden glass transition-all duration-500 hover:border-red-400/60 hover:-translate-y-1">
       {/* poster / fallback */}
       <div className="relative aspect-[3/4] overflow-hidden bg-zinc-900">
         {e.poster_path ? (
