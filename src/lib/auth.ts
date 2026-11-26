@@ -21,7 +21,7 @@ export function verifyPassword(pw: string, stored: string): boolean {
   return crypto.timingSafeEqual(Buffer.from(hash, "hex"), Buffer.from(test, "hex"));
 }
 
-export type SessionUser = { id: number; display_name: string; role: string };
+export type SessionUser = { id: number; display_name: string; email: string; role: string };
 
 export function createSession(userId: number): string {
   const token = crypto.randomBytes(24).toString("hex");
@@ -33,7 +33,7 @@ export function createSession(userId: number): string {
 export function getUserByToken(token?: string): SessionUser | null {
   if (!token) return null;
   const row = db.prepare(
-    `SELECT u.id, u.display_name, u.role FROM sessions s JOIN users u ON u.id = s.user_id
+    `SELECT u.id, u.display_name, u.email, u.role FROM sessions s JOIN users u ON u.id = s.user_id
      WHERE s.token = ? AND s.expires_at > datetime('now')`
   ).get(token) as SessionUser | undefined;
   return row || null;

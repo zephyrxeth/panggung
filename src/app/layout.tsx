@@ -84,7 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             ))}
           </div>
         </nav>
-        <div className="sm:hidden h-20" />
+        <div className="sm:hidden h-24" />
       </body>
     </html>
   );
