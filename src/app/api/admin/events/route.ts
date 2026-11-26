@@ -14,9 +14,17 @@ export async function GET(req: Request) {
   try {
     await requireAdmin(req);
     const queue = db.prepare(
-      `SELECT e.id, e.title, e.slug, e.status, e.type, e.starts_at, e.created_at, c.name AS city, u.display_name
-       FROM events e JOIN cities c ON c.id=e.city_id LEFT JOIN users u ON u.id=e.created_by
-       ORDER BY CASE e.status WHEN 'pending_review' THEN 0 ELSE 1 END, e.created_at DESC LIMIT 100`).all();
+      `SELECT e.id, e.title, e.slug, e.status, e.type, e.starts_at, e.created_at, e.city_id, c.name AS city,
+              e.venue_id, v.name AS venue_name, e.venue_text, e.poster_path, e.price_info, e.description,
+              e.ticket_url, e.verification_status, u.display_name
+       FROM events e JOIN cities c ON c.id=e.city_id
+       LEFT JOIN venues v ON v.id=e.venue_id
+       LEFT JOIN users u ON u.id=e.created_by
+       ORDER BY CASE e.status WHEN 'pending_review' THEN 0 ELSE 1 END, e.created_at DESC LIMIT 100`).all() as any[];
+    for (const ev of queue) {
+      ev.sources = db.prepare("SELECT source_url, source_type, checked_at FROM event_sources WHERE event_id = ?").all(ev.id);
+      ev.artists = db.prepare("SELECT a.name FROM event_artists ea JOIN artists a ON a.id=ea.artist_id WHERE ea.event_id = ? ORDER BY ea.lineup_order").all(ev.id).map((r: any) => r.name);
+    }
     const reports = db.prepare(
       `SELECT r.*, e.title FROM reports r JOIN events e ON e.id=r.event_id
        WHERE r.status='open' ORDER BY r.created_at DESC`).all();
@@ -43,11 +51,23 @@ export async function POST(req: Request) {
     };
 
     switch (b.action) {
-      case "approve":
-        patch({ status: "verified" });
+      case "approve": {
+        // approving publishes AND marks the source as checked (explicit verification step)
+        const vStatus = b.verification_status === "official" ? "official" : "source_checked";
+        patch({ status: "verified", verification_status: vStatus });
+        db.prepare("UPDATE event_sources SET checked_at = datetime('now') WHERE event_id = ? AND checked_at IS NULL").run(id);
         db.prepare("UPDATE scout_contributions SET validation_status='validated', reputation_points=10 WHERE event_id=? AND validation_status='pending'").run(id);
-        log(admin.id, "event", id, "approve", b.reason || "");
+        log(admin.id, "event", id, "approve", `${b.reason || ""} [verification=${vStatus}]`.trim());
         break;
+      }
+      case "verify": {
+        // re-verify an already-published event without changing its publication status
+        const vStatus2 = b.verification_status === "official" ? "official" : "source_checked";
+        patch({ verification_status: vStatus2 });
+        db.prepare("UPDATE event_sources SET checked_at = datetime('now') WHERE event_id = ? AND checked_at IS NULL").run(id);
+        log(admin.id, "event", id, "verify", `verification=${vStatus2} ${b.reason || ""}`.trim());
+        break;
+      }
       case "reject":
         patch({ status: "rejected" });
         db.prepare("UPDATE scout_contributions SET validation_status='rejected' WHERE event_id=? AND validation_status='pending'").run(id);

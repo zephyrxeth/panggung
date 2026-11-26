@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { searchEvents, cities, genres, siteStats, upcomingEvents, topDemandEvent } from "@/lib/queries";
+import FilterForm from "@/components/FilterForm";
 import EventCard from "@/components/EventCard";
 import Marquee from "@/components/Marquee";
 import StageBeams from "@/components/StageBeams";
@@ -117,7 +118,7 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
           <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight">
             Agenda <span className="stroke-text">live</span>
           </h2>
-          <form method="get" className="flex gap-2 flex-wrap">
+          <FilterForm className="flex gap-2 flex-wrap">
             <select name="city" defaultValue={city} aria-label="Filter kota" className="input !w-auto text-xs py-1.5">
               <option value="">Semua kota</option>
               {cities().map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
@@ -128,7 +129,7 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
             </select>
             {from && <input type="hidden" name="from" value={from} />}
             {type && <input type="hidden" name="type" value={type} />}
-          </form>
+          </FilterForm>
         </div>
 
         <Suspense fallback={null}>
