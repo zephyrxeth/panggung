@@ -1,13 +1,13 @@
 import * as crypto from "crypto";
 import { db } from "@/db";
 
-const SECRET = (() => {
+export function getSecret(): string {
   const v = process.env.SIDESTAGE_SECRET || process.env.PANGGUNG_SECRET;
   if (v) return v;
   if (process.env.NODE_ENV === "production")
     throw new Error("SIDESTAGE_SECRET must be set in production — refusing silent dev-secret fallback");
   return "dev-secret-change-me";
-})();
+}
 
 export function hashPassword(pw: string): string {
   const salt = crypto.randomBytes(16).toString("hex");
