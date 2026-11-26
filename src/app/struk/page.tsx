@@ -546,10 +546,21 @@ export default function StrukPage() {
 
   function whenAssetsReady(){
     var jobs = [];
-    if(!textureReady && textureImg.src) jobs.push(new Promise(function(res){ textureImg.onload = function(){ textureReady = true; res(); }; textureImg.onerror = res; }));
-    if(!logoReady && logoImg.src) jobs.push(new Promise(function(res){ logoImg.onload = function(){ logoReady = true; res(); }; logoImg.onerror = res; }));
+    // Safari/iOS decode gambar async — paksa decode eksplisit biar drawImage
+    // gak ngegambar tekstur kosong/half-decoded di canvas.
+    function ensure(img, mark){
+      if(!img.src) return;
+      if(mark()) return;
+      jobs.push(new Promise(function(res){
+        var done = function(){ res(); };
+        img.onload = function(){ (img.decode ? img.decode().catch(done).then(function(){ mark(); done(); }) : (mark(), done())); };
+        img.onerror = done;
+      }));
+    }
+    ensure(textureImg, function(){ return textureReady; });
+    ensure(logoImg, function(){ return logoReady; });
     if(document.fonts && document.fonts.ready) jobs.push(document.fonts.ready);
-    return Promise.all(jobs);
+    return Promise.all(jobs).then(function(){ textureReady = textureReady || (textureImg.naturalWidth > 0); logoReady = logoReady || (logoImg.naturalWidth > 0); });
   }
   function doDownload(){
     whenAssetsReady().then(function(){
