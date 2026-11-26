@@ -65,6 +65,11 @@ body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
 .btn-ghost { @apply rounded-2xl border border-white/15 bg-white/5 px-4 py-2.5 text-sm font-semibold text-zinc-200 transition hover:border-red-400/60 hover:bg-white/10 hover:text-red-300 focus-visible:ring-2 focus-visible:ring-red-400/60 focus-visible:outline-none; }
 .input[aria-invalid="true"] { border-color: rgb(239 68 68 / 0.8) !important; }
 .input:disabled { opacity: 50; cursor: not-allowed; }
+/* iOS datetime-local punya lebar intrinsik fix dari webkit — cegah overflow container */
+.input[type="datetime-local"], .input[type="date"], .input[type="time"] { min-width: 0; }
+@media (max-width: 480px) {
+  .input[type="datetime-local"], .input[type="date"], .input[type="time"] { font-size: 0.8125rem; padding-inline: 0.75rem; }
+}
 
 .marquee-mask { -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent); mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent); }
 
