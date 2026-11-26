@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import MobileDock from "@/components/MobileDock";
+import HamburgerMenu from "@/components/HamburgerMenu";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -18,17 +19,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* floating glass header pill — logo centered */}
         <header className="fixed top-3 inset-x-0 z-50 px-4">
           <div className="mx-auto flex items-center justify-center max-w-[560px] h-12 rounded-[22px] glass-strong border border-white/15 shadow-[0_12px_40px_rgba(0,0,0,0.5)] px-3">
-            <nav className="hidden sm:flex items-center gap-4 text-[13px] font-medium absolute left-4">
-              <Link href="/explore" className="text-zinc-300 hover:text-red-300">Jelajah</Link>
-              <Link href="/request" className="text-zinc-300 hover:text-red-300">Request</Link>
-            </nav>
+
             <Link href="/" className="flex items-center" aria-label="SIDESTAGE — beranda">
               <img src="/brand/wordmark-red.png" alt="SIDESTAGE" className="h-7 w-auto" />
             </Link>
-            <nav className="hidden sm:flex items-center gap-4 text-[13px] font-medium absolute right-4">
-              <Link href="/struk" className="rounded-xl bg-red-500 text-white px-3 py-1.5 font-semibold hover:bg-red-400 transition-colors">Make a List</Link>
-              <Link href="/account" className="text-muted hover:text-red-300">Akun</Link>
-            </nav>
+            <div className="hidden sm:block absolute right-4">
+              <HamburgerMenu direction="down" align="right" size="sm" />
+            </div>
           </div>
         </header>
         <main id="main" className="flex-1 w-full pt-20 pb-6">{children}</main>
