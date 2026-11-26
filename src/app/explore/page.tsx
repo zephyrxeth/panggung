@@ -50,6 +50,7 @@ export default async function Explore({ searchParams }: { searchParams: SP }) {
           <div className="glass rounded-2xl p-10 text-center">
             <p className="font-bold text-lg uppercase">Nihil hasil</p>
             <p className="text-sm text-muted mt-1">Filter terlalu ketat, atau eventnya belum ada di SIDESTAGE.</p>
+            <a href="/request" className="btn mt-4 inline-block">Request event ini</a>
           </div>
         ) : (
           <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 pb-6">
