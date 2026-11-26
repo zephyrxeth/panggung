@@ -2,6 +2,7 @@ node_modules/
 .next/
 data/
 public/uploads/
+!public/uploads/12-*.jpg
 *.db
 .env
 .vercel
