@@ -39,7 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* footer — 4 kolom ala referensi */}
         <footer className="border-t border-zinc-800 pt-12 pb-6 px-4 pb-24 sm:pb-6">
-          <div className="max-w-[1200px] mx-auto grid gap-10 sm:grid-cols-[1.6fr_auto_auto] sm:justify-items-end">
+          <div className="max-w-[1200px] mx-auto grid gap-10 sm:grid-cols-[1fr_auto_auto]">
             <div>
               <img src="/brand/wordmark-red.png" alt="SIDESTAGE" className="h-9 w-auto" />
               <p className="text-sm text-zinc-400 mt-4 max-w-[280px] leading-relaxed">Agenda live music komunitas — setiap listing punya sumber yang dicek manusia, bukan robot.</p>
