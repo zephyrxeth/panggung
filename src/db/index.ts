@@ -7,10 +7,11 @@ import path from "path";
  * Env:
  *   TURSO_DATABASE_URL  libsql://<db>-<org>.turso.io  (kosong = lokal file)
  *   TURSO_AUTH_TOKEN    turso db tokens create ...
- *   PANGGUNG_DB         path SQLite lokal (default data/panggung.db)
+ *   SIDESTAGE_DB        path SQLite lokal (default data/sidestage.db)
+ *   (alias lama PANGGUNG_DB masih didukung)
  */
 
-const localPath = process.env.PANGGUNG_DB || path.join(process.cwd(), "data", "panggung.db");
+const localPath = process.env.SIDESTAGE_DB || process.env.PANGGUNG_DB || path.join(process.cwd(), "data", "sidestage.db");
 if (!process.env.TURSO_DATABASE_URL) fs.mkdirSync(path.dirname(localPath), { recursive: true });
 
 export const db = process.env.TURSO_DATABASE_URL

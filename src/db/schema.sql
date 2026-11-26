@@ -1,4 +1,4 @@
--- Panggung schema (SQLite). Portable SQL; migration path to Postgres is straightforward.
+-- SIDESTAGE schema (SQLite). Portable SQL; migration path to Postgres is straightforward.
 
 CREATE TABLE IF NOT EXISTS users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,

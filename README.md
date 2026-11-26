@@ -1,4 +1,4 @@
-# Panggung — Concert Discovery Platform
+# SIDESTAGE — Concert Discovery Platform
 
 Concert/gig discovery berbasis komunitas (Bahasa Indonesia, mobile-first). Dibangun sesuai agent brief: MVP functional, database nyata, tanpa data/kolaborasi event palsu (semua seed data ber-prefix `[DEMO]`), arsitektur siap untuk fitur Demand Signal & promoter.
 

@@ -1,7 +1,7 @@
 import * as crypto from "crypto";
 import { db } from "@/db";
 
-const SECRET = process.env.PANGGUNG_SECRET || "dev-secret-change-me"; // documented in README
+const SECRET = process.env.SIDESTAGE_SECRET || process.env.PANGGUNG_SECRET || "dev-secret-change-me"; // documented in README
 
 export function hashPassword(pw: string): string {
   const salt = crypto.randomBytes(16).toString("hex");
