@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <img src="/brand/wordmark-red.png" alt="SIDESTAGE" className="h-7 w-auto" />
             </Link>
             <nav className="hidden sm:flex items-center gap-4 text-[13px] font-medium absolute right-4">
-              <Link href="/submit" className="rounded-xl bg-red-500 text-white px-3 py-1.5 font-semibold hover:bg-red-400 transition-colors">Submit</Link>
+              <Link href="/struk" className="rounded-xl bg-red-500 text-white px-3 py-1.5 font-semibold hover:bg-red-400 transition-colors">Make a List</Link>
               <Link href="/account" className="text-muted hover:text-red-300">Akun</Link>
             </nav>
           </div>
