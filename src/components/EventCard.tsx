@@ -16,9 +16,10 @@ export default function EventCard({ e }: { e: EventRow }) {
   const date = utcDate(e.starts_at);
   const day = date.getDate();
   const month = date.toLocaleDateString("id-ID", { month: "short" }).toUpperCase();
+  const price = e.price_info ? `Mulai ${e.price_info.replace(/^Mulai |^From /i, "")}` : null;
   return (
-    <Link href={`/event/${e.slug}`} aria-label={`${e.title} — ${e.type} di ${e.city}, ${date.toLocaleDateString("id-ID", { day: "numeric", month: "long", timeZone: "Asia/Jakarta" })}`} className="group block rounded-2xl focus-visible:ring-2 focus-visible:ring-red-400/60 focus-visible:outline-none rounded-2xl overflow-hidden glass transition-all duration-500 hover:border-red-400/60 hover:-translate-y-1">
-      {/* poster / fallback */}
+    <Link href={`/event/${e.slug}`} aria-label={`${e.title} — ${e.type} di ${e.city}, ${date.toLocaleDateString("id-ID", { day: "numeric", month: "long", timeZone: "Asia/Jakarta" })}`} className="group block focus-visible:ring-2 focus-visible:ring-red-400/60 focus-visible:outline-none rounded-3xl overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(239,68,68,0.15)] ring-1 ring-white/10">
+      {/* poster full-bleed, teks overlay di bawah */}
       <div className="relative aspect-[3/4] overflow-hidden bg-zinc-900">
         {e.poster_path ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -26,33 +27,29 @@ export default function EventCard({ e }: { e: EventRow }) {
             className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-zinc-900 via-stone-950 to-red-950/40">
-            <span className="text-4xl text-red-500/50 font-black">{TYPE_ICON[e.type] || "♪"}</span>
+            <span className="text-6xl text-red-500/50 font-black">{TYPE_ICON[e.type] || "♪"}</span>
           </div>
         )}
-        {/* date pill */}
-        <div className="absolute top-2 left-2 rounded-xl bg-black/60 backdrop-blur-md border border-white/15 px-2.5 py-1 text-center">
-          <span className="block text-[9px] uppercase tracking-wide text-red-400">{month}</span>
-          <span className="block text-lg font-black leading-none text-white">{day}</span>
+
+        {/* date badge — kotak hitam rounded, kiri atas */}
+        <div className="absolute top-3 left-3 rounded-2xl bg-black px-3 py-2 text-center shadow-lg">
+          <span className="block text-[10px] font-semibold uppercase tracking-widest text-white/90 leading-tight">{month}</span>
+          <span className="block text-2xl font-black leading-none text-white mt-0.5">{day}</span>
         </div>
-        {/* status */}
-        <div className="absolute top-2 right-2">{e.status !== "verified" && <span className={STATUS_BADGE[e.status] || "badge-unverified"}>{STATUS_LABEL[e.status] || e.status}</span>}</div>
-        {/* gradient bottom for text */}
-        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/90 to-transparent" />
-        <p className="absolute bottom-2 left-3 right-3 text-[11px] font-bold uppercase tracking-wide text-red-300">
-          {TYPE_ICON[e.type] || "♪"} {e.type} · {e.city}
-        </p>
-      </div>
-      {/* body */}
-      <div className="p-3">
-        <h3 className="font-bold text-sm leading-snug line-clamp-2 uppercase group-hover:text-red-300 transition-colors">{e.title}</h3>
-        <p className="text-xs text-muted mt-1 truncate">{e.venue_name || e.venue_text || e.city}</p>
-        {e.price_info ? (
-          <p className="mt-1.5 text-xs font-bold text-red-300">Mulai {e.price_info.replace(/^Mulai |^From /i, "")}</p>
-        ) : e.artists ? (
-          <p className="mt-1.5 text-xs text-zinc-400 truncate">Lineup: {e.artists}</p>
-        ) : (
-          <p className="mt-1.5 text-xs text-zinc-500">{date.toLocaleDateString("id-ID", { weekday: "long" })}</p>
-        )}
+
+        {/* status badge (non-verified saja) */}
+        <div className="absolute top-3 right-3">{e.status !== "verified" && <span className={STATUS_BADGE[e.status] || "badge-unverified"}>{STATUS_LABEL[e.status] || e.status}</span>}</div>
+
+        {/* gradient bawah — lebih tinggi, teks besar di atasnya */}
+        <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black via-black/80 to-transparent" />
+        <div className="absolute bottom-0 left-4 right-4 pb-5">
+          <h3 className="text-white font-black uppercase leading-tight text-xl line-clamp-2 drop-shadow-md">{e.title}</h3>
+          <p className="text-white/90 text-xs font-bold uppercase tracking-wide mt-1.5">[{e.type} - {e.city}]</p>
+          {price && <p className="text-red-300 text-xs font-bold mt-1">{price}</p>}
+          {!price && (e.venue_name || e.venue_text) && (
+            <p className="text-white/60 text-[11px] mt-1 truncate">{e.venue_name || e.venue_text}</p>
+          )}
+        </div>
       </div>
     </Link>
   );

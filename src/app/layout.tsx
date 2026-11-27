@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main" className="flex-1 w-full pt-20 pb-6">{children}</main>
 
         {/* footer — 4 kolom ala referensi */}
-        <footer className="border-t border-zinc-800 pt-12 pb-40 px-4 sm:pb-6">
+        <footer className="border-t border-zinc-800 pt-12 pb-40 px-4 sm:pb-12">
           <div className="max-w-[1200px] mx-auto grid gap-10 sm:grid-cols-[1fr_auto_auto]">
             <div>
               <img src="/brand/wordmark-red.png" alt="SIDESTAGE" className="h-9 w-auto" />
