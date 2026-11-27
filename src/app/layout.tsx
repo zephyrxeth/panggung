@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import MobileDock from "@/components/MobileDock";
 import HamburgerMenu from "@/components/HamburgerMenu";
+import MotionShell from "@/components/MotionShell";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem("sidestage_theme");if(t==="light")document.documentElement.classList.add("light")}catch(e){}` }} />
         </head>
       <body className="bg-paper text-ink antialiased min-h-screen flex flex-col">
+        <MotionShell />
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-2 focus:left-2 focus:rounded-xl focus:bg-red-500 focus:px-4 focus:py-2 focus:text-sm focus:font-bold">Langsung ke konten</a>
         {/* floating glass header pill — logo centered */}
         <header className="fixed top-3 inset-x-0 z-50 px-4">
@@ -36,11 +38,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* footer — 4 kolom ala referensi */}
         <footer className="border-t border-zinc-800 pt-12 pb-40 px-4 sm:pb-12">
           <div className="max-w-[1200px] mx-auto grid gap-10 sm:grid-cols-[1fr_auto_auto]">
-            <div>
+            <div data-reveal>
               <img src="/brand/wordmark-red.png" alt="SIDESTAGE" className="h-9 w-auto" />
               <p className="text-sm text-zinc-400 mt-4 max-w-[280px] leading-relaxed">Agenda live music komunitas — setiap listing punya sumber yang dicek manusia, bukan robot.</p>
             </div>
-            <nav aria-label="Jelajah" className="sm:text-right">
+            <nav data-reveal style={{ "--reveal-delay": "100ms" } as React.CSSProperties} aria-label="Jelajah" className="sm:text-right">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 mb-4">Jelajah</p>
               <ul className="space-y-3">
                 <li><Link href="/explore" className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400 hover:text-red-300 transition-colors">Semua event</Link></li>
@@ -49,7 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <li><Link href="/?type=festival" className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400 hover:text-red-300 transition-colors">Festival</Link></li>
               </ul>
             </nav>
-            <nav aria-label="Komunitas" className="sm:text-right">
+            <nav data-reveal style={{ "--reveal-delay": "200ms" } as React.CSSProperties} aria-label="Komunitas" className="sm:text-right">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 mb-4">Komunitas</p>
               <ul className="space-y-3">
                 <li><Link href="/request" className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400 hover:text-red-300 transition-colors">Request artis</Link></li>
