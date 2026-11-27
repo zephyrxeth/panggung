@@ -37,7 +37,7 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
   return (
     <div>
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden">
+      <section className="hero-dark relative overflow-hidden">
         <div className="min-h-[70vh] flex flex-col justify-center relative">
           <div className="absolute inset-0 z-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}

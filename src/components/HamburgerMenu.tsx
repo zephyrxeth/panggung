@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
+import ThemeToggle from "./ThemeToggle";
 
 export const MENU_ITEMS = [
   { href: "/explore", label: "Jelajah", icon: "◎" },
@@ -74,12 +75,13 @@ export default function HamburgerMenu({ direction = "up", align = "center", size
               key={n.href}
               href={n.href}
               onClick={() => setOpen(false)}
-              className={`flex items-center gap-3 px-5 py-3 text-sm font-semibold text-zinc-200 active:bg-white/10 hover:bg-white/10 ${i < MENU_ITEMS.length - 1 ? "border-b border-white/10" : ""}`}
+              className="flex items-center gap-3 px-5 py-3 text-sm font-semibold text-zinc-200 active:bg-white/10 hover:bg-white/10 border-b border-white/10"
             >
               <span className="text-red-400 text-lg leading-none w-6 text-center" aria-hidden="true">{n.icon}</span>
               {n.label}
             </Link>
           ))}
+          <ThemeToggle row />
         </div>
       )}
     </div>

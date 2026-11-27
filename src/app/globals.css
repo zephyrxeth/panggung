@@ -75,3 +75,72 @@ body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
 
 /* iOS-style date selector & option dropdowns */
 select.input option { background: #18181b; color: #f4f4f5; }
+
+/* ── LIGHT MODE (palette: Snowbank E8EAE9 / Whispering Smoke D9D7D5 / Rossini Red C2071C / Barolo 6E020C / Rose Brown BE8E8C) ── */
+html.light { color-scheme: light; }
+html.light body { background: #E8EAE9; color: #1C1C1A; }
+
+/* glass surfaces → putih transparan di atas terang */
+html.light .glass { background: rgba(255,255,255,0.62); border: 1px solid rgba(22,22,22,0.14); }
+html.light .glass-strong { background: rgba(255,255,255,0.78); border: 1px solid rgba(22,22,22,0.16); }
+html.light .card { background: rgba(255,255,255,0.62); border: 1px solid rgba(22,22,22,0.14); box-shadow: 0 8px 32px rgba(22,22,22,0.10); }
+html.light .card:hover { background: rgba(255,255,255,0.82); box-shadow: 0 8px 40px rgba(194,7,28,0.14); }
+html.light .card::before { border-left-color: rgba(194,7,28,0.4); }
+
+/* form */
+html.light .input { color: #1C1C1A; }
+html.light .input::placeholder, html.light input::placeholder { color: #6B6B66; }
+html.light input, html.light select, html.light textarea { background-color: rgba(255,255,255,0.65); color: #1C1C1A; border-color: rgba(22,22,22,0.16); }
+
+/* teks zinc → gelap */
+html.light .text-zinc-100, html.light .text-zinc-50, html.light .text-zinc-200 { color: #1C1C1A !important; }
+html.light .text-zinc-300 { color: #2E2E2B !important; }
+html.light .text-zinc-400 { color: #6B6B66 !important; }
+html.light .text-zinc-500 { color: #7A7A75 !important; }
+html.light .text-muted { color: #6B6B66 !important; }
+
+/* border/ring putih → gelap translucent */
+html.light [class*="border-white"] { border-color: rgba(22,22,22,0.14) !important; }
+html.light [class*="ring-white"] { --tw-ring-color: rgba(22,22,22,0.14) !important; }
+html.light [class*="border-zinc-800"] { border-color: rgba(22,22,22,0.18) !important; }
+
+/* aksen merah → Rossini/Barolo */
+html.light .bg-red-500 { background-color: #C2071C !important; }
+html.light .bg-red-400 { background-color: #C2071C !important; }
+html.light .hover\:bg-red-400:hover { background-color: #6E020C !important; }
+html.light .text-red-300, html.light .text-red-400 { color: #6E020C !important; }
+html.light .text-red-200 { color: #C2071C !important; }
+html.light .text-red-500 { color: #C2071C !important; }
+html.light .text-red-500\/50 { color: rgba(194,7,28,0.45) !important; }
+html.light .hover\:text-red-300:hover { color: #C2071C !important; }
+html.light .hover\:text-red-200:hover { color: #6E020C !important; }
+html.light .hover\:border-red-400\/60:hover, html.light .hover\:border-red-400\/50:hover { border-color: rgba(194,7,28,0.55) !important; }
+html.light [class*="bg-red-500\/20"] { background-color: rgba(194,7,28,0.12) !important; }
+html.light [class*="bg-red-400\/10"] { background-color: rgba(194,7,28,0.08) !important; }
+html.light [class*="bg-red-950\/40"] { background-image: linear-gradient(to bottom right, #F3F1EE, #E4DCD6, rgba(190,142,140,0.35)) !important; }
+html.light .stroke-text { -webkit-text-stroke: 1.5px rgba(194,7,28,0.55); }
+html.light .shine { background: linear-gradient(100deg, #C2071C 15%, #6E020C 42%, #C2071C 50%, #BE8E8C 65%); background-size: 220% auto; -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* badge */
+html.light .badge-pending { background: rgba(22,22,22,0.08); color: #2E2E2B; }
+html.light .badge-cancelled { background: rgba(22,22,22,0.05); color: #7A7A75; }
+html.light .badge-rejected, html.light .badge-unverified { background: #D9D7D5; color: #4A4A46; }
+
+/* brand swap: red wordmark → black di light (aturan logo lu) */
+html.light img[src*="wordmark-red"] { content: url("/brand/wordmark-black.png"); }
+html.light img[src*="logo-red"] { content: url("/brand/logo-black.png"); }
+
+/* poster overlay & baris kartu tetap gelap (di atas poster) — biarkan */
+
+/* hero/spider lilies bg: gelapkan? biarkan foto; teks putih di atasnya tetap */
+html.light .btn-ghost { background: rgba(255,255,255,0.6); color: #1C1C1A; border-color: rgba(22,22,22,0.16); }
+html.light .btn-ghost:hover { border-color: rgba(194,7,28,0.55); color: #C2071C; background: rgba(255,255,255,0.85); }
+
+/* hero pakai foto gelap — teks di atasnya tetap terang walau page light */
+html.light .hero-dark { color: #F5F5F4; }
+html.light .hero-dark .text-zinc-100, html.light .hero-dark .text-zinc-200, html.light .hero-dark .text-zinc-300 { color: #F5F5F4 !important; }
+html.light .hero-dark .text-zinc-400 { color: #A1A1AA !important; }
+html.light .hero-dark .text-red-400 { color: #F87171 !important; }
+html.light .hero-dark .glass { background: rgba(5,5,5,0.5); border: 1px solid rgba(255,255,255,0.14); }
+html.light .hero-dark input { background-color: transparent; color: #F5F5F4; }
+html.light .hero-dark input::placeholder { color: #A1A1AA; }

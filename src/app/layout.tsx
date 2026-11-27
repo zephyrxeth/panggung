@@ -13,7 +13,10 @@ export const viewport = { viewportFit: "cover" as const };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="id">
+    <html lang="id" suppressHydrationWarning>
+        <head>
+          <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem("sidestage_theme");if(t==="light")document.documentElement.classList.add("light")}catch(e){}` }} />
+        </head>
       <body className="bg-paper text-ink antialiased min-h-screen flex flex-col">
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-2 focus:left-2 focus:rounded-xl focus:bg-red-500 focus:px-4 focus:py-2 focus:text-sm focus:font-bold">Langsung ke konten</a>
         {/* floating glass header pill — logo centered */}
