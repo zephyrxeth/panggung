@@ -272,7 +272,7 @@ const SCRIPT = String.raw`
   }
 
   /* ---------- layout + draw (single source of truth) ---------- */
-  var FONT = '"Space Mono", "Courier New", monospace';
+  var FONT = '"Hypermarket", "Space Mono", "Courier New", monospace';
 
   function buildModel(){
     var username = (elUsername.value || '').trim() || '—';
@@ -626,9 +626,9 @@ const SCRIPT = String.raw`
   draw();
   if(document.fonts && document.fonts.load){
     Promise.all([
-      document.fonts.load('700 76px "Space Mono"'),
-      document.fonts.load('400 34px "Space Mono"'),
-      document.fonts.load('700 38px "Space Mono"')
+      document.fonts.load('700 76px "Hypermarket"'),
+      document.fonts.load('400 34px "Hypermarket"'),
+      document.fonts.load('700 38px "Hypermarket"')
     ]).then(function(){ draw(); }).catch(function(){});
     if(document.fonts.ready){
       document.fonts.ready.then(function(){ draw(); });
@@ -958,7 +958,7 @@ const MARKUP = String.raw`<div class="wrap">
   }
 
   /* ---------- layout + draw (single source of truth) ---------- */
-  var FONT = '"Space Mono", "Courier New", monospace';
+  var FONT = '"Hypermarket", "Space Mono", "Courier New", monospace';
 
   function buildModel(){
     var username = (elUsername.value || '').trim() || '—';
@@ -1291,9 +1291,9 @@ const MARKUP = String.raw`<div class="wrap">
   draw();
   if(document.fonts && document.fonts.load){
     Promise.all([
-      document.fonts.load('700 76px "Space Mono"'),
-      document.fonts.load('400 34px "Space Mono"'),
-      document.fonts.load('700 38px "Space Mono"')
+      document.fonts.load('700 76px "Hypermarket"'),
+      document.fonts.load('400 34px "Hypermarket"'),
+      document.fonts.load('700 38px "Hypermarket"')
     ]).then(function(){ draw(); }).catch(function(){});
     if(document.fonts.ready){
       document.fonts.ready.then(function(){ draw(); });
