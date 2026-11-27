@@ -43,7 +43,7 @@ export default function EventCard({ e }: { e: EventRow }) {
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black via-black/80 to-transparent" />
         <div className="absolute bottom-0 left-4 right-4 pb-5">
           <h3 className="text-white font-black uppercase leading-tight text-xl line-clamp-2 drop-shadow-md">{e.title}</h3>
-          <p className="text-white/90 text-xs font-bold uppercase tracking-wide mt-1.5">[{e.type} - {e.venue_name || e.venue_text || e.city}]</p>
+          <p className="text-white/80 text-xs font-normal uppercase tracking-wide mt-1.5">{e.type} - {e.venue_name || e.venue_text || e.city}</p>
         </div>
       </div>
     </Link>
