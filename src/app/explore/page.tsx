@@ -63,7 +63,11 @@ export default async function Explore({ searchParams }: { searchParams: SP }) {
           </div>
         ) : (
           <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 pb-6">
-            {events.map(e => <li key={e.id}><EventCard e={e} /></li>)}
+            {events.map((e, i) => (
+              <li key={e.id} data-reveal style={{ "--reveal-delay": `${(i % 5) * 60}ms` } as React.CSSProperties}>
+                <EventCard e={e} />
+              </li>
+            ))}
           </ul>
         )}
       </Suspense>

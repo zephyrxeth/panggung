@@ -37,9 +37,9 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
   return (
     <div>
       {/* ── HERO ── */}
-      <section className="hero-dark relative overflow-hidden">
+      <section className="hero-dark relative overflow-hidden" data-hero>
         <div className="min-h-[70vh] flex flex-col justify-center relative">
-          <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 z-0" data-hero-bg>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/hero-bg.jpg" alt="" className="h-full w-full object-cover" />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(5,5,5,0.82) 0%, rgba(5,5,5,0.55) 45%, rgba(24,10,10,0.85) 100%)" }} />
@@ -48,9 +48,9 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
               <StageBeams overlay />
             </div>
           </div>
-          <div className="relative z-10 mx-auto max-w-4xl px-4 pt-28 pb-16 text-center">
-            <p className="text-[11px] uppercase tracking-[0.4em] text-red-400/80 font-bold">● now showing — all cities</p>
-            <h1 className="mt-5 font-black tracking-tighter leading-[0.85]">
+          <div className="relative z-10 mx-auto max-w-4xl px-4 pt-28 pb-16 text-center" data-hero-content>
+            <p data-reveal className="text-[11px] uppercase tracking-[0.4em] text-red-400/80 font-bold">● now showing — all cities</p>
+            <h1 data-reveal style={{ "--reveal-delay": "90ms" } as React.CSSProperties} className="mt-5 font-black tracking-tighter leading-[0.85]">
               <span className="block text-[15vw] sm:text-9xl uppercase">
                 <span className="stroke-text">Live</span> <span className="text-zinc-100">music</span>
               </span>
@@ -58,19 +58,19 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
                 <span className="text-zinc-100">di kotamu</span>
               </span>
             </h1>
-            <p className="mt-6 text-sm sm:text-base text-zinc-400 max-w-md mx-auto leading-relaxed">
+            <p data-reveal style={{ "--reveal-delay": "180ms" } as React.CSSProperties} className="mt-6 text-sm sm:text-base text-zinc-400 max-w-md mx-auto leading-relaxed">
               Gig, konser, festival — setiap listing punya sumber yang dicek manusia, bukan robot.
             </p>
-            <p className="mt-5 flex justify-center gap-3 flex-wrap text-xs font-bold uppercase tracking-wide">
+            <p data-reveal style={{ "--reveal-delay": "260ms" } as React.CSSProperties} className="mt-5 flex justify-center gap-3 flex-wrap text-xs font-bold uppercase tracking-wide">
               <span className="rounded-full glass px-3 py-1 text-zinc-300">{stats.events} event terverifikasi</span>
               <span className="rounded-full glass px-3 py-1 text-zinc-300">{stats.cities} kota</span>
               <span className="rounded-full glass px-3 py-1 text-zinc-300">{stats.artists} artis di lineup</span>
             </p>
-            <form method="get" className="mt-7 max-w-2xl mx-auto glass rounded-2xl p-2 flex gap-2" aria-label="Cari event">
+            <form data-reveal style={{ "--reveal-delay": "340ms" } as React.CSSProperties} method="get" className="mt-7 max-w-2xl mx-auto glass rounded-2xl p-2 flex gap-2" aria-label="Cari event">
               <input name="q" defaultValue={q} placeholder="Acara apa yang lu cari?" aria-label="Cari event" className="input !border-0 !bg-transparent flex-1" />
               <button className="btn shrink-0">Cari ✦</button>
             </form>
-            <div className="mt-4 flex justify-center gap-2 flex-wrap">
+            <div data-reveal style={{ "--reveal-delay": "420ms" } as React.CSSProperties} className="mt-4 flex justify-center gap-2 flex-wrap">
               {chips.map(c => (
                 <Link key={c.v} href={c.v ? `/?type=${c.v}` : "/"} className={`rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wide transition ${type === c.v ? "bg-red-500 text-white" : "glass text-zinc-300 hover:border-red-400/50"}`}>
                   {c.icon} {c.label}
@@ -98,6 +98,12 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
             ))}
           </Marquee>
         </div>
+
+        {/* scroll cue — ke agenda */}
+        <a href="#lineup" className="scroll-cue relative z-10 mx-auto -mt-2 mb-5 flex w-max flex-col items-center gap-1 text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-400 hover:text-red-300 transition-colors" aria-label="Scroll ke agenda">
+          Scroll
+          <span aria-hidden="true">↓</span>
+        </a>
       </section>
 
       {/* ── lineup marquee ── */}
@@ -114,7 +120,7 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
 
       {/* ── agenda: poster grid ── */}
       <div className="px-4 py-8 space-y-5 max-w-[1440px] mx-auto">
-        <div className="flex items-center justify-between flex-wrap gap-3">
+        <div data-reveal className="flex items-center justify-between flex-wrap gap-3">
           <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight">
             Agenda <span className="stroke-text">live</span>
           </h2>
@@ -140,7 +146,11 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
             </div>
           ) : (
             <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-              {events.map(e => <li key={e.id}><EventCard e={e} /></li>)}
+              {events.map((e, i) => (
+                <li key={e.id} data-reveal style={{ "--reveal-delay": `${(i % 4) * 80}ms` } as React.CSSProperties}>
+                  <EventCard e={e} />
+                </li>
+              ))}
             </ul>
           )}
         </Suspense>
@@ -148,17 +158,17 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
 
       {/* ── cara kerja ── */}
       <div className="px-4 py-10 max-w-[1440px] mx-auto">
-        <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight">
+        <h2 data-reveal className="text-3xl sm:text-5xl font-black uppercase tracking-tight">
           Kenapa <span className="stroke-text">bisa dipercaya</span>
         </h2>
-        <p className="text-sm text-muted mb-6 mt-2">Bukan scraping otomatis. Setiap event lewat tiga langkah sebelum muncul di agenda.</p>
+        <p data-reveal style={{ "--reveal-delay": "90ms" } as React.CSSProperties} className="text-sm text-muted mb-6 mt-2">Bukan scraping otomatis. Setiap event lewat tiga langkah sebelum muncul di agenda.</p>
         <ol className="grid sm:grid-cols-3 gap-3">
           {[
             { n: "01", t: "Scout submit", d: "Komunitas kirim event beserta link sumber resmi — poster, tanggal, venue, harga." },
             { n: "02", t: "Moderasi & verifikasi", d: "Admin mengecek sumbernya. Listing dapat status source_checked atau official sebelum tampil." },
             { n: "03", t: "Demand naik", d: "Pengunjung menandai \"aku ikut\". Angka minat jadi sinyal buat promoter dan EO." },
-          ].map(s => (
-            <li key={s.n} className="group card p-5">
+          ].map((s, i) => (
+            <li key={s.n} data-reveal style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties} className="group card p-5">
               <p className="text-red-400 font-black text-3xl">{s.n}</p>
               <p className="font-bold mt-2 uppercase tracking-wide text-sm">{s.t}</p>
               <p className="text-sm text-muted mt-1.5 leading-relaxed">{s.d}</p>
@@ -168,7 +178,7 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
       </div>
 
       {/* ── demand signal moment ── */}
-      <div className="px-4 py-14 text-center">
+      <div data-reveal="scale" className="px-4 py-14 text-center">
         {demand && demand.interest > 0 ? (
           <>
             <p className="text-[11px] uppercase tracking-[0.4em] text-red-400/80 font-bold">● demand signal — live dari komunitas</p>
@@ -191,13 +201,13 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
 
       {/* ── promoter directory ── */}
       <div className="px-4 py-10 max-w-[1440px] mx-auto" id="promoters">
-        <h2 className="text-3xl font-black uppercase tracking-tight mb-1">
+        <h2 data-reveal className="text-3xl font-black uppercase tracking-tight mb-1">
           Promoter <span className="stroke-text">&amp; festival</span>
         </h2>
-        <p className="text-sm text-muted mb-5">Organisasi di balik panggung-panggung besar Indonesia — klik buka situs resmi mereka untuk tiket & info langsung.</p>
+        <p data-reveal style={{ "--reveal-delay": "90ms" } as React.CSSProperties} className="text-sm text-muted mb-5">Organisasi di balik panggung-panggung besar Indonesia — klik buka situs resmi mereka untuk tiket & info langsung.</p>
         <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-          {PROMOTERS.map(p => (
-            <li key={p.name}>
+          {PROMOTERS.map((p, i) => (
+            <li key={p.name} data-reveal style={{ "--reveal-delay": `${(i % 4) * 80}ms` } as React.CSSProperties}>
               <a href={p.url} target="_blank" rel="noopener noreferrer" className="group card flex flex-col items-center text-center gap-3 py-5">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={p.logo} alt={`Logo ${p.name}`} className="h-8 sm:h-10 w-auto max-w-[140px] object-contain opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all" loading="lazy" />
@@ -218,8 +228,8 @@ export default async function Home({ searchParams }: { searchParams: SP }) {
             { t: "Sumber tercatat.", d: "Setiap listing punya link sumber dan tanggal pengecekan — bisa lu cek sendiri di halaman event." },
             { t: "Dimoderasi.", d: "Manusia yang verifikasi, bukan bot. Event tanpa sumber tidak lolos." },
             { t: "Bukan platform tiket.", d: "Pembelian tetap terjadi di situs resmi promotor. SIDESTAGE cuma bantu lu nemuin panggungnya." },
-          ].map(x => (
-            <div key={x.t}>
+          ].map((x, i) => (
+            <div key={x.t} data-reveal style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}>
               <h3 className="font-black text-xl uppercase tracking-tight">{x.t}</h3>
               <p className="text-sm text-muted mt-1.5 leading-relaxed">{x.d}</p>
             </div>
