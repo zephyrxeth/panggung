@@ -316,11 +316,11 @@ const SCRIPT = String.raw`
     var ld = logoDims();
     y += ld ? ld.h : tSize;      // masthead: logo image, else text title
     y += 36 + 88;                // gap + 2 blank line-spaces (2 x 44) under the masthead
-    y += 60;                     // order number line (left-aligned)
-    y += 54;                     // creation date line (left-aligned)
+    y += 44;                     // order number line (left-aligned)
+    y += 40;                     // creation date line (left-aligned)
     y += 44;                     // space to separator
     y += 26;                     // separator + gap
-    y += 64;                     // header
+    y += 48;                     // header
     y += 26;                     // separator + gap
     // rows (item font metrics come from the fit-shrink pass)
     c.font = '400 ' + itemSize + 'px ' + FONT;
@@ -331,20 +331,20 @@ const SCRIPT = String.raw`
     });
     y += 12;                     // separator zone
     y += 26;
-    y += 70;                     // item count
+    y += 54;                     // item count
     y += 56;                     // gap (min-height slack is added after this in draw)
     // card block (wrapped lines)
-    c.font = '400 44px ' + FONT;
+    c.font = '400 32px ' + FONT;
     var cl = cardLines(model);
     var cardLineCount = 0;
     cl.forEach(function(ln){ cardLineCount += wrapWords(c, ln, W - PAD_X*2).length; });
-    y += cardLineCount * 64;
+    y += cardLineCount * 48;
     y += 56;                     // gap
-    y += 68;                     // thanks
+    y += 52;                     // thanks
     y += 36;                     // gap
     y += 120;                    // barcode
     y += 26;                     // gap
-    y += 48;                     // footer line
+    y += 36;                     // footer line
     y += PAD_BOT;
     return Math.ceil(y);
   }
@@ -358,10 +358,10 @@ const SCRIPT = String.raw`
      first engages at 15 single-line rows. */
   function fitMetrics(c, model){
     c.setTransform(1, 0, 0, 1, 0, 0); // measureText must run untransformed
-    var itemSize = 46;
+    var itemSize = 34;
     while(true){
-      var lineH = Math.max(12, Math.round(76 * itemSize / 46));
-      var rowPad = Math.max(0, Math.round(22 * itemSize / 46));
+      var lineH = Math.max(12, Math.round(52 * itemSize / 34));
+      var rowPad = Math.max(0, Math.round(16 * itemSize / 34));
       var h = measureHeight(c, model, itemSize, lineH, rowPad);
       if(h <= DESIGN_H || itemSize <= 9){
         return { itemSize:itemSize, lineH:lineH, rowPad:rowPad, contentH:h };
@@ -458,26 +458,26 @@ const SCRIPT = String.raw`
 
     /* 2 — ORDER NUMBER + CREATION DATE (template, left-aligned) */
     c.fillStyle = INK; c.globalAlpha = 1; c.textAlign = 'left';
-    c.font = '400 48px ' + FONT;
-    c.fillText(model.orderText, PAD_X, y + 48);
-    y += 60;
-    c.font = '400 44px ' + FONT;
-    c.fillText(model.createdText, PAD_X, y + 44);
-    y += 54 + 44;
+    c.font = '400 36px ' + FONT;
+    c.fillText(model.orderText, PAD_X, y + 36);
+    y += 44;
+    c.font = '400 32px ' + FONT;
+    c.fillText(model.createdText, PAD_X, y + 32);
+    y += 40 + 44;
 
     /* 3 — TABLE HEADER */
     dashedLine(c, y); y += 26;
-    c.font = '700 46px ' + FONT;
+    c.font = '700 34px ' + FONT;
     c.fillStyle = INK; c.globalAlpha = 1;
-    c.textAlign = 'left';  c.fillText('QTY', QTY_X, y + 48);
-    c.textAlign = 'left';  c.fillText('ITEM', ITEM_X, y + 48);
-    c.textAlign = 'right'; c.fillText('DATE', DATE_RIGHT, y + 48);
-    y += 64;
+    c.textAlign = 'left';  c.fillText('QTY', QTY_X, y + 36);
+    c.textAlign = 'left';  c.fillText('ITEM', ITEM_X, y + 36);
+    c.textAlign = 'right'; c.fillText('DATE', DATE_RIGHT, y + 36);
+    y += 48;
     dashedLine(c, y); y += 26;
 
     /* 4 — CONCERT ROWS */
     c.font = '400 ' + fit.itemSize + 'px ' + FONT;
-    var rowBase = Math.round(fit.itemSize * 48 / 46);
+    var rowBase = Math.round(fit.itemSize * 36 / 34);
     model.rows.forEach(function(r, idx){
       var itemText = r.name.trim() ? r.name.trim() : '—';
       var lines = wrapWords(c, itemText.toUpperCase(), ITEM_W);
@@ -504,31 +504,31 @@ const SCRIPT = String.raw`
     dashedLine(c, y); y += 26;
 
     /* 5 — ITEM COUNT */
-    c.font = '400 46px ' + FONT;
+    c.font = '400 34px ' + FONT;
     c.fillStyle = INK; c.globalAlpha = 1;
-    c.textAlign = 'left';  c.fillText('ITEM COUNT:', QTY_X, y + 50);
-    c.textAlign = 'right'; c.fillText(String(model.count), DATE_RIGHT, y + 50);
-    y += 70 + 56;
+    c.textAlign = 'left';  c.fillText('ITEM COUNT:', QTY_X, y + 38);
+    c.textAlign = 'right'; c.fillText(String(model.count), DATE_RIGHT, y + 38);
+    y += 54 + 56;
 
     /* 6 — CARD BLOCK */
-    c.font = '400 44px ' + FONT;
+    c.font = '400 32px ' + FONT;
     c.textAlign = 'left';
     var cl = cardLines(model);
     cl.forEach(function(ln){
       var ls = wrapWords(c, ln, W - PAD_X*2);
       ls.forEach(function(sub){
         c.fillStyle = INK; c.globalAlpha = 1;
-        c.fillText(sub, PAD_X, y + 44);
-        y += 64;
+        c.fillText(sub, PAD_X, y + 32);
+        y += 48;
       });
     });
     y += 56;
 
     /* 7 — THANK YOU */
-    c.font = '700 50px ' + FONT;
+    c.font = '700 38px ' + FONT;
     c.fillStyle = INK; c.globalAlpha = 1; c.textAlign = 'center';
-    c.fillText('THANK YOU FOR VISITING!', cx, y + 50);
-    y += 68 + 36;
+    c.fillText('THANK YOU FOR VISITING!', cx, y + 38);
+    y += 52 + 36;
 
     /* 8 — BARCODE (seeded from order number + auth code + username) */
     var seedStr = 'ORDER' + model.orderText + '-' + model.auth + '-' + model.username;
@@ -551,10 +551,10 @@ const SCRIPT = String.raw`
     y += bcH + 26;
 
     /* 9 — footer: © + title again, small lowercase letterspaced */
-    c.font = '400 34px ' + FONT;
+    c.font = '400 26px ' + FONT;
     c.fillStyle = INK; c.globalAlpha = 1; c.textAlign = 'center';
     try{ c.letterSpacing = '6px'; }catch(e){}
-    c.fillText('© sidestage', cx, y + 34);
+    c.fillText('© sidestage', cx, y + 26);
     try{ c.letterSpacing = '0px'; }catch(e){}
   }
 
@@ -1002,11 +1002,11 @@ const MARKUP = String.raw`<div class="wrap">
     var ld = logoDims();
     y += ld ? ld.h : tSize;      // masthead: logo image, else text title
     y += 36 + 88;                // gap + 2 blank line-spaces (2 x 44) under the masthead
-    y += 60;                     // order number line (left-aligned)
-    y += 54;                     // creation date line (left-aligned)
+    y += 44;                     // order number line (left-aligned)
+    y += 40;                     // creation date line (left-aligned)
     y += 44;                     // space to separator
     y += 26;                     // separator + gap
-    y += 64;                     // header
+    y += 48;                     // header
     y += 26;                     // separator + gap
     // rows (item font metrics come from the fit-shrink pass)
     c.font = '400 ' + itemSize + 'px ' + FONT;
@@ -1017,20 +1017,20 @@ const MARKUP = String.raw`<div class="wrap">
     });
     y += 12;                     // separator zone
     y += 26;
-    y += 70;                     // item count
+    y += 54;                     // item count
     y += 56;                     // gap (min-height slack is added after this in draw)
     // card block (wrapped lines)
-    c.font = '400 44px ' + FONT;
+    c.font = '400 32px ' + FONT;
     var cl = cardLines(model);
     var cardLineCount = 0;
     cl.forEach(function(ln){ cardLineCount += wrapWords(c, ln, W - PAD_X*2).length; });
-    y += cardLineCount * 64;
+    y += cardLineCount * 48;
     y += 56;                     // gap
-    y += 68;                     // thanks
+    y += 52;                     // thanks
     y += 36;                     // gap
     y += 120;                    // barcode
     y += 26;                     // gap
-    y += 48;                     // footer line
+    y += 36;                     // footer line
     y += PAD_BOT;
     return Math.ceil(y);
   }
@@ -1044,10 +1044,10 @@ const MARKUP = String.raw`<div class="wrap">
      first engages at 15 single-line rows. */
   function fitMetrics(c, model){
     c.setTransform(1, 0, 0, 1, 0, 0); // measureText must run untransformed
-    var itemSize = 46;
+    var itemSize = 34;
     while(true){
-      var lineH = Math.max(12, Math.round(76 * itemSize / 46));
-      var rowPad = Math.max(0, Math.round(22 * itemSize / 46));
+      var lineH = Math.max(12, Math.round(52 * itemSize / 34));
+      var rowPad = Math.max(0, Math.round(16 * itemSize / 34));
       var h = measureHeight(c, model, itemSize, lineH, rowPad);
       if(h <= DESIGN_H || itemSize <= 9){
         return { itemSize:itemSize, lineH:lineH, rowPad:rowPad, contentH:h };
@@ -1144,26 +1144,26 @@ const MARKUP = String.raw`<div class="wrap">
 
     /* 2 — ORDER NUMBER + CREATION DATE (template, left-aligned) */
     c.fillStyle = INK; c.globalAlpha = 1; c.textAlign = 'left';
-    c.font = '400 48px ' + FONT;
-    c.fillText(model.orderText, PAD_X, y + 48);
-    y += 60;
-    c.font = '400 44px ' + FONT;
-    c.fillText(model.createdText, PAD_X, y + 44);
-    y += 54 + 44;
+    c.font = '400 36px ' + FONT;
+    c.fillText(model.orderText, PAD_X, y + 36);
+    y += 44;
+    c.font = '400 32px ' + FONT;
+    c.fillText(model.createdText, PAD_X, y + 32);
+    y += 40 + 44;
 
     /* 3 — TABLE HEADER */
     dashedLine(c, y); y += 26;
-    c.font = '700 46px ' + FONT;
+    c.font = '700 34px ' + FONT;
     c.fillStyle = INK; c.globalAlpha = 1;
-    c.textAlign = 'left';  c.fillText('QTY', QTY_X, y + 48);
-    c.textAlign = 'left';  c.fillText('ITEM', ITEM_X, y + 48);
-    c.textAlign = 'right'; c.fillText('DATE', DATE_RIGHT, y + 48);
-    y += 64;
+    c.textAlign = 'left';  c.fillText('QTY', QTY_X, y + 36);
+    c.textAlign = 'left';  c.fillText('ITEM', ITEM_X, y + 36);
+    c.textAlign = 'right'; c.fillText('DATE', DATE_RIGHT, y + 36);
+    y += 48;
     dashedLine(c, y); y += 26;
 
     /* 4 — CONCERT ROWS */
     c.font = '400 ' + fit.itemSize + 'px ' + FONT;
-    var rowBase = Math.round(fit.itemSize * 48 / 46);
+    var rowBase = Math.round(fit.itemSize * 36 / 34);
     model.rows.forEach(function(r, idx){
       var itemText = r.name.trim() ? r.name.trim() : '—';
       var lines = wrapWords(c, itemText.toUpperCase(), ITEM_W);
@@ -1190,31 +1190,31 @@ const MARKUP = String.raw`<div class="wrap">
     dashedLine(c, y); y += 26;
 
     /* 5 — ITEM COUNT */
-    c.font = '400 46px ' + FONT;
+    c.font = '400 34px ' + FONT;
     c.fillStyle = INK; c.globalAlpha = 1;
-    c.textAlign = 'left';  c.fillText('ITEM COUNT:', QTY_X, y + 50);
-    c.textAlign = 'right'; c.fillText(String(model.count), DATE_RIGHT, y + 50);
-    y += 70 + 56;
+    c.textAlign = 'left';  c.fillText('ITEM COUNT:', QTY_X, y + 38);
+    c.textAlign = 'right'; c.fillText(String(model.count), DATE_RIGHT, y + 38);
+    y += 54 + 56;
 
     /* 6 — CARD BLOCK */
-    c.font = '400 44px ' + FONT;
+    c.font = '400 32px ' + FONT;
     c.textAlign = 'left';
     var cl = cardLines(model);
     cl.forEach(function(ln){
       var ls = wrapWords(c, ln, W - PAD_X*2);
       ls.forEach(function(sub){
         c.fillStyle = INK; c.globalAlpha = 1;
-        c.fillText(sub, PAD_X, y + 44);
-        y += 64;
+        c.fillText(sub, PAD_X, y + 32);
+        y += 48;
       });
     });
     y += 56;
 
     /* 7 — THANK YOU */
-    c.font = '700 50px ' + FONT;
+    c.font = '700 38px ' + FONT;
     c.fillStyle = INK; c.globalAlpha = 1; c.textAlign = 'center';
-    c.fillText('THANK YOU FOR VISITING!', cx, y + 50);
-    y += 68 + 36;
+    c.fillText('THANK YOU FOR VISITING!', cx, y + 38);
+    y += 52 + 36;
 
     /* 8 — BARCODE (seeded from order number + auth code + username) */
     var seedStr = 'ORDER' + model.orderText + '-' + model.auth + '-' + model.username;
@@ -1237,10 +1237,10 @@ const MARKUP = String.raw`<div class="wrap">
     y += bcH + 26;
 
     /* 9 — footer: © + title again, small lowercase letterspaced */
-    c.font = '400 34px ' + FONT;
+    c.font = '400 26px ' + FONT;
     c.fillStyle = INK; c.globalAlpha = 1; c.textAlign = 'center';
     try{ c.letterSpacing = '6px'; }catch(e){}
-    c.fillText('© sidestage', cx, y + 34);
+    c.fillText('© sidestage', cx, y + 26);
     try{ c.letterSpacing = '0px'; }catch(e){}
   }
 
