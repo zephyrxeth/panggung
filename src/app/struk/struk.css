@@ -114,7 +114,8 @@
 .struk-page .btn-reset:hover { border-color:hsla(0,91%,71%,.6);color:var(--accent-soft);background:#26262B }
 .struk-page .btn-download:focus-visible, .struk-page .btn-reset:focus-visible, .struk-page .add-btn:focus-visible, .struk-page .del-btn:focus-visible { outline:2px solid rgba(248,113,113,.6);outline-offset:2px; }
 .struk-page .preview-panel { background:transparent;border:none;padding:4px 0 0; }
-.struk-page .preview-head { display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap; }
+.struk-page .preview-head { display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap;
+    max-width:540px;width:100%;margin-left:auto;margin-right:auto; }
 .struk-page .preview-head h2 { font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin:0;font-weight:800;color:var(--ink); }
 .struk-page .preview-head span { font-size:12.5px;color:var(--muted) }
 .struk-page .canvas-shell { display:flex;justify-content:center }
