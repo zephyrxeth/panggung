@@ -41,16 +41,16 @@ export default async function Explore({ searchParams }: { searchParams: SP }) {
           <option value="concert">Konser ◉</option>
           <option value="festival">Festival ✷</option>
         </select>
-        <input type="date" name="from" defaultValue={from || ""} aria-label="Dari tanggal" className="input !py-1.5 text-sm" />
-        <input type="date" name="to" defaultValue={to || ""} aria-label="Sampai tanggal" className="input !py-1.5 text-sm" />
+        <input type="date" name="from" defaultValue={from || ""} aria-label="Dari tanggal" className="input !py-1.5 text-sm col-span-2 sm:col-span-1" />
+        <input type="date" name="to" defaultValue={to || ""} aria-label="Sampai tanggal" className="input !py-1.5 text-sm col-span-2 sm:col-span-1" />
         <select name="sort" defaultValue={sort || "soonest"} aria-label="Urutkan" className="input !py-1.5 text-sm">
           <option value="soonest">Terdekat dulu</option>
           <option value="latest">Paling akhir</option>
           <option value="newest">Baru ditambahkan</option>
         </select>
-        <button className="btn col-span-2 !py-1.5 text-sm sm:col-span-1 sm:!px-4">Filter</button>
+        <button className="btn col-span-2 !py-1.5 text-sm sm:col-span-1 sm:!px-4">SET</button>
         {(q || city || genre || type || from || to) && (
-          <a href="/explore" className="text-xs text-red-300 underline shrink-0">reset</a>
+          <a href="/explore" className="btn col-span-2 !py-1.5 text-sm sm:col-span-1 sm:!px-4 text-center bg-transparent border border-white/25 text-zinc-200">Reset</a>
         )}
       </FilterForm>
 
