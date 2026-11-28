@@ -41,8 +41,6 @@ export default async function Explore({ searchParams }: { searchParams: SP }) {
           <option value="concert">Konser ◉</option>
           <option value="festival">Festival ✷</option>
         </select>
-        <input type="date" name="from" defaultValue={from || ""} aria-label="Dari tanggal" className="input !py-1.5 text-sm col-span-2 sm:col-span-1" />
-        <input type="date" name="to" defaultValue={to || ""} aria-label="Sampai tanggal" className="input !py-1.5 text-sm col-span-2 sm:col-span-1" />
         <select name="sort" defaultValue={sort || "soonest"} aria-label="Urutkan" className="input !py-1.5 text-sm">
           <option value="soonest">Terdekat dulu</option>
           <option value="latest">Paling akhir</option>
